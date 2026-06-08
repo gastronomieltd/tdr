@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>The Drawing Room Locksbottom | Traditional Tearoom & Café</title>
+
+<meta name="description" content="The Drawing Room Locksbottom. Traditional tearoom and café serving breakfast, lunch, afternoon tea, homemade cakes and artisan coffee.">
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+--navy:#143A6F;
+--gold:#C9A227;
+--cream:#F8F5EF;
+--dark:#2D2D2D;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+font-family:'Montserrat',sans-serif;
+background:var(--cream);
+color:var(--dark);
+line-height:1.7;
+}
+
+h1,h2,h3{
+font-family:'Cormorant Garamond',serif;
+}
+
+.container{
+width:90%;
+max-width:1200px;
+margin:auto;
+}
+
+header{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+background:rgba(20,58,111,.96);
+z-index:999;
+backdrop-filter:blur(10px);
+}
+
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 0;
+}
+
+.logo{
+height:70px;
+width:auto;
+}
+
+nav ul{
+display:flex;
+list-style:none;
+}
+
+nav ul li{
+margin-left:30px;
+}
+
+nav ul li a{
+color:white;
+text-decoration:none;
+font-size:.95rem;
+letter-spacing:1px;
+transition:.3s;
+}
+
+nav ul li a:hover{
+color:var(--gold);
+}
+
+.hero{
+height:100vh;
+background:
+linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),
+url("images/hero.jpg");
+background-size:cover;
+background-position:center;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+color:white;
+padding:20px;
+}
+
+.hero-content{
+max-width:900px;
+}
+
+.hero-logo{
+width:420px;
+max-width:90%;
+background:white;
+padding:20px;
+border-radius:8px;
+margin-bottom:30px;
+box-shadow:0 20px 40px rgba(0,0,0,.3);
+}
+
+.hero h1{
+font-size:4rem;
+margin-bottom:10px;
+}
+
+.hero p{
+font-size:1.2rem;
+margin-bottom:15px;
+}
+
+.btn{
+display:inline-block;
+background:var(--gold);
+color:white;
+padding:14px 30px;
+text-decoration:none;
+margin:10px;
+border-radius:5px;
+transition:.3s;
+}
+
+.btn:hover{
+transform:translateY(-2px);
+}
+
+section{
+padding:100px 0;
+}
+
+.section-title{
+font-size:3rem;
+text-align:center;
+margin-bottom:50px;
+color:var(--navy);
+}
+
+.about{
+max-width:900px;
+margin:auto;
+text-align:center;
+font-size:1.1rem;
+}
+
+.features{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
+margin-top:50px;
+}
+
+.card{
+background:white;
+padding:30px;
+border-radius:12px;
+box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+.card h3{
+color:var(--navy);
+margin-bottom:15px;
+}
+
+.highlight{
+background:var(--navy);
+color:white;
+text-align:center;
+}
+
+.highlight h2{
+color:white;
+}
+
+.menu-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:25px;
+}
+
+.menu-box{
+background:white;
+padding:30px;
+border-radius:12px;
+box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+.menu-box h3{
+color:var(--navy);
+margin-bottom:15px;
+}
+
+.menu-box ul{
+padding-left:20px;
+}
+
+.gallery{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:15px;
+}
+
+.gallery img{
+width:100%;
+height:320px;
+object-fit:cover;
+border-radius:10px;
+}
+
+.contact-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:30px;
+}
+
+.contact-card{
+background:white;
+padding:35px;
+border-radius:12px;
+box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+.contact-card h3{
+margin-bottom:15px;
+color:var(--navy);
+}
+
+.instagram{
+background:var(--navy);
+color:white;
+text-align:center;
+}
+
+.instagram a{
+color:white;
+font-size:1.1rem;
+text-decoration:none;
+}
+
+footer{
+background:#0d2850;
+color:white;
+text-align:center;
+padding:50px 20px;
+}
+
+footer p{
+margin:10px 0;
+}
+
+@media(max-width:768px){
+
+.hero-logo{
+width:280px;
+}
+
+.hero h1{
+font-size:2.5rem;
+}
+
+nav{
+display:none;
+}
+
+.contact-grid{
+grid-template-columns:1fr;
+}
+
+.section-title{
+font-size:2.2rem;
+}
+}
+
+</style>
+</head>
+<body>
+
+<header>
+
+<div class="container navbar">
+
+<a href="#">
+<img src="images/drawing-room-logo.jpg"
+alt="The Drawing Room Locksbottom"
+class="logo">
+</a>
+
+<nav>
+<ul>
+<li><a href="#about">About</a></li>
+<li><a href="#specialities">Specialities</a></li>
+<li><a href="#menu">Menu</a></li>
+<li><a href="#gallery">Gallery</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+</nav>
+
+</div>
+
+</header>
+
+<section class="hero">
+
+<div class="hero-content">
+
+<img src="images/drawing-room-logo.png"
+alt="The Drawing Room"
+class="hero-logo">
+
+<p>
+Traditional Tearoom & Café in the Heart of Locksbottom
+</p>
+
+<p>
+Breakfast • Lunch • Afternoon Tea • Homemade Cakes • Artisan Coffee
+</p>
+
+<a href="tel:01689852288" class="btn">
+Book a Table
+</a>
+
+<a href="#menu" class="btn">
+View Menu
+</a>
+
+</div>
+
+</section>
+
+<section id="about">
+
+<div class="container">
+
+<h2 class="section-title">Welcome to The Drawing Room</h2>
+
+<div class="about">
+
+<p>
+Located at 405 Crofton Road in Locksbottom, The Drawing Room is a traditional British tearoom and café known for its warm hospitality, homemade food and vintage charm.
+</p>
+
+<br>
+
+<p>
+Whether you're joining us for breakfast, lunch, our famous Hot Salt Beef on Rye, or a beautifully presented Afternoon Tea, every visit is designed to be relaxed, welcoming and memorable.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="specialities">
+
+<div class="container">
+
+<h2 class="section-title">Our Specialities</h2>
+
+<div class="features">
+
+<div class="card">
+<h3>🫖 Traditional Afternoon Tea</h3>
+<p>Finger sandwiches, homemade cakes, fruit scones, clotted cream and unlimited tea served on elegant vintage china.</p>
+</div>
+
+<div class="card">
+<h3>🥪 Famous Hot Salt Beef</h3>
+<p>Our signature dish served on rye bread with dill pickle, mustard and homemade coleslaw.</p>
+</div>
+
+<div class="card">
+<h3>🍰 Homemade Cakes</h3>
+<p>A daily selection of cakes, traybakes and sweet treats including vegan and gluten-free options.</p>
+</div>
+
+<div class="card">
+<h3>☕ Artisan Coffee</h3>
+<p>Freshly brewed coffee and speciality teas served throughout the day.</p>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="highlight">
+
+<div class="container">
+
+<h2 class="section-title">Afternoon Tea Experience</h2>
+
+<p>
+Freshly prepared finger sandwiches, homemade fruit scones, clotted cream, strawberry preserve, cakes and unlimited tea.
+</p>
+
+<br>
+
+<a href="tel:01689852288" class="btn">
+Reserve Afternoon Tea
+</a>
+
+</div>
+
+</section>
+
+<section id="menu">
+
+<div class="container">
+
+<h2 class="section-title">Menu Highlights</h2>
+
+<div class="menu-grid">
+
+<div class="menu-box">
+<h3>Breakfast</h3>
+<ul>
+<li>Full English Breakfast</li>
+<li>Vegetarian Full English</li>
+<li>Smoked Salmon & Scrambled Eggs</li>
+<li>American Pancakes</li>
+<li>Smashed Avocado on Rye Toast</li>
+<li>Porridge with Honey</li>
+</ul>
+</div>
+
+<div class="menu-box">
+<h3>Lunch</h3>
+<ul>
+<li>Hot Salt Beef on Rye</li>
+<li>Coronation Chicken Sandwich</li>
+<li>Smoked Salmon & Cream Cheese</li>
+<li>Tuna Cheese Melt</li>
+<li>Brie & Crispy Bacon Toastie</li>
+<li>Quiche of the Day</li>
+</ul>
+</div>
+
+<div class="menu-box">
+<h3>Fresh Salads</h3>
+<ul>
+<li>Halloumi & Olives</li>
+<li>Smoked Salmon, Avocado & Rocket</li>
+<li>Chicken, Bacon & Avocado</li>
+<li>Falafel, Hummus & Roasted Pepper</li>
+<li>Hot Salt Beef Salad</li>
+</ul>
+</div>
+
+<div class="menu-box">
+<h3>Something Sweet</h3>
+<ul>
+<li>Cream Tea</li>
+<li>Homemade Cakes</li>
+<li>Fruit Scones</li>
+<li>Afternoon Tea</li>
+<li>Macarons & Brownies</li>
+</ul>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="gallery">
+
+<div class="container">
+
+<h2 class="section-title">Gallery</h2>
+
+<div class="gallery">
+
+<img src="images/interior.jpg" alt="">
+<img src="images/afternoon-tea.jpg" alt="">
+<img src="images/salt-beef.jpg" alt="">
+<img src="images/panini.jpg" alt="">
+<img src="images/teapots.jpg" alt="">
+<img src="images/cakes.jpg" alt="">
+
+</div>
+
+</div>
+
+</section>
+
+<section id="contact">
+
+<div class="container">
+
+<h2 class="section-title">Visit Us</h2>
+
+<div class="contact-grid">
+
+<div class="contact-card">
+
+<h3>Contact Details</h3>
+
+<p>
+<strong>The Drawing Room</strong><br>
+405 Crofton Road<br>
+Locksbottom<br>
+Orpington<br>
+BR6 8NL
+</p>
+
+<br>
+
+<p>
+☎ 01689 852288
+</p>
+
+</div>
+
+<div class="contact-card">
+
+<h3>Opening Hours</h3>
+
+<p>Monday – Friday: 8:30am – 4:30pm</p>
+<p>Saturday: 8:30am – 3:30pm</p>
+<p>Sunday: Closed</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="instagram">
+
+<div class="container">
+
+<h2>Follow Us On Instagram</h2>
+
+<br>
+
+<a href="https://www.instagram.com/thedrawingroomlocksbottom/" target="_blank">
+@thedrawingroomlocksbottom
+</a>
+
+</div>
+
+</section>
+
+<footer>
+
+<img src="images/drawing-room-logo.png"
+alt="The Drawing Room"
+style="height:80px;background:white;padding:10px;border-radius:5px;">
+
+<p>Traditional Tearoom • Breakfast • Lunch • Afternoon Tea • Homemade Cakes</p>
+
+<p>405 Crofton Road, Locksbottom, Orpington BR6 8NL</p>
+
+<p>01689 852288</p>
+
+<p>© The Drawing Room Locksbottom</p>
+
+</footer>
+
+</body>
+</html>
