@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Drawing Room Locksbottom | Traditional Tearoom & Café</title>
+<meta name="description" content="Traditional tearoom and café in Locksbottom serving breakfast, lunch, afternoon tea, homemade cakes and artisan coffee.">
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+--navy:#143A6F;
+--gold:#C9A227;
+--cream:#F8F5EF;
+--dark:#2D2D2D;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+font-family:'Montserrat',sans-serif;
+background:var(--cream);
+color:var(--dark);
+line-height:1.7;
+}
+
+.container{width:min(92%,1200px);margin:auto;}
+h1,h2,h3{font-family:'Cormorant Garamond',serif;}
+
+header{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+background:rgba(20,58,111,.96);
+z-index:1000;
+}
+
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:12px 0;
+}
+
+.logo{
+height:64px;
+background:white;
+padding:6px;
+border-radius:6px;
+}
+
+.menu-toggle{
+display:none;
+background:none;
+border:none;
+color:white;
+font-size:30px;
+cursor:pointer;
+}
+
+nav ul{
+display:flex;
+list-style:none;
+gap:28px;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+}
+
+.hero{
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+padding:120px 20px 80px;
+background:
+linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),
+url('images/hero.jpg');
+background-size:cover;
+background-position:center;
+color:white;
+}
+
+.hero-logo{
+width:min(420px,90%);
+background:white;
+padding:20px;
+border-radius:8px;
+}
+
+.hero p{margin-top:20px;font-size:1.1rem;}
+
+.btn{
+display:inline-block;
+margin:10px;
+padding:14px 28px;
+background:var(--gold);
+color:white;
+text-decoration:none;
+border-radius:6px;
+}
+
+section{padding:90px 0;}
+.section-title{
+text-align:center;
+font-size:3rem;
+color:var(--navy);
+margin-bottom:40px;
+}
+
+.features,.menu-grid,.gallery,.contact-grid{
+display:grid;
+gap:24px;
+}
+
+.features{grid-template-columns:repeat(auto-fit,minmax(220px,1fr));}
+.menu-grid{grid-template-columns:repeat(auto-fit,minmax(280px,1fr));}
+.gallery{grid-template-columns:repeat(auto-fit,minmax(260px,1fr));}
+.contact-grid{grid-template-columns:1fr 1fr;}
+
+.card,.menu-box,.contact-card{
+background:white;
+padding:28px;
+border-radius:12px;
+box-shadow:0 8px 18px rgba(0,0,0,.08);
+}
+
+.highlight{
+background:var(--navy);
+color:white;
+text-align:center;
+}
+
+.highlight .section-title{color:white;}
+
+.gallery img{
+width:100%;
+height:280px;
+object-fit:cover;
+border-radius:10px;
+}
+
+.instagram{
+background:var(--navy);
+color:white;
+text-align:center;
+}
+
+.instagram a{color:white;}
+
+footer{
+background:#0d2850;
+color:white;
+text-align:center;
+padding:40px 20px;
+}
+
+.mobile-book{
+display:none;
+}
+
+@media (max-width:768px){
+
+.menu-toggle{display:block;}
+
+nav{
+display:none;
+position:absolute;
+top:100%;
+left:0;
+width:100%;
+background:var(--navy);
+}
+
+nav.show{display:block;}
+
+nav ul{
+flex-direction:column;
+padding:20px;
+gap:14px;
+}
+
+.hero-logo{width:240px;}
+
+.btn{
+display:block;
+max-width:280px;
+margin:12px auto;
+}
+
+.contact-grid{
+grid-template-columns:1fr;
+}
+
+.gallery{
+display:flex;
+overflow-x:auto;
+scroll-snap-type:x mandatory;
+}
+
+.gallery img{
+min-width:280px;
+scroll-snap-align:start;
+}
+
+.section-title{
+font-size:2.2rem;
+}
+
+.mobile-book{
+display:block;
+position:fixed;
+left:20px;
+right:20px;
+bottom:20px;
+background:var(--gold);
+color:white;
+text-align:center;
+padding:16px;
+text-decoration:none;
+border-radius:999px;
+font-weight:bold;
+z-index:9999;
+}
+}
+</style>
+</head>
+<body>
+
+<header>
+<div class="container navbar">
+<img src="images/drawing-room-logo.png" alt="The Drawing Room" class="logo">
+
+<button class="menu-toggle" onclick="toggleMenu()">☰</button>
+
+<nav id="mobileNav">
+<ul>
+<li><a href="#about">About</a></li>
+<li><a href="#specialities">Specialities</a></li>
+<li><a href="#menu">Menu</a></li>
+<li><a href="#gallery">Gallery</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+</nav>
+</div>
+</header>
+
+<section class="hero">
+<div>
+<img src="images/drawing-room-logo.png" class="hero-logo" alt="The Drawing Room">
+<p>Traditional Tearoom & Café in the Heart of Locksbottom</p>
+<p>Breakfast • Lunch • Afternoon Tea • Homemade Cakes • Artisan Coffee</p>
+<a href="tel:01689852288" class="btn">Book a Table</a>
+<a href="#menu" class="btn">View Menu</a>
+</div>
+</section>
+
+<section id="about">
+<div class="container">
+<h2 class="section-title">Welcome</h2>
+<p style="text-align:center;max-width:900px;margin:auto;">
+Located at 405 Crofton Road, The Drawing Room is a traditional British tearoom and café known for warm hospitality, homemade food, afternoon tea and our famous Hot Salt Beef on Rye.
+</p>
+</div>
+</section>
+
+<section id="specialities">
+<div class="container">
+<h2 class="section-title">Our Specialities</h2>
+<div class="features">
+<div class="card"><h3>Afternoon Tea</h3><p>Finger sandwiches, homemade cakes, fruit scones, clotted cream and unlimited tea.</p></div>
+<div class="card"><h3>Hot Salt Beef</h3><p>Our signature dish served on rye bread with dill pickle, mustard and homemade coleslaw.</p></div>
+<div class="card"><h3>Homemade Cakes</h3><p>Fresh cakes and traybakes prepared daily.</p></div>
+<div class="card"><h3>Artisan Coffee</h3><p>Freshly brewed coffee and speciality teas throughout the day.</p></div>
+</div>
+</div>
+</section>
+
+<section class="highlight">
+<div class="container">
+<h2 class="section-title">Afternoon Tea Experience</h2>
+<p>Perfect for birthdays, celebrations and special occasions.</p>
+<a href="tel:01689852288" class="btn">Reserve Afternoon Tea</a>
+</div>
+</section>
+
+<section id="menu">
+<div class="container">
+<h2 class="section-title">Menu Highlights</h2>
+
+<div class="menu-grid">
+<div class="menu-box">
+<h3>Breakfast</h3>
+<ul>
+<li>Full English Breakfast</li>
+<li>Vegetarian Full English</li>
+<li>American Pancakes</li>
+<li>Smoked Salmon & Scrambled Eggs</li>
+<li>Smashed Avocado on Rye</li>
+</ul>
+</div>
+
+<div class="menu-box">
+<h3>Lunch</h3>
+<ul>
+<li>Hot Salt Beef on Rye</li>
+<li>Coronation Chicken Sandwich</li>
+<li>Tuna Cheese Melt</li>
+<li>Quiche of the Day</li>
+<li>Freshly Made Salads</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+
+<section id="gallery">
+<div class="container">
+<h2 class="section-title">Gallery</h2>
+<div class="gallery">
+<img src="images/interior.jpg" alt="Interior">
+<img src="images/afternoon-tea.jpg" alt="Afternoon Tea">
+<img src="images/salt-beef.jpg" alt="Salt Beef">
+<img src="images/cakes.jpg" alt="Cakes">
+</div>
+</div>
+</section>
+
+<section id="contact">
+<div class="container">
+<h2 class="section-title">Visit Us</h2>
+<div class="contact-grid">
+
+<div class="contact-card">
+<h3>Contact</h3>
+<p>The Drawing Room<br>
+405 Crofton Road<br>
+Locksbottom<br>
+Orpington BR6 8NL</p>
+<br>
+<p><a href="tel:01689852288">01689 852288</a></p>
+</div>
+
+<div class="contact-card">
+<h3>Opening Hours</h3>
+<p>Mon–Fri: 8:30am–4:30pm</p>
+<p>Saturday: 8:30am–3:30pm</p>
+<p>Sunday: Closed</p>
+<br>
+<iframe
+src="https://www.google.com/maps?q=405+Crofton+Road+Locksbottom+BR6+8NL&output=embed"
+width="100%" height="250" style="border:0;border-radius:10px;" loading="lazy"></iframe>
+</div>
+
+</div>
+</div>
+</section>
+
+<section class="instagram">
+<div class="container">
+<h2 class="section-title" style="color:white;">Follow Us</h2>
+<p><a href="https://www.instagram.com/thedrawingroomlocksbottom/">@thedrawingroomlocksbottom</a></p>
+</div>
+</section>
+
+<footer>
+<p><strong>The Drawing Room Locksbottom</strong></p>
+<p>Traditional Tearoom • Breakfast • Lunch • Afternoon Tea</p>
+<p>405 Crofton Road, Orpington BR6 8NL</p>
+</footer>
+
+<a href="tel:01689852288" class="mobile-book">Book a Table</a>
+
+<script>
+function toggleMenu(){
+document.getElementById('mobileNav').classList.toggle('show');
+}
+</script>
+
+</body>
+</html>
