@@ -547,5 +547,335 @@ document.getElementById('mobileNav').classList.toggle('show');
 }
 </script>
 
+
+<!-- THE DRAWING ROOM CHATBOT -->
+<style>
+#tdr-chat-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    z-index: 9999;
+}
+
+#tdr-chat-window {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 340px;
+    max-width: 90vw;
+    height: 500px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    display: none;
+    flex-direction: column;
+    box-shadow: 0 4px 20px rgba(0,0,0,.2);
+    z-index: 9999;
+    overflow: hidden;
+}
+
+#tdr-chat-header {
+    padding: 15px;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+#tdr-chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.tdr-msg {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 85%;
+}
+
+.tdr-bot {
+    background: #f3f3f3;
+}
+
+.tdr-user {
+    margin-left: auto;
+    text-align: right;
+    background: #e8f4ff;
+}
+
+#tdr-chat-input-area {
+    display: flex;
+    border-top: 1px solid #ddd;
+}
+
+#tdr-chat-input {
+    flex: 1;
+    border: none;
+    padding: 12px;
+    outline: none;
+}
+
+#tdr-chat-send {
+    border: none;
+    cursor: pointer;
+    padding: 12px 16px;
+}
+
+.tdr-quick {
+    display: inline-block;
+    padding: 6px 10px;
+    margin: 4px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 12px;
+}
+</style>
+
+<button id="tdr-chat-toggle">☕</button>
+
+<div id="tdr-chat-window">
+    <div id="tdr-chat-header">
+        The Drawing Room Assistant
+    </div>
+
+    <div id="tdr-chat-messages"></div>
+
+    <div id="tdr-chat-input-area">
+        <input id="tdr-chat-input" type="text" placeholder="Ask me anything...">
+        <button id="tdr-chat-send">Send</button>
+    </div>
+</div>
+
+<script>
+const toggleBtn = document.getElementById('tdr-chat-toggle');
+const chatWindow = document.getElementById('tdr-chat-window');
+const messages = document.getElementById('tdr-chat-messages');
+const input = document.getElementById('tdr-chat-input');
+const sendBtn = document.getElementById('tdr-chat-send');
+
+toggleBtn.onclick = () => {
+    chatWindow.style.display =
+        chatWindow.style.display === 'flex'
+        ? 'none'
+        : 'flex';
+
+    if(chatWindow.style.display === 'flex' && messages.innerHTML === ''){
+        welcome();
+    }
+};
+
+function addBot(text){
+    messages.innerHTML +=
+    `<div class="tdr-msg tdr-bot">${text}</div>`;
+    messages.scrollTop = messages.scrollHeight;
+}
+
+function addUser(text){
+    messages.innerHTML +=
+    `<div class="tdr-msg tdr-user">${text}</div>`;
+    messages.scrollTop = messages.scrollHeight;
+}
+
+function welcome(){
+    addBot(`
+        Welcome to The Drawing Room ☕
+
+        <br><br>I can help with:
+        <br>• Afternoon Tea
+        <br>• Reservations
+        <br>• Menu recommendations
+        <br>• Dietary information
+        <br>• Opening hours
+
+        <br><br>
+        <span class="tdr-quick" onclick="quick('Afternoon Tea')">Afternoon Tea</span>
+        <span class="tdr-quick" onclick="quick('Book a table')">Book a Table</span>
+        <span class="tdr-quick" onclick="quick('Popular dishes')">Popular Dishes</span>
+        <span class="tdr-quick" onclick="quick('Opening hours')">Opening Hours</span>
+    `);
+}
+
+function quick(text){
+    input.value = text;
+    send();
+}
+
+function send(){
+    const text = input.value.trim();
+
+    if(!text) return;
+
+    addUser(text);
+
+    const q = text.toLowerCase();
+
+    let response = `
+        I'm sorry, I don't have that information right now.
+        Please contact The Drawing Room directly for assistance.
+    `;
+
+    if(q.includes('afternoon tea')){
+        response = `
+        🍰 Afternoon Tea is one of our most popular experiences.
+
+        We recommend booking in advance, especially on weekends.
+
+        Would you like to make a reservation?
+        `;
+    }
+
+    else if(
+        q.includes('book') ||
+        q.includes('reservation') ||
+        q.includes('table')
+    ){
+        response = `
+        📅 To request a reservation please provide:
+
+        <br><br>Name
+        <br>Date
+        <br>Time
+        <br>Number of Guests
+        <br>Contact Number
+
+        <br><br>A member of our team will confirm availability.
+        `;
+    }
+
+    else if(
+        q.includes('popular') ||
+        q.includes('recommend')
+    ){
+        response = `
+        ⭐ Customer favourites include:
+
+        <br><br>• Hot Salt Beef on Rye
+        <br>• Afternoon Tea
+        <br>• Homemade Cakes
+        <br>• Artisan Coffee
+        `;
+    }
+
+    else if(
+        q.includes('coffee') ||
+        q.includes('tea')
+    ){
+        response = `
+        ☕ We serve artisan coffee, teas, herbal teas and a range of refreshments.
+        `;
+    }
+
+    else if(
+        q.includes('vegan')
+    ){
+        response = `
+        🌱 Vegan options are available.
+
+        Please ask staff for today's selections.
+        `;
+    }
+
+    else if(
+        q.includes('vegetarian')
+    ){
+        response = `
+        🥗 We offer vegetarian options across our menu.
+        `;
+    }
+
+    else if(
+        q.includes('gluten')
+    ){
+        response = `
+        ⚠️ Some items may be suitable for gluten-free diets.
+
+        Please speak with staff before ordering.
+        `;
+    }
+
+    else if(
+        q.includes('allergy')
+    ){
+        response = `
+        Please inform our team of any allergies before ordering.
+
+        While we take care, food is prepared in shared kitchen areas.
+        `;
+    }
+
+    else if(
+        q.includes('birthday') ||
+        q.includes('celebration')
+    ){
+        response = `
+        🎉 The Drawing Room is a lovely venue for birthdays, anniversaries and special occasions.
+
+        Afternoon Tea is particularly popular for celebrations.
+        `;
+    }
+
+    else if(
+        q.includes('opening') ||
+        q.includes('hours') ||
+        q.includes('open')
+    ){
+        response = `
+        🕒 Please refer to our website for current opening hours as these may change seasonally.
+        `;
+    }
+
+    else if(
+        q.includes('where') ||
+        q.includes('location') ||
+        q.includes('address')
+    ){
+        response = `
+        📍 You can find our address and directions on the Contact section of our website.
+        `;
+    }
+
+    else if(
+        q.includes('cake')
+    ){
+        response = `
+        🍰 We offer homemade cakes and sweet treats.
+
+        Selections vary daily.
+        `;
+    }
+
+    else if(
+        q.includes('wifi') ||
+        q.includes('wi-fi')
+    ){
+        response = `
+        📶 Please ask a member of staff during your visit for Wi-Fi details.
+        `;
+    }
+
+    setTimeout(() => addBot(response), 400);
+
+    input.value = '';
+}
+
+sendBtn.onclick = send;
+
+input.addEventListener('keypress', function(e){
+    if(e.key === 'Enter'){
+        send();
+    }
+});
+</script>
+<!-- END THE DRAWING ROOM CHATBOT -->
+
 </body>
 </html>
