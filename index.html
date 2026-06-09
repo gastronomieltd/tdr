@@ -3,244 +3,203 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>The Drawing Room Locksbottom | Traditional Tearoom & Café</title>
-
-<meta name="description" content="The Drawing Room Locksbottom. Traditional tearoom and café serving breakfast, lunch, afternoon tea, homemade cakes and artisan coffee.">
+<meta name="description" content="Traditional tearoom and café in Locksbottom serving breakfast, lunch, afternoon tea, homemade cakes and artisan coffee.">
 
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
 
 :root{
---navy:#143A6F;
---gold:#C9A227;
---cream:#F8F5EF;
---dark:#2D2D2D;
+    --navy:#143A6F;
+    --gold:#C9A227;
+    --cream:#F8F5EF;
+    --dark:#2D2D2D;
 }
 
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
-
-html{
-scroll-behavior:smooth;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
 body{
-font-family:'Montserrat',sans-serif;
-background:var(--cream);
-color:var(--dark);
-line-height:1.7;
-}
-
-h1,h2,h3{
-font-family:'Cormorant Garamond',serif;
+    font-family:'Montserrat',sans-serif;
+    background:var(--cream);
+    color:var(--dark);
+    line-height:1.7;
 }
 
 .container{
-width:90%;
-max-width:1200px;
-margin:auto;
-}
-
-header{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-background:rgba(20,58,111,.96);
-z-index:999;
-backdrop-filter:blur(10px);
-}
-
-.navbar{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:15px 0;
-}
-
-.logo{
-height:70px;
-width:auto;
-}
-
-nav ul{
-display:flex;
-list-style:none;
-}
-
-nav ul li{
-margin-left:30px;
-}
-
-nav ul li a{
-color:white;
-text-decoration:none;
-font-size:.95rem;
-letter-spacing:1px;
-transition:.3s;
-}
-
-nav ul li a:hover{
-color:var(--gold);
-}
-
-.hero{
-height:100vh;
-background:
-linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),
-url("images/hero.jpg");
-background-size:cover;
-background-position:center;
-display:flex;
-justify-content:center;
-align-items:center;
-text-align:center;
-color:white;
-padding:20px;
-}
-
-.hero-content{
-max-width:900px;
-}
-
-.hero-logo{
-width:420px;
-max-width:90%;
-background:white;
-padding:20px;
-border-radius:8px;
-margin-bottom:30px;
-box-shadow:0 20px 40px rgba(0,0,0,.3);
-}
-
-.hero h1{
-font-size:4rem;
-margin-bottom:10px;
-}
-
-.hero p{
-font-size:1.2rem;
-margin-bottom:15px;
-}
-
-.btn{
-display:inline-block;
-background:var(--gold);
-color:white;
-padding:14px 30px;
-text-decoration:none;
-margin:10px;
-border-radius:5px;
-transition:.3s;
-}
-
-.btn:hover{
-transform:translateY(-2px);
+    width:min(92%,1200px);
+    margin:auto;
 }
 
 section{
-padding:100px 0;
+    padding:90px 0;
 }
 
 .section-title{
-font-size:3rem;
-text-align:center;
-margin-bottom:50px;
-color:var(--navy);
+    text-align:center;
+    font-size:3rem;
+    color:var(--navy);
+    margin-bottom:40px;
+    font-family:'Cormorant Garamond',serif;
 }
 
-.about{
-max-width:900px;
-margin:auto;
-text-align:center;
-font-size:1.1rem;
+header{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    background:rgba(20,58,111,.96);
+    z-index:999;
 }
 
-.features{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:25px;
-margin-top:50px;
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:12px 0;
+}
+
+.logo{
+    height:65px;
+    background:white;
+    padding:5px;
+    border-radius:6px;
+}
+
+.menu-toggle{
+    display:none;
+    background:none;
+    border:none;
+    color:white;
+    font-size:30px;
+    cursor:pointer;
+}
+
+nav ul{
+    display:flex;
+    list-style:none;
+    gap:30px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+}
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding-top:120px;
+    background:
+    linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),
+    url('images/hero.jpg');
+    background-size:cover;
+    background-position:center;
+    color:white;
+}
+
+.hero-logo{
+    width:380px;
+    max-width:90%;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    margin-bottom:25px;
+}
+
+.hero h1{
+    font-size:4rem;
+    font-family:'Cormorant Garamond',serif;
+}
+
+.btn{
+    display:inline-block;
+    margin:10px;
+    padding:14px 30px;
+    background:var(--gold);
+    color:white;
+    text-decoration:none;
+    border-radius:6px;
+}
+
+.intro{
+    max-width:900px;
+    margin:auto;
+    text-align:center;
+}
+
+.features,
+.menu-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:24px;
 }
 
 .card{
-background:white;
-padding:30px;
-border-radius:12px;
-box-shadow:0 8px 20px rgba(0,0,0,.08);
-}
-
-.card h3{
-color:var(--navy);
-margin-bottom:15px;
-}
-
-.highlight{
-background:var(--navy);
-color:white;
-text-align:center;
-}
-
-.highlight h2{
-color:white;
-}
-
-.menu-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-gap:25px;
-}
-
-.menu-box{
-background:white;
-padding:30px;
-border-radius:12px;
-box-shadow:0 8px 20px rgba(0,0,0,.08);
-}
-
-.menu-box h3{
-color:var(--navy);
-margin-bottom:15px;
-}
-
-.menu-box ul{
-padding-left:20px;
+    background:white;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
 }
 
 .gallery{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-gap:15px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:20px;
 }
 
 .gallery img{
 width:100%;
-height:320px;
-object-fit:cover;
-border-radius:10px;
+    height:320px;
+    object-fit:cover;
+    border-radius:10px;
+}
+
+/* BOOKING FORM */
+
+.booking-form{
+    max-width:1000px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.booking-form input,
+.booking-form textarea,
+.booking-form button{
+    width:100%;
+    padding:15px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    font-size:16px;
+}
+
+.booking-form textarea{
+    grid-column:1 / 4;
+    min-height:180px;
+}
+
+.booking-form button{
+    grid-column:1 / 4;
+    background:var(--gold);
+    color:white;
+    border:none;
+    cursor:pointer;
+    font-weight:600;
 }
 
 .contact-grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:30px;
-}
-
-.contact-card{
-background:white;
-padding:35px;
-border-radius:12px;
-box-shadow:0 8px 20px rgba(0,0,0,.08);
-}
-
-.contact-card h3{
-margin-bottom:15px;
-color:var(--navy);
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
 }
 
 .instagram{
@@ -249,44 +208,97 @@ color:white;
 text-align:center;
 }
 
-.instagram a{
-color:white;
-font-size:1.1rem;
-text-decoration:none;
-}
+.instagram a{color:white;}
 
 footer{
-background:#0d2850;
-color:white;
-text-align:center;
-padding:50px 20px;
+    background:#0d2850;
+    color:white;
+    text-align:center;
+    padding:40px;
 }
 
-footer p{
-margin:10px 0;
+.mobile-book{
+    display:none;
 }
+
+/* MOBILE */
 
 @media(max-width:768px){
 
-.hero-logo{
-width:280px;
-}
+    .menu-toggle{
+    display:block;
+    }
 
-.hero h1{
-font-size:2.5rem;
-}
+    nav{
+    display:none;
+    position:absolute;
+    top:100%;
+    left:0;
+    width:100%;
+    background:var(--navy);
+    }
 
-nav{
-display:none;
-}
+    nav.show{
+    display:block;
+    }
 
-.contact-grid{
-grid-template-columns:1fr;
-}
+    nav ul{
+    flex-direction:column;
+    padding:20px;
+    }
 
-.section-title{
-font-size:2.2rem;
-}
+    .hero-logo{
+    width:240px;
+    }
+
+    .hero h1{
+    font-size:2.3rem;
+    }
+
+    .btn{
+    display:block;
+    max-width:280px;
+    margin:10px auto;
+    }
+
+    .gallery{
+    display:flex;
+    overflow-x:auto;
+    gap:15px;
+    }
+
+    .gallery img{
+    min-width:280px;
+    }
+
+    .booking-form{
+    grid-template-columns:1fr;
+    }
+
+    .booking-form textarea,
+    .booking-form button{
+    grid-column:auto;
+    }
+
+    .contact-grid{
+    grid-template-columns:1fr;
+    }
+
+    .mobile-book{
+    display:block;
+    position:fixed;
+    left:20px;
+    right:20px;
+    bottom:20px;
+    background:var(--gold);
+    color:white;
+    text-align:center;
+    padding:16px;
+    border-radius:999px;
+    text-decoration:none;
+    font-weight:bold;
+    }
+
 }
 
 </style>
@@ -294,16 +306,16 @@ font-size:2.2rem;
 <body>
 
 <header>
-
 <div class="container navbar">
-
 <a href="#">
-<img src="images/drawing-room-logo.jpg"
+<img src="images/drawing-room-logo.png"
 alt="The Drawing Room Locksbottom"
 class="logo">
 </a>
 
-<nav>
+<button class="menu-toggle" onclick="toggleMenu()">☰</button>
+
+<nav id="mobileNav">
 <ul>
 <li><a href="#about">About</a></li>
 <li><a href="#specialities">Specialities</a></li>
@@ -312,69 +324,31 @@ class="logo">
 <li><a href="#contact">Contact</a></li>
 </ul>
 </nav>
-
 </div>
-
 </header>
 
 <section class="hero">
-
-<div class="hero-content">
-
-<img src="images/drawing-room-logo.png"
-alt="The Drawing Room"
-class="hero-logo">
-
-<p>
-Traditional Tearoom & Café in the Heart of Locksbottom
-</p>
-
-<p>
-Breakfast • Lunch • Afternoon Tea • Homemade Cakes • Artisan Coffee
-</p>
-
-<a href="tel:01689852288" class="btn">
-Book a Table
-</a>
-
-<a href="#menu" class="btn">
-View Menu
-</a>
-
+<div>
+<img src="images/drawing-room-logo.png" class="hero-logo" alt="The Drawing Room">
+<p>Traditional Tearoom & Café in the Heart of Locksbottom</p>
+<p>Breakfast • Lunch • Afternoon Tea • Homemade Cakes • Artisan Coffee</p>
+<a href="tel:01689852288" class="btn">Contact Us</a>
+<a href="#menu" class="btn">View Menu</a>
 </div>
-
 </section>
 
 <section id="about">
-
 <div class="container">
-
-<h2 class="section-title">Welcome to The Drawing Room</h2>
-
-<div class="about">
-
-<p>
-Located at 405 Crofton Road in Locksbottom, The Drawing Room is a traditional British tearoom and café known for its warm hospitality, homemade food and vintage charm.
+<h2 class="section-title">Welcome</h2>
+<p style="text-align:center;max-width:900px;margin:auto;">
+Located at 405 Crofton Road, The Drawing Room is a traditional British tearoom and café known for warm hospitality, homemade food, afternoon tea and our famous Hot Salt Beef on Rye.
 </p>
-
-<br>
-
-<p>
-Whether you're joining us for breakfast, lunch, our famous Hot Salt Beef on Rye, or a beautifully presented Afternoon Tea, every visit is designed to be relaxed, welcoming and memorable.
-</p>
-
 </div>
-
-</div>
-
 </section>
 
 <section id="specialities">
-
 <div class="container">
-
 <h2 class="section-title">Our Specialities</h2>
-
 <div class="features">
 
 <div class="card">
@@ -398,33 +372,20 @@ Whether you're joining us for breakfast, lunch, our famous Hot Salt Beef on Rye,
 </div>
 
 </div>
-
 </div>
-
 </section>
 
 <section class="highlight">
-
 <div class="container">
-
 <h2 class="section-title">Afternoon Tea Experience</h2>
-
-<p>
-Freshly prepared finger sandwiches, homemade fruit scones, clotted cream, strawberry preserve, cakes and unlimited tea.
+<p style="text-align:center;max-width:900px;margin:auto;">Perfect for birthdays, celebrations and special occasions.</p>
+<p style="text-align:center;max-width:900px;margin:auto;">
+    <a href="tel:01689852288" class="btn">Reserve Afternoon Tea</a>
 </p>
-
-<br>
-
-<a href="tel:01689852288" class="btn">
-Reserve Afternoon Tea
-</a>
-
 </div>
-
 </section>
 
 <section id="menu">
-
 <div class="container">
 
 <h2 class="section-title">Menu Highlights</h2>
@@ -480,105 +441,108 @@ Reserve Afternoon Tea
 </div>
 
 </div>
-
 </section>
 
 <section id="gallery">
-
 <div class="container">
 
 <h2 class="section-title">Gallery</h2>
 
 <div class="gallery">
-
+<img src="images/cafe-front.jpg" alt="">
 <img src="images/interior.jpg" alt="">
-<img src="images/afternoon-tea.jpg" alt="">
+<img src="images/sandwich.jpg" alt="">
 <img src="images/salt-beef.jpg" alt="">
 <img src="images/panini.jpg" alt="">
 <img src="images/teapots.jpg" alt="">
+<img src="images/afternoon-tea.jpg" alt="">
 <img src="images/cakes.jpg" alt="">
 
 </div>
 
 </div>
+</section>
 
+<section id="booking">
+  <div class="container">
+
+    <h2 class="section-title">Book a Table</h2>
+
+    <form class="booking-form">
+
+      <input type="text" placeholder="Your Name" required>
+
+      <input type="email" placeholder="Email Address" required>
+
+      <input type="tel" placeholder="Phone Number">
+
+      <input type="date">
+
+      <input type="time">
+
+      <input type="number" placeholder="Number of Guests">
+
+      <textarea placeholder="Special Requests"></textarea>
+
+      <button type="submit">
+        Send Booking Request
+      </button>
+
+    </form>
+
+  </div>
 </section>
 
 <section id="contact">
-
 <div class="container">
-
 <h2 class="section-title">Visit Us</h2>
-
 <div class="contact-grid">
 
 <div class="contact-card">
-
-<h3>Contact Details</h3>
-
-<p>
-<strong>The Drawing Room</strong><br>
+<h3>Contact</h3>
+<p>The Drawing Room<br>
 405 Crofton Road<br>
 Locksbottom<br>
-Orpington<br>
-BR6 8NL
-</p>
-
+Orpington BR6 8NL</p>
 <br>
-
-<p>
-☎ 01689 852288
-</p>
-
+<p><a href="tel:01689852288">01689 852288</a></p>
 </div>
 
 <div class="contact-card">
-
 <h3>Opening Hours</h3>
-
-<p>Monday – Friday: 8:30am – 4:30pm</p>
-<p>Saturday: 8:30am – 3:30pm</p>
+<p>Mon–Fri: 8:30am–4:30pm</p>
+<p>Saturday: 8:30am–3:30pm</p>
 <p>Sunday: Closed</p>
-
+<br>
+<iframe
+src="https://www.google.com/maps?q=405+Crofton+Road+Locksbottom+BR6+8NL&output=embed"
+width="100%" height="250" style="border:0;border-radius:10px;" loading="lazy"></iframe>
 </div>
 
 </div>
-
 </div>
-
 </section>
 
 <section class="instagram">
-
 <div class="container">
-
-<h2>Follow Us On Instagram</h2>
-
-<br>
-
-<a href="https://www.instagram.com/thedrawingroomlocksbottom/" target="_blank">
-@thedrawingroomlocksbottom
-</a>
-
+<h2 class="section-title" style="color:white;">Follow Us</h2>
+<p><a href="https://www.instagram.com/thedrawingroomlocksbottom/">@thedrawingroomlocksbottom</a></p>
 </div>
-
 </section>
 
 <footer>
-
-<img src="images/drawing-room-logo.png"
-alt="The Drawing Room"
-style="height:80px;background:white;padding:10px;border-radius:5px;">
-
-<p>Traditional Tearoom • Breakfast • Lunch • Afternoon Tea • Homemade Cakes</p>
-
-<p>405 Crofton Road, Locksbottom, Orpington BR6 8NL</p>
-
-<p>01689 852288</p>
-
-<p>© The Drawing Room Locksbottom</p>
-
+<p><strong>The Drawing Room Locksbottom</strong></p>
+<p>Traditional Tearoom • Breakfast • Lunch • Afternoon Tea</p>
+<p>405 Crofton Road, Orpington BR6 8NL</p>
 </footer>
+
+<a href="tel:01689852288" class="mobile-book">Contact Us</a>
+
+<script>
+function toggleMenu(){
+document.getElementById('mobileNav').classList.toggle('show');
+}
+</script>
 
 </body>
 </html>
