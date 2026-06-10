@@ -198,7 +198,7 @@ width:100%;
 
 .contact-grid{
     display:grid;
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:repeat(3,1fr);;
     gap:24px;
 }
 
@@ -219,6 +219,50 @@ footer{
 
 .mobile-book{
     display:none;
+}
+
+.hero-promo{
+    display:inline-block;
+    margin:20px 0;
+    padding:12px 24px;
+    background:var(--gold);
+    color:white;
+    border-radius:50px;
+    font-weight:600;
+    font-size:1rem;
+}
+
+.reviews{
+    background:#fff;
+}
+
+.rating-summary{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.rating-summary .stars{
+    color:#C9A227;
+    font-size:2rem;
+}
+
+.review-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:20px;
+}
+
+.review-card{
+    background:white;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+.review-card .stars{
+    color:#C9A227;
+    font-size:1.3rem;
+    margin-bottom:10px;
 }
 
 /* MOBILE */
@@ -332,8 +376,13 @@ class="logo">
 <img src="images/drawing-room-logo.png" class="hero-logo" alt="The Drawing Room">
 <p>Traditional Tearoom & Café in the Heart of Locksbottom</p>
 <p>Breakfast • Lunch • Afternoon Tea • Homemade Cakes • Artisan Coffee</p>
-<a href="tel:01689852288" class="btn">Contact Us</a>
+
+<p>
 <a href="#menu" class="btn">View Menu</a>
+<a href="tel:01689852288" class="btn">Book Afternoon Tea</a>
+<p style="margin-top:15px;">
+🎂 Perfect for birthdays, baby showers and celebrations
+</p>
 </div>
 </section>
 
@@ -380,7 +429,7 @@ Located at 405 Crofton Road, The Drawing Room is a traditional British tearoom a
 <h2 class="section-title">Afternoon Tea Experience</h2>
 <p style="text-align:center;max-width:900px;margin:auto;">Perfect for birthdays, celebrations and special occasions.</p>
 <p style="text-align:center;max-width:900px;margin:auto;">
-    <a href="tel:01689852288" class="btn">Reserve Afternoon Tea</a>
+    <a href="tel:01689852288" class="btn">Book Afternoon Tea</a>
 </p>
 </div>
 </section>
@@ -473,19 +522,19 @@ Located at 405 Crofton Road, The Drawing Room is a traditional British tearoom a
         action="https://formsubmit.co/gastronomie.ltd@gmail.com"
         method="POST">
 
-      <input type="text" placeholder="Your Name" required>
+      <input type="text" name="name" placeholder="Your Name" required>
 
-      <input type="email" placeholder="Email Address" required>
+      <input type="email" name="email" placeholder="Email Address" required>
 
-      <input type="tel" placeholder="Phone Number">
+      <input type="tel" name="phone" placeholder="Phone Number">
 
-      <input type="date">
+      <input type="date" name="date">
 
-      <input type="time">
+      <input type="time" name="time">
 
-      <input type="number" placeholder="Number of Guests">
+      <input type="number" name="guests" placeholder="Number of Guests">
 
-      <textarea placeholder="Special Requests"></textarea>
+      <textarea name="special" placeholder="Special Requests"></textarea>
 
       <button type="submit">
         Send Booking Request
@@ -501,6 +550,15 @@ Located at 405 Crofton Road, The Drawing Room is a traditional British tearoom a
 <h2 class="section-title">Visit Us</h2>
 <div class="contact-grid">
 
+<section id="opening-hours">
+<div class="contact-card">
+<h3>Opening Hours</h3>
+<p>Mon–Fri: 8:30am–4:30pm</p>
+<p>Saturday: 8:30am–3:30pm</p>
+<p>Sunday: Closed</p>
+</section>
+
+<section id="location">
 <div class="contact-card">
 <h3>Contact</h3>
 <p>The Drawing Room<br>
@@ -510,20 +568,69 @@ Orpington BR6 8NL</p>
 <br>
 <p><a href="tel:01689852288">01689 852288</a></p>
 </div>
-
-<div class="contact-card">
-<h3>Opening Hours</h3>
-<p>Mon–Fri: 8:30am–4:30pm</p>
-<p>Saturday: 8:30am–3:30pm</p>
-<p>Sunday: Closed</p>
-<br>
+</section>
+<section id="map">
+<div class="contact-card"></div>
 <iframe
 src="https://www.google.com/maps?q=405+Crofton+Road+Locksbottom+BR6+8NL&output=embed"
 width="100%" height="250" style="border:0;border-radius:10px;" loading="lazy"></iframe>
 </div>
+</section>
 
 </div>
 </div>
+</section>
+
+<section id="reviews">
+  <div class="container">
+
+    <h2 class="section-title">
+    Loved by Our Customers
+    </h2>
+    
+    <div class="rating-summary">
+    <a href="https://www.google.com/search?sca_esv=54f2dfe3db26537b&sxsrf=ANbL-n7j3bT53lAMzWPEIA2FQSZ_I9rfxw:1781092684098&si=AL3DRZHrmvnFAVQPOO2Bzhf8AX9KZZ6raUI_dT7DG_z0kV2_x2F0kpTy--44ioLF9Va7MRCsI1ajgCg1HJTKgjFILDyqgerQSRyub18HIzZWUz00IhMgAh7TMqqe7D49ykt4qADk7SOB9GOpNcAUzjqacicbG2ZNzw%3D%3D&q=The+Drawing+Room+of+Locksbottom+Reviews&sa=X&ved=2ahUKEwils_2lz_yUAxVyXEEAHRF_EoAQ0bkNegQIJRAF&biw=1680&bih=928&dpr=2" class="btn">
+      Read Reviews on Google
+    </a>
+    </div>
+    
+    <div class="rating-summary">
+      <div class="stars">★★★★★</div>
+      <h3>4.7 Stars on Google</h3>
+      <p>Based on 320+ customer reviews</p>
+    </div>
+
+    <div class="review-grid">
+
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p>
+          Warm, welcoming atmosphere with beautiful teacups,
+          delicious cakes and perfect scones.
+        </p>
+        <strong>Google Review</strong>
+      </div>
+
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p>
+          Afternoon tea was exceptional. Everything exceeded expectations.
+        </p>
+        <strong>Google Review</strong>
+      </div>
+
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p>
+          A hidden gem in Locksbottom. Excellent food,
+          wonderful service and a lovely atmosphere.
+        </p>
+        <strong>Google Review</strong>
+      </div>
+
+    </div>
+
+  </div>
 </section>
 
 <section class="instagram">
@@ -693,14 +800,14 @@ function welcome(){
         <br>• Afternoon Tea
         <br>• Reservations
         <br>• Menu recommendations
-        <br>• Dietary information
         <br>• Opening hours
 
         <br><br>
         <span class="tdr-quick" onclick="quick('Afternoon Tea')">Afternoon Tea</span>
-        <span class="tdr-quick" onclick="quick('Book a table')">Book a Table</span>
         <span class="tdr-quick" onclick="quick('Popular dishes')">Popular Dishes</span>
+        <span class="tdr-quick" onclick="quick('Book a table')">Book a Table</span>
         <span class="tdr-quick" onclick="quick('Opening hours')">Opening Hours</span>
+        <span class="tdr-quick" onclick="quick('Location')">Location</span>
     `);
 }
 
@@ -714,7 +821,7 @@ function getSectionText(id) {
 
     if (!section) return null;
 
-    return section.innerText;
+    return section.innerHTML;
 }
 
 function getOpeningHours() {
@@ -842,7 +949,12 @@ function send(){
         q.includes('hours') ||
         q.includes('open')
     ){
-        response = getOpeningHours();
+        const openinghours =
+            getSectionText('opening-hours');
+
+        response =
+            openinghours ||
+            'You can find our opening hours on the Contact section of our website.';
     }
 
     else if(
@@ -850,9 +962,12 @@ function send(){
         q.includes('location') ||
         q.includes('address')
     ){
-        response = `
-        📍 You can find our address and directions on the Contact section of our website.
-        `;
+        const location =
+            getSectionText('location');
+
+        response =
+            location ||
+            'You can find our address and directions on the Contact section of our website.';
     }
 
     else if(
