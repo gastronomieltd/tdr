@@ -709,6 +709,20 @@ function quick(text){
     send();
 }
 
+function getSectionText(id) {
+    const section = document.getElementById(id);
+
+    if (!section) return null;
+
+    return section.innerText;
+}
+
+function getOpeningHours() {
+    const contact = document.getElementById('contact');
+
+    return contact ? contact.innerText : null;
+}
+
 function send(){
     const text = input.value.trim();
 
@@ -724,13 +738,13 @@ function send(){
     `;
 
     if(q.includes('afternoon tea')){
-        response = `
-        🍰 Afternoon Tea is one of our most popular experiences.
 
-        We recommend booking in advance, especially on weekends.
+        const specialities =
+            getSectionText('specialities');
 
-        Would you like to make a reservation?
-        `;
+        response =
+            specialities ||
+            'Afternoon Tea information is available on our website.';
     }
 
     else if(
@@ -828,9 +842,7 @@ function send(){
         q.includes('hours') ||
         q.includes('open')
     ){
-        response = `
-        🕒 Please refer to our website for current opening hours as these may change seasonally.
-        `;
+        response = getOpeningHours();
     }
 
     else if(
