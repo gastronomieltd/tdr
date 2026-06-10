@@ -162,6 +162,127 @@ width:100%;
     border-radius:10px;
 }
 
+/* MENU SECTION */
+
+#menu{
+    background:#F8F5EF;
+    padding:100px 0;
+}
+
+.menu-grid{
+    display:grid;
+    gap:30px;
+}
+
+/* Desktop */
+@media(min-width:1200px){
+
+    .menu-grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+}
+
+/* Tablet */
+@media(min-width:768px) and (max-width:1199px){
+
+    .menu-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+/* Mobile */
+@media(max-width:767px){
+
+    .menu-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+.menu-card{
+    background:#fff;
+    border-radius:18px;
+    padding:35px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.menu-card:hover{
+    transform:translateY(-5px);
+}
+
+.menu-card h3{
+    color:#143A6F;
+    font-size:2rem;
+    margin-bottom:25px;
+    border-bottom:2px solid #C9A227;
+    padding-bottom:10px;
+}
+
+.featured{
+    border-top:6px solid #C9A227;
+}
+
+.menu-item{
+    padding:18px 0;
+    border-bottom:1px solid #ececec;
+}
+
+.menu-item:last-child{
+    border-bottom:none;
+}
+
+.menu-header{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    margin-bottom:8px;
+}
+
+.menu-header h4{
+    color:#143A6F;
+    font-size:1.05rem;
+    margin:0;
+}
+
+.price{
+    color:#C9A227;
+    font-weight:700;
+    white-space:nowrap;
+}
+
+.menu-item p{
+    color:#666;
+    line-height:1.6;
+    font-size:14px;
+}
+
+.menu-item small{
+    display:block;
+    margin-top:10px;
+    color:#888;
+    font-style:italic;
+}
+
+@media(max-width:767px){
+
+    .menu-card{
+        padding:25px;
+    }
+
+    .menu-card h3{
+        font-size:1.7rem;
+    }
+
+    .menu-header{
+        flex-direction:column;
+        gap:5px;
+    }
+
+}
+
 /* BOOKING FORM */
 
 .booking-form{
@@ -436,61 +557,226 @@ Located at 405 Crofton Road, The Drawing Room is a traditional British tearoom a
 </section>
 
 <section id="menu">
-<div class="container">
 
-<h2 class="section-title">Menu Highlights</h2>
+    <div class="container">
 
-<div class="menu-grid">
+        <h2 class="section-title">Our Menu</h2>
 
-<div class="menu-box">
-<h3>Breakfast</h3>
-<ul>
-<li>Full English Breakfast</li>
-<li>Vegetarian Full English</li>
-<li>Smoked Salmon & Scrambled Eggs</li>
-<li>American Pancakes</li>
-<li>Smashed Avocado on Rye Toast</li>
-<li>Porridge with Honey</li>
-</ul>
-</div>
+        <div class="menu-grid">
 
-<div class="menu-box">
-<h3>Lunch</h3>
-<ul>
-<li>Hot Salt Beef on Rye</li>
-<li>Coronation Chicken Sandwich</li>
-<li>Smoked Salmon & Cream Cheese</li>
-<li>Tuna Cheese Melt</li>
-<li>Brie & Crispy Bacon Toastie</li>
-<li>Quiche of the Day</li>
-</ul>
-</div>
+            <!-- Breakfast -->
+            <div class="menu-card">
 
-<div class="menu-box">
-<h3>Fresh Salads</h3>
-<ul>
-<li>Halloumi & Olives</li>
-<li>Smoked Salmon, Avocado & Rocket</li>
-<li>Chicken, Bacon & Avocado</li>
-<li>Falafel, Hummus & Roasted Pepper</li>
-<li>Hot Salt Beef Salad</li>
-</ul>
-</div>
+                <h3>Breakfast</h3>
 
-<div class="menu-box">
-<h3>Something Sweet</h3>
-<ul>
-<li>Cream Tea</li>
-<li>Homemade Cakes</li>
-<li>Fruit Scones</li>
-<li>Afternoon Tea</li>
-<li>Macarons & Brownies</li>
-</ul>
-</div>
+                <div class="menu-item">
+                    <div class="menu-header">
+                        <h4>Full English Breakfast</h4>
+                        <span class="price">£13.95</span>
+                    </div>
 
-</div>
+                    <p>
+                        Dry cured bacon, Cumberland sausage,
+                        free-range egg, mushrooms,
+                        Heinz baked beans and toast.
+                        Includes tea or coffee.
+                    </p>
+                </div>
 
-</div>
+                <div class="menu-item">
+                    <div class="menu-header">
+                        <h4>Vegetarian Full English</h4>
+                        <span class="price">£13.45</span>
+                    </div>
+
+                    <p>
+                        Vegetarian sausage, free-range egg,
+                        mushrooms, beans and tomatoes.
+                        Includes tea or coffee.
+                    </p>
+                </div>
+
+                <div class="menu-item">
+                    <div class="menu-header">
+                        <h4>American Pancakes</h4>
+                        <span class="price">£11.95</span>
+                    </div>
+
+                    <p>
+                        Served with maple syrup and two toppings.
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- Signature -->
+            <div class="menu-card featured">
+
+                <h3>Hot Salt Beef</h3>
+
+                <div class="menu-item">
+
+                    <div class="menu-header">
+                        <h4>Our Signature Dish</h4>
+                        <span class="price">£16.95</span>
+                    </div>
+
+                    <p>
+                        Tender hot salt beef served on rye bread
+                        with dill pickle, homemade coleslaw
+                        and mustard.
+                    </p>
+
+                    <small>Add Swiss Cheese + £1.95</small>
+
+                </div>
+
+            </div>
+
+            <!-- Salads -->
+            <div class="menu-card">
+
+                <h3>Fresh Salads</h3>
+
+                <div class="menu-item">
+
+                    <div class="menu-header">
+                        <h4>Halloumi & Olives</h4>
+                        <span class="price">£15.95</span>
+                    </div>
+
+                    <p>
+                        Mixed salad, beetroot,
+                        homemade coleslaw and tabbouleh.
+                    </p>
+
+                </div>
+
+                <div class="menu-item">
+
+                    <div class="menu-header">
+                        <h4>Smoked Salmon & Avocado</h4>
+                        <span class="price">£15.95</span>
+                    </div>
+
+                    <p>
+                        Scottish smoked salmon,
+                        avocado and fresh rocket.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- Sandwiches -->
+            <div class="menu-card">
+
+                <h3>Sandwiches</h3>
+
+                <div class="menu-item">
+
+                    <div class="menu-header">
+                        <h4>Smoked Salmon & Cream Cheese</h4>
+                        <span class="price">£9.95</span>
+                    </div>
+
+                    <p>
+                        Scottish smoked salmon served on
+                        farmhouse or granary bread.
+                    </p>
+
+                </div>
+
+                <div class="menu-item">
+
+                    <div class="menu-header">
+                        <h4>BLT</h4>
+                        <span class="price">£8.95</span>
+                    </div>
+
+                    <p>
+                        Dry cured crispy bacon,
+                        lettuce, tomato and mayonnaise.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- Toasties -->
+            <div class="menu-card">
+
+                <h3>Toasties</h3>
+
+                <div class="menu-item">
+
+                    <div class="menu-header">
+                        <h4>Tuna Cheese Melt</h4>
+                        <span class="price">£8.55</span>
+                    </div>
+
+                    <p>
+                        Tuna mayonnaise with mature cheddar,
+                        toasted until golden.
+                    </p>
+
+                </div>
+
+                <div class="menu-item">
+
+                    <div class="menu-header">
+                        <h4>French Brie & Bacon</h4>
+                        <span class="price">£9.45</span>
+                    </div>
+
+                    <p>
+                        Melted French brie with
+                        crispy dry cured bacon.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- Afternoon Tea -->
+            <div class="menu-card featured">
+
+                <h3>Afternoon Tea</h3>
+
+                <div class="menu-item">
+
+                    <div class="menu-header">
+                        <h4>Cream Tea</h4>
+                        <span class="price">£9.95</span>
+                    </div>
+
+                    <p>
+                        Pot of tea, homemade scone,
+                        clotted cream and strawberry jam.
+                    </p>
+
+                </div>
+
+                <div class="menu-item">
+
+                    <div class="menu-header">
+                        <h4>Traditional Afternoon Tea</h4>
+                        <span class="price">Reserve</span>
+                    </div>
+
+                    <p>
+                        Sandwiches, homemade cakes,
+                        scones, macarons and unlimited tea.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </section>
 
 <section id="gallery">
