@@ -1023,7 +1023,7 @@ a {
    ========================================================================== */
 @media (max-width: 1024px) {
     .hero-title {
-        font-size: 46px;
+        font-size: 30px;
     }
     .about-grid {
         gap: 40px;
@@ -1079,7 +1079,7 @@ a {
 
     /* Hero Responsive */
     .hero-title {
-        font-size: 38px;
+        font-size: 30px;
     }
     .hero-buttons {
         flex-direction: column;
