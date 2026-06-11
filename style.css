@@ -121,6 +121,17 @@ a {
     border: 1px solid transparent;
 }
 
+.btn-blue {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+}
+
+.btn-blue:hover {
+    background-color: var(--bg-white);;
+    border-color: var(--text-light);
+    color: var(--primary-color);
+}
+
 .btn-primary {
     background-color: var(--primary-color);
     color: var(--text-light);
