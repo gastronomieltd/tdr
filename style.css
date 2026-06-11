@@ -224,7 +224,7 @@ a {
 
 .big-logo-top {
     font-family: var(--font-heading);
-    font-size: 30px;
+    font-size: 25px;
     font-weight: 700;
     letter-spacing: 3.5px;
     color: var(--accent-color);
@@ -249,7 +249,7 @@ a {
 .big-logo-of {
     font-family: var(--font-accent);
     font-style: italic;
-    font-size: 25px;
+    font-size: 20px;
     color: var(--accent-color);
     margin: 0 8px;
     text-transform: lowercase;
@@ -258,7 +258,7 @@ a {
 
 .big-logo-bottom {
     font-family: var(--font-heading);
-    font-size: 30px;
+    font-size: 25px;
     font-weight: 700;
     letter-spacing: 3.5px;
     color: var(--accent-color);
@@ -358,7 +358,7 @@ a {
 .hero-subtitle {
     font-family: var(--font-accent);
     font-style: italic;
-    font-size: 30px;
+    font-size: 25px;
     color: var(--accent-color);
     display: block;
     margin-bottom: 15px;
@@ -376,7 +376,7 @@ a {
 .hero-description {
     font-size: 16px;
     max-width: 600px;
-    margin: 0 auto 40px auto;
+    margin: 0 auto 20px auto;
     font-weight: 300;
     line-height: 1.8;
     color: rgba(255, 255, 255, 0.9);
