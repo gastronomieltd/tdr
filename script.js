@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // ==========================================
-    // Mobile Navigation Hamburger Menu Toggle
-    // ==========================================
+    // ==========================================================================
+    // 1. Mobile Navigation & Body Scroll Lock
+    // ==========================================================================
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
     const navLinksList = document.querySelectorAll('.nav-link');
@@ -10,27 +10,32 @@ document.addEventListener('DOMContentLoaded', () => {
     const toggleMenu = () => {
         hamburger.classList.toggle('active');
         navMenu.classList.toggle('active');
-        // Prevent body scrolling when mobile menu is open
-        document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+        
+        // Toggles a utility class on the body tag to lock background scrolling
+        if (navMenu.classList.contains('active')) {
+            document.body.classList.add('menu-open');
+        } else {
+            document.body.classList.remove('menu-open');
+        }
     };
 
     const closeMenu = () => {
         hamburger.classList.remove('active');
         navMenu.classList.remove('active');
-        document.body.style.overflow = '';
+        document.body.classList.remove('menu-open');
     };
 
     hamburger.addEventListener('click', toggleMenu);
 
-    // Close menu when clicking on nav link
+    // Close menu when clicking on any navigation link
     navLinksList.forEach(link => {
         link.addEventListener('click', closeMenu);
     });
 
 
-    // ==========================================
-    // Dynamic Menu Tab Switcher
-    // ==========================================
+    // ==========================================================================
+    // 2. Dynamic Menu Tab Switcher
+    // ==========================================================================
     const tabButtons = document.querySelectorAll('.menu-tab');
     const menuCategories = document.querySelectorAll('.menu-category');
 
@@ -38,11 +43,11 @@ document.addEventListener('DOMContentLoaded', () => {
         button.addEventListener('click', () => {
             const targetTab = button.getAttribute('data-tab');
 
-            // Remove active class from all buttons and sections
+            // Remove active classes from all buttons and sections
             tabButtons.forEach(btn => btn.classList.remove('active'));
             menuCategories.forEach(cat => cat.classList.remove('active'));
 
-            // Add active class to selected button and category
+            // Add active classes to the clicked button and targeted tab
             button.classList.add('active');
             
             const activeCategory = document.getElementById(targetTab);
@@ -53,13 +58,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
-    // ==========================================
-    // Active Link Highlight on Scroll (Scrollspy)
-    // ==========================================
+    // ==========================================================================
+    // 3. Active Link Highlight on Scroll (Scrollspy)
+    // ==========================================================================
     const sections = document.querySelectorAll('section');
 
     const scrollSpy = () => {
-        const scrollPosition = window.scrollY + 120; // Added offset to match sticky nav behavior
+        const scrollPosition = window.scrollY + 120; // High precision offset for sticky nav
 
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
@@ -80,17 +85,26 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', scrollSpy);
 
 
-    // ==========================================
-    // Contact Form In-App Submission Feedback
-    // ==========================================
+    // ==========================================================================
+    // 4. Contact Form Live Google Sheets Integration & Submission Feedback
+    // ==========================================================================
     const contactForm = document.getElementById('contactForm');
     const formSuccessMsg = document.getElementById('formSuccess');
 
+    // PASTE YOUR DEPLOYED GOOGLE WEB APP URL HERE:
+    const GOOGLE_SHEET_URL = 'PASTE_YOUR_GOOGLE_WEB_APP_URL_HERE';
+
     if (contactForm && formSuccessMsg) {
         contactForm.addEventListener('submit', (event) => {
-            event.preventDefault(); // Stop page reload
+            event.preventDefault(); // Stop standard browser form redirects
 
-            // Retrieve form field values (ready for later integration with backend APIs)
+            // Retrieve the submit button and show standard sending indicators
+            const submitBtn = contactForm.querySelector('.btn-submit');
+            const originalBtnText = submitBtn.textContent;
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+
+            // Form data structured to exactly match Google Apps Script parameters
             const formData = {
                 name: document.getElementById('name').value,
                 email: document.getElementById('email').value,
@@ -98,14 +112,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 message: document.getElementById('message').value
             };
 
-            // Simulate form submission effect
-            contactForm.classList.add('hidden');
-            formSuccessMsg.classList.remove('hidden');
-
-            // Reset Form Fields after simulated delay
-            setTimeout(() => {
+            // Post values to your Google Sheet receiver
+            fetch(GOOGLE_SHEET_URL, {
+                method: 'POST',
+                mode: 'no-cors', // Solves standard CORS lock warnings on browser-side calls
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(() => {
+                // Successfully received: display confirmation, clear input states
+                contactForm.classList.add('hidden');
+                formSuccessMsg.classList.remove('hidden');
                 contactForm.reset();
-            }, 500);
+            })
+            .catch(error => {
+                console.error('Submission error details:', error);
+                alert('We encountered a problem sending your message. Please try again.');
+                
+                // Re-enable interactive elements on network failure
+                submitBtn.textContent = originalBtnText;
+                submitBtn.disabled = false;
+            });
         });
     }
 });

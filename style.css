@@ -30,6 +30,7 @@
 html {
     scroll-behavior: smooth;
     scroll-padding-top: var(--header-height);
+    width: 100%;
 }
 
 body {
@@ -39,6 +40,14 @@ body {
     color: var(--text-dark);
     background-color: var(--bg-light);
     overflow-x: hidden;
+    position: relative;
+    width: 100%;
+}
+
+/* Helper to prevent standard mobile background scrolling when nav menu is active */
+body.menu-open {
+    overflow: hidden;
+    height: 100vh;
 }
 
 /* ==========================================================================
@@ -124,10 +133,11 @@ a {
 .btn-blue {
     background-color: var(--primary-color);
     color: var(--text-light);
+    border: 1px solid var(--primary-color);
 }
 
 .btn-blue:hover {
-    background-color: var(--bg-white);;
+    background-color: var(--bg-white);
     border-color: var(--text-light);
     color: var(--primary-color);
 }
@@ -233,6 +243,20 @@ a {
     line-height: 1;
 }
 
+/* Beautiful framed brand box matching your visual signage exactly */
+.hero-brand-box {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    border: 3px solid var(--text-light);
+    outline: 1px solid var(--text-light);
+    outline-offset: -5px;
+    padding: 18px 32px;
+    background-color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 30px;
+}
+
 .big-logo-top {
     font-family: var(--font-heading);
     font-size: 25px;
@@ -255,6 +279,7 @@ a {
     height: 1.5px;
     background-color: var(--accent-color);
     max-width: 125px;
+    min-width: 40px;
 }
 
 .big-logo-of {
@@ -356,7 +381,7 @@ a {
     left: 0;
     width: 100%;
     height: 100%;
-    /* background: linear-gradient( rgba(10, 45, 84, 0.85), rgba(58, 102, 152, 0.9)); */
+    background: linear-gradient(rgba(10, 45, 84, 0.65), rgba(10, 45, 84, 0.75));
 }
 
 .hero-content {
@@ -377,8 +402,8 @@ a {
 
 .hero-title {
     font-family: var(--font-heading);
-    font-size: 25px;
-    line-height: 1.2;
+    font-size: 44px; /* Increased to reflect dominant headline proportion */
+    line-height: 1.25;
     margin-bottom: 24px;
     font-weight: 700;
     letter-spacing: 1px;
@@ -387,7 +412,7 @@ a {
 .hero-description {
     font-size: 16px;
     max-width: 600px;
-    margin: 0 auto 20px auto;
+    margin: 0 auto 30px auto;
     font-weight: 300;
     line-height: 1.8;
     color: rgba(255, 255, 255, 0.9);
@@ -529,7 +554,8 @@ a {
 
 .speciality-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    /* Clamped grid sizing prevents horizontal overflow on narrow screens */
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr));
     gap: 40px;
 }
 
@@ -695,7 +721,7 @@ a {
 
 .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
     gap: 20px;
 }
 
@@ -769,7 +795,7 @@ a {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(58, 102, 152, 0.9);
+    background-color: rgba(10, 45, 84, 0.85); /* Tuned for navy brand design instead of generic blue */
 }
 
 .hours-box {
@@ -1034,7 +1060,7 @@ a {
    ========================================================================== */
 @media (max-width: 1024px) {
     .hero-title {
-        font-size: 25px;
+        font-size: 38px;
     }
     .about-grid {
         gap: 40px;
@@ -1045,6 +1071,15 @@ a {
 }
 
 @media (max-width: 768px) {
+    /* Compress extensive section padding for dynamic mobile viewports */
+    .section-padding {
+        padding: 60px 0;
+    }
+
+    .section-title {
+        font-size: 30px;
+    }
+
     /* Navbar Toggle */
     .hamburger {
         display: flex;
@@ -1071,6 +1106,7 @@ a {
         background-color: var(--primary-color);
         transition: var(--transition-normal);
         overflow-y: auto;
+        -webkit-overflow-scrolling: touch; /* Optimizes inertial touch scrolling on iOS */
     }
 
     .nav-menu.active {
@@ -1080,23 +1116,33 @@ a {
     .nav-links {
         flex-direction: column;
         align-items: center;
-        padding: 60px 0;
-        gap: 40px;
+        padding: 50px 0;
+        gap: 35px;
     }
 
     .nav-link {
         font-size: 16px;
+        padding: 10px 0;
+        display: block;
+        width: 100%;
+        text-align: center;
     }
 
     /* Hero Responsive */
     .hero-title {
-        font-size: 25px;
+        font-size: 34px;
     }
+    
+    .hero-subtitle {
+        font-size: 20px;
+    }
+
     .hero-buttons {
         flex-direction: column;
         align-items: center;
         gap: 15px;
     }
+    
     .hero-buttons .btn {
         width: 100%;
         max-width: 280px;
@@ -1105,14 +1151,24 @@ a {
     /* About Responsive */
     .about-grid {
         grid-template-columns: 1fr;
-        gap: 60px;
+        gap: 50px;
     }
+    
     .about-image-wrapper {
         max-width: 500px;
         margin: 0 auto;
+        width: 100%;
     }
+    
     .about-img {
         height: 380px;
+    }
+
+    /* Contains the absolute-positioned badge cleanly inside the screen borders on mobile */
+    .about-badge {
+        right: 0;
+        bottom: -10px;
+        padding: 24px;
     }
 
     /* Menu Responsive */
@@ -1126,9 +1182,11 @@ a {
         grid-template-columns: 1fr;
         gap: 50px;
     }
+    
     .contact-form-container {
-        padding: 30px 24px;
+        padding: 35px 20px;
     }
+    
     .form-group-row {
         grid-template-columns: 1fr;
     }
@@ -1142,18 +1200,62 @@ a {
 }
 
 @media (max-width: 480px) {
+    :root {
+        --header-height: 80px; /* Scales header down to leave room for content */
+    }
+
     .section-title {
+        font-size: 26px;
+    }
+    
+    .hero-title {
         font-size: 28px;
     }
-    .hero-title {
-        font-size: 25px;
+
+    /* Scale down the logo padding and borders to prevent collision with mobile menu button */
+    .brand-logo {
+        padding: 6px 12px;
+        outline-offset: -3px;
     }
-    .about-badge {
-        padding: 20px;
-        right: 0;
-        bottom: -10px;
+
+    .logo-top {
+        font-size: 11px;
+        letter-spacing: 1.5px;
     }
-    .badge-num {
-        font-size: 24px;
+
+    .logo-bottom {
+        font-size: 10px;
+        letter-spacing: 2px;
+    }
+
+    .logo-of {
+        font-size: 12px;
+        margin: 0 4px;
+    }
+
+    /* Scales down the decorative hero brand box */
+    .hero-brand-box {
+        padding: 12px 20px;
+        margin-bottom: 20px;
+    }
+
+    .big-logo-top {
+        font-size: 18px;
+        letter-spacing: 1.5px;
+    }
+    
+    .big-logo-of {
+        font-size: 15px;
+    }
+    
+    .big-logo-bottom {
+        font-size: 18px;
+        letter-spacing: 2px;
+    }
+
+    /* Prevents automatic form input zoom styling on iOS viewports */
+    .form-group input,
+    .form-group textarea {
+        font-size: 16px;
     }
 }
