@@ -1074,25 +1074,24 @@ a {
     border-color: var(--accent-color);
 }
 
-/* Special adjustment for native pickers to prevent browser-native padding bloating */
+/* Special adjustment for native pickers to prevent browser-native padding bloating & mobile WebKit stretching */
 input[type="date"],
 input[type="time"] {
-    width: 100%;
+    display: block;    /* FORCES iOS Safari to respect standard block-level widths */
+    width: 100% !important;
     min-width: 0;
     height: 50px;
-    padding: 0 14px; /* Eliminates vertical padding completely, letting height: 50px control the size */
+    padding: 0 14px;   /* Eliminates vertical padding, letting height control the size */
     line-height: 50px;
     box-sizing: border-box;
 }
 
 /* Dynamic Booking Fields Grid Layout */
-.booking-fields-grid {
-    display: grid;
-    /* minmax(0, 1fr) forces the columns to fit the container instead of expanding to fit native input widths */
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 20px;
-    transition: opacity var(--transition-fast), transform var(--transition-fast);
-}
+/* Stacks date, time, and guest inputs vertically on all mobile/tablet viewports to prevent layout spills */
+    .booking-fields-grid {
+        grid-template-columns: minmax(0, 1fr); /* Locks the mobile column width from expanding */
+        gap: 16px;
+    }
 
 .booking-fields-grid.hidden {
     display: none !important;
