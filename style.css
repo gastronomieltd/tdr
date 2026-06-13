@@ -304,7 +304,6 @@ a {
 /* ==========================================================================
    Header Social Icons
    ========================================================================== */
-
 .header-socials {
     display: flex;
     align-items: center;
@@ -337,9 +336,6 @@ a {
 
 /* Facebook Hover - Classic Brand Blue */
 .header-socials a.social-fb {
-/*    color: #1877f2;
-    border-color: rgba(24, 119, 242, 0.3);
-*/
     background-color: #1877f2;
     color: #ffffff;
     border-color: #1877f2;
@@ -354,9 +350,6 @@ a {
 
 /* Instagram Default & Hover States */
 .header-socials a.social-ig {
-/*    color: #e1306c;
-    border-color: rgba(225, 48, 108, 0.3);
-*/
     background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
     color: #ffffff;
     border-color: transparent;
@@ -1047,8 +1040,11 @@ a {
     color: var(--primary-color);
 }
 
+/* Force inputs and textareas to always stretch to 100% of parent on all viewports */
 .form-group input,
-.form-group textarea {
+.form-group textarea,
+.contact-form select {
+    width: 100%;
     padding: 14px;
     font-family: var(--font-body);
     font-size: 14px;
@@ -1059,8 +1055,21 @@ a {
 }
 
 .form-group input:focus,
-.form-group textarea:focus {
+.form-group textarea:focus,
+.contact-form select:focus {
     border-color: var(--accent-color);
+}
+
+/* Dynamic Booking Fields Grid Layout */
+.booking-fields-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+
+.booking-fields-grid.hidden {
+    display: none !important;
 }
 
 .btn-submit {
@@ -1299,11 +1308,13 @@ a {
     }
     
     .contact-form-container {
-        padding: 35px 20px;
+        padding: 30px 20px; /* Compress horizontal padding slightly on small screens */
+        min-height: auto;   /* Unlocks rigid height constraints so form expands dynamically */
     }
     
     .form-group-row {
         grid-template-columns: 1fr;
+        gap: 16px;
     }
 
     /* Footer Responsive */
@@ -1348,6 +1359,15 @@ a {
 .reveal-zoom.active {
     opacity: 1;
     transform: scale(1);
+}
+
+/* Small Viewport Fixes */
+@media (max-width: 580px) {
+    /* Stacks date, time, and guest inputs vertically on smaller smartphones */
+    .booking-fields-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1406,7 +1426,8 @@ a {
 
     /* Prevents automatic form input zoom styling on iOS viewports */
     .form-group input,
-    .form-group textarea {
+    .form-group textarea,
+    .contact-form select {
         font-size: 16px;
     }
 

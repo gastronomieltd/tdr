@@ -175,7 +175,7 @@
             <div class="speciality-grid">
                 <!-- Specialty Card 1 -->
                 <div class="speciality-card">
-                    <div class="speciality-img-wrapper reveal-zoom"">
+                    <div class="speciality-img-wrapper reveal-zoom">
                         <img src="https://images.unsplash.com/photo-1594631252845-29fc4cc8cde9?auto=format&fit=crop&w=600&q=80" loading="lazy" alt="Traditional Afternoon Tea tier stand" class="speciality-img">
                     </div>
                     <div class="speciality-info">
@@ -187,7 +187,7 @@
 
                 <!-- Specialty Card 2 -->
                 <div class="speciality-card">
-                    <div class="speciality-img-wrapper reveal-zoom"">
+                    <div class="speciality-img-wrapper reveal-zoom">
                         <img src="https://images.unsplash.com/photo-1553909489-cd47e0907980?auto=format&fit=crop&w=600&q=80" loading="lazy" alt="Signature salt beef sandwich" class="speciality-img">
                     </div>
                     <div class="speciality-info">
@@ -199,7 +199,7 @@
 
                 <!-- Specialty Card 3 -->
                 <div class="speciality-card">
-                    <div class="speciality-img-wrapper reveal-zoom"">
+                    <div class="speciality-img-wrapper reveal-zoom">
                         <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&q=80" loading="lazy" alt="Victoria sponge cake with berries" class="speciality-img">
                     </div>
                     <div class="speciality-info">
@@ -211,7 +211,6 @@
             </div>
         </div>
     </section>
-
 
     <!-- Menu Section -->
     <section id="menu" class="menu section-padding">
@@ -260,7 +259,7 @@
             <div class="gallery-grid">
                 <!-- Gallery Item 1 -->
                 <div class="gallery-item">
-                    <div class="gallery-img-wrapper reveal-zoom"">
+                    <div class="gallery-img-wrapper reveal-zoom">
                         <img src="images/afternoon-tea.jpg" loading="lazy" alt="Afternoon tea tier stand" class="gallery-img">
                         <div class="gallery-overlay">
                             <i class="fa-solid fa-magnifying-glass"></i>
@@ -269,7 +268,7 @@
                 </div>
                 <!-- Gallery Item 2 -->
                 <div class="gallery-item">
-                    <div class="gallery-img-wrapper reveal-zoom"">
+                    <div class="gallery-img-wrapper reveal-zoom">
                         <img src="images/salt-beef.jpg" loading="lazy" alt="Slow-roasted hot salt beef stack" class="gallery-img">
                         <div class="gallery-overlay">
                             <i class="fa-solid fa-magnifying-glass"></i>
@@ -278,7 +277,7 @@
                 </div>
                 <!-- Gallery Item 3 -->
                 <div class="gallery-item">
-                    <div class="gallery-img-wrapper reveal-zoom"">
+                    <div class="gallery-img-wrapper reveal-zoom">
                         <img src="images/sandwich.jpg" loading="lazy" alt="Artisanal toasties and melts" class="gallery-img">
                         <div class="gallery-overlay">
                             <i class="fa-solid fa-magnifying-glass"></i>
@@ -287,7 +286,7 @@
                 </div>
                 <!-- Gallery Item 4 -->
                 <div class="gallery-item">
-                    <div class="gallery-img-wrapper reveal-zoom"">
+                    <div class="gallery-img-wrapper reveal-zoom">
                         <img src="images/teapots.jpg" loading="lazy" alt="Mismatched vintage teapots and chinaware" class="gallery-img">
                         <div class="gallery-overlay">
                             <i class="fa-solid fa-magnifying-glass"></i>
@@ -296,7 +295,7 @@
                 </div>
                 <!-- Gallery Item 5 -->
                 <div class="gallery-item">
-                    <div class="gallery-img-wrapper reveal-zoom"">
+                    <div class="gallery-img-wrapper reveal-zoom">
                         <img src="images/panini.jpg" loading="lazy" alt="Warm pressed melts and paninis" class="gallery-img">
                         <div class="gallery-overlay">
                             <i class="fa-solid fa-magnifying-glass"></i>
@@ -305,31 +304,32 @@
                 </div>
                 <!-- Gallery Item 6 -->
                 <div class="gallery-item">
-                    <div class="gallery-img-wrapper reveal-zoom"">
+                    <div class="gallery-img-wrapper reveal-zoom">
                         <img src="images/cakes.jpg" loading="lazy" alt="Porcelain cake display tier" class="gallery-img">
                         <div class="gallery-overlay">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </div>
                     </div>
                 </div>
-                <!-- Gallery Item 6 -->
+                <!-- Gallery Item 7 -->
                 <div class="gallery-item">
-                    <div class="gallery-img-wrapper reveal-zoom"">
+                    <div class="gallery-img-wrapper reveal-zoom">
                         <img src="images/breakfast.jpg" loading="lazy" alt="Breakfast" class="gallery-img">
                         <div class="gallery-overlay">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </div>
                     </div>
                 </div>
-                <!-- Gallery Item 6 -->
+                <!-- Gallery Item 8 -->
                 <div class="gallery-item">
-                    <div class="gallery-img-wrapper reveal-zoom"">
+                    <div class="gallery-img-wrapper reveal-zoom">
                         <img src="images/pot.jpg" loading="lazy" alt="Pot" class="gallery-img">
                         <div class="gallery-overlay">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </div>
                     </div>
                 </div>
+            </div>
         </div>
     </section>
 
@@ -344,15 +344,15 @@
                     <!-- JavaScript will dynamically insert "We are open now!" or "We are closed" here -->
                 </div>
                 <div class="hours-list">
-                    <div class="hours-row">
+                    <div class="hours-row" id="hours-mon-fri">
                         <span class="day">Monday - Friday</span>
                         <span class="time">8:30 AM - 4:30 PM</span>
                     </div>
-                    <div class="hours-row highlight">
+                    <div class="hours-row highlight" id="hours-sat">
                         <span class="day">Saturday</span>
                         <span class="time">8:30 AM - 3:30 PM</span>
                     </div>
-                    <div class="hours-row">
+                    <div class="hours-row" id="hours-sun">
                         <span class="day">Sunday</span>
                         <span class="time">Closed</span>
                     </div>
@@ -426,8 +426,7 @@
                         </div>
                         <div class="form-group">
                             <label for="subject">Subject</label>
-                            <!-- Turned subject into a dropdown select menu -->
-                            <select id="subject" name="subject" required style="padding: 14px; font-family: var(--font-body); font-size: 14px; border: 1px solid var(--border-color); background-color: var(--bg-white); outline: none; transition: var(--transition-fast);">
+                            <select id="subject" name="subject" required>
                                 <option value="General Inquiry">General Inquiry / Question</option>
                                 <option value="Afternoon Tea Booking">Book Afternoon Tea (Advance booking required)</option>
                                 <option value="Event Inquiry">Private Event Hire</option>
@@ -435,7 +434,7 @@
                         </div>
 
                         <!-- Hidden reservation fields that slide open only if they choose Afternoon Tea -->
-                        <div id="bookingFields" class="hidden" >
+                        <div id="bookingFields" class="booking-fields-grid hidden" >
                             <div class="form-group">
                                 <label for="bookDate">Date</label>
                                 <input type="date" id="bookDate" name="bookDate">
