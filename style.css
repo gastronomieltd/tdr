@@ -301,6 +301,39 @@ a {
     line-height: 1;
 }
 
+/* ==========================================================================
+   Header Social Icons
+   ========================================================================== */
+.header-socials {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-left: 0;  /* Pushes both the navigation links and socials neatly to the right */
+    margin-right: 0;
+    z-index: 1001;      /* Layers them safely on top of fixed components */
+}
+
+.header-socials a {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transition: var(--transition-fast);
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+.header-socials a:hover {
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+    background-color: rgba(255, 255, 255, 0.05);
+    transform: translateY(-2px);
+}
+
 /* Navigation Links */
 .nav-links {
     display: flex;
@@ -1200,6 +1233,10 @@ a {
         gap: 20px;
         text-align: center;
     }
+
+    .header-socials {
+        margin-right: 15px; /* Creates a clean gap between the socials and the hamburger button */
+    }
 }
 
 @media (max-width: 480px) {
@@ -1260,5 +1297,16 @@ a {
     .form-group input,
     .form-group textarea {
         font-size: 16px;
+    }
+
+    .header-socials {
+        gap: 10px;
+        margin-right: 5px;
+    }
+    
+    .header-socials a {
+        width: 30px;
+        height: 30px;
+        font-size: 12px;
     }
 }
