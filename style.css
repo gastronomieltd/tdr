@@ -308,9 +308,9 @@ a {
     display: flex;
     align-items: center;
     gap: 15px;
-    margin-left: 0;  /* Pushes both the navigation links and socials neatly to the right */
+    margin-left: 0;
     margin-right: 0;
-    z-index: 1001;      /* Layers them safely on top of fixed components */
+    z-index: 1001;
 }
 
 .header-socials a {
@@ -356,7 +356,6 @@ a {
 }
 
 .header-socials a.social-ig:hover {
-    /* Transitions into the authentic Instagram multi-color gradient on hover */
     background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
     color: #ffffff;
     border-color: transparent;
@@ -467,7 +466,7 @@ a {
 
 .hero-title {
     font-family: var(--font-heading);
-    font-size: 44px; /* Increased to reflect dominant headline proportion */
+    font-size: 44px;
     line-height: 1.25;
     margin-bottom: 24px;
     font-weight: 700;
@@ -619,7 +618,6 @@ a {
 
 .speciality-grid {
     display: grid;
-    /* Clamped grid sizing prevents horizontal overflow on narrow screens */
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr));
     gap: 40px;
 }
@@ -860,14 +858,14 @@ a {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(10, 45, 84, 0.85); /* Tuned for navy brand design instead of generic blue */
+    background-color: rgba(10, 45, 84, 0.85);
 }
 
 .hours-box {
     background-color: var(--primary-color);
     max-width: 650px;
     margin: 0 auto;
-    padding: 40px 20px;;
+    padding: 60px;
     color: var(--text-light);
     border: 1px solid rgba(255, 255, 255, 0.1);
     text-align: center;
@@ -1003,7 +1001,9 @@ a {
     border-color: var(--primary-color);
 }
 
-/* Form Styles */
+/* ==========================================================================
+   Form Styles
+   ========================================================================== */
 .contact-form-container {
     background-color: var(--bg-light);
     padding: 50px;
@@ -1040,25 +1040,13 @@ a {
     color: var(--primary-color);
 }
 
-/* Force inputs and textareas to always stretch to 100% of parent with uniform height */
+/* Force inputs and textareas to always stretch to 100% of parent on all viewports */
 .form-group input,
+.form-group textarea,
 .contact-form select {
     width: 100%;
-    min-width: 0; /* Prevents layout items from overflowing flex/grid bounds */
-    height: 50px; /* Forces identical vertical alignment across all browsers */
-    padding: 14px;
-    font-family: var(--font-body);
-    font-size: 14px;
-    border: 1px solid var(--border-color);
-    background-color: var(--bg-white);
-    outline: none;
-    transition: var(--transition-fast);
-}
-
-/* Keep textareas flexible to grow with rows */
-.form-group textarea {
-    width: 100%;
     min-width: 0;
+    height: 50px;
     padding: 14px;
     font-family: var(--font-body);
     font-size: 14px;
@@ -1074,24 +1062,30 @@ a {
     border-color: var(--accent-color);
 }
 
-/* Special adjustment for native pickers to prevent browser-native padding bloating & mobile WebKit stretching */
+/* Custom styling for native date & time pickers to prevent browser-native padding bloating */
 input[type="date"],
 input[type="time"] {
-    display: block;    /* FORCES iOS Safari to respect standard block-level widths */
+    display: block;    /* Overrides mobile WebKit native inline-flex user-agent layouts */
     width: 100% !important;
     min-width: 0;
     height: 50px;
-    padding: 0 14px;   /* Eliminates vertical padding, letting height control the size */
+    padding: 0 14px;   /* Removes vertical padding completely, letting height: 50px center placeholder */
     line-height: 50px;
     box-sizing: border-box;
 }
 
-/* Dynamic Booking Fields Grid Layout */
-/* Stacks date, time, and guest inputs vertically on all mobile/tablet viewports to prevent layout spills */
-    .booking-fields-grid {
-        grid-template-columns: minmax(0, 1fr); /* Locks the mobile column width from expanding */
-        gap: 16px;
-    }
+/* Dynamic Booking Fields Grid Layout - 2 columns for perfect horizontal clearance */
+.booking-fields-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2 columns to give date/time inputs ample room */
+    gap: 20px;
+    transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+
+/* Force the 3rd item (Guests input) to span cleanly across both columns */
+.booking-fields-grid .form-group:nth-child(3) {
+    grid-column: span 2;
+}
 
 .booking-fields-grid.hidden {
     display: none !important;
@@ -1255,7 +1249,7 @@ input[type="time"] {
         background-color: var(--primary-color);
         transition: var(--transition-normal);
         overflow-y: auto;
-        -webkit-overflow-scrolling: touch; /* Optimizes inertial touch scrolling on iOS */
+        -webkit-overflow-scrolling: touch;
     }
 
     .nav-menu.active {
@@ -1333,17 +1327,28 @@ input[type="time"] {
     }
     
     .contact-form-container {
-        padding: 35px 20px;
+        padding: 30px 20px;
+        min-height: auto;
     }
     
     .form-group-row {
         grid-template-columns: 1fr;
+        gap: 16px;
     }
 
-    /* ADD THIS RULE TO FORCE THE 3 COLUMNS TO STACK VERTICALLY ON MOBILE */
+    /* Stacks date, time, and guest inputs vertically on all mobile/tablet viewports to prevent layout spills */
     .booking-fields-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
         gap: 16px;
+    }
+
+    /* Reset the column span to 1 so the Guests input behaves normally on mobile */
+    .booking-fields-grid .form-group:nth-child(3) {
+        grid-column: span 1;
+    }
+
+    .hours-box {
+        padding: 40px 20px;
     }
 
     /* Footer Responsive */
@@ -1354,7 +1359,7 @@ input[type="time"] {
     }
 
     .header-socials {
-        margin-right: 15px; /* Creates a clean gap between the socials and the hamburger button */
+        margin-right: 15px;
     }
 }
 
@@ -1362,13 +1367,13 @@ input[type="time"] {
    Scroll Reveal Animations
    ========================================================================== */
 
-/* Fade and Slide Up effect (Great for grids, cards, and text blocks) */
+/* Fade and Slide Up effect */
 .reveal {
     opacity: 0;
     transform: translateY(40px);
     transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
                 transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-    will-change: opacity, transform; /* Optimizes hardware rendering */
+    will-change: opacity, transform;
 }
 
 .reveal.active {
@@ -1376,7 +1381,7 @@ input[type="time"] {
     transform: translateY(0);
 }
 
-/* Elegant Scale/Zoom effect (Perfect for beautiful standalone images) */
+/* Elegant Scale/Zoom effect */
 .reveal-zoom {
     opacity: 0;
     transform: scale(0.93);
@@ -1390,18 +1395,9 @@ input[type="time"] {
     transform: scale(1);
 }
 
-/* Small Viewport Fixes */
-@media (max-width: 580px) {
-    /* Stacks date, time, and guest inputs vertically on smaller smartphones */
-    .booking-fields-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
-    }
-}
-
 @media (max-width: 480px) {
     :root {
-        --header-height: 80px; /* Scales header down to leave room for content */
+        --header-height: 80px;
     }
 
     .section-title {
@@ -1412,7 +1408,6 @@ input[type="time"] {
         font-size: 28px;
     }
 
-    /* Scale down the logo padding and borders to prevent collision with mobile menu button */
     .brand-logo {
         padding: 6px 12px;
         outline-offset: -3px;
@@ -1433,7 +1428,6 @@ input[type="time"] {
         margin: 0 4px;
     }
 
-    /* Scales down the decorative hero brand box */
     .hero-brand-box {
         padding: 12px 20px;
         margin-bottom: 20px;
@@ -1453,7 +1447,14 @@ input[type="time"] {
         letter-spacing: 2px;
     }
 
-    /* Prevents automatic form input zoom styling on iOS viewports */
+    #openStatusBadge {
+        font-size: 12px !important;
+    }
+    
+    #openStatusBadge span {
+        padding: 4px 10px !important;
+    }
+
     .form-group input,
     .form-group textarea,
     .contact-form select {
@@ -1469,14 +1470,5 @@ input[type="time"] {
         width: 30px;
         height: 30px;
         font-size: 12px;
-    }
-
-    /* Add this inside your existing 480px block */
-    #openStatusBadge {
-        font-size: 12px !important; /* Slightly smaller text on tiny screens */
-    }
-    
-    #openStatusBadge span {
-        padding: 4px 10px !important; /* Slightly more compact padding */
     }
 }
