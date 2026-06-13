@@ -12,6 +12,49 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
+
+    <!-- Custom Tab Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' fill='%230a2d54'/%3E%3Crect x='24' y='24' width='464' height='464' fill='none' stroke='%23ffffff' stroke-width='8'/%3E%3Crect x='42' y='42' width='428' height='428' fill='none' stroke='%23c99b3b' stroke-width='4'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Cinzel, Georgia, serif' font-size='150' font-weight='700' fill='%23c99b3b' letter-spacing='6'%3ETDR%3C/text%3E%3C/svg%3E">
+
+    <!-- Local Business SEO Structured Data -->
+    <script type="application/ld+json">
+    {
+    "@context": "https://schema.org",
+    "@type": "Cafe",
+    "name": "The Drawing Room of Locksbottom",
+    "image": "https://thedrawingroomlocksbottom.com/images/hero.jpg",
+    "url": "https://thedrawingroomlocksbottom.com",
+    "telephone": "+441689852288",
+    "priceRange": "£",
+    "menu": "https://thedrawingroomlocksbottom.com#menu",
+    "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "405 Crofton Road, Locksbottom",
+        "addressLocality": "Orpington",
+        "postalCode": "BR6 8NL",
+        "addressCountry": "GB"
+    },
+    "openingHoursSpecification": [
+        {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "08:30",
+        "closes": "16:30"
+        },
+        {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Saturday",
+        "opens": "08:30",
+        "closes": "15:30"
+        }
+    ],
+    "sameAs": [
+        "https://www.facebook.com/thedrawingroomlocksbottom",
+        "https://www.instagram.com/thedrawingroomlocksbottom"
+    ]
+    }
+    </script>
+
 </head>
 <body>
 
@@ -37,7 +80,7 @@
             <nav class="nav-menu">
                 <ul class="nav-links">
                     <li><a href="#hero" class="nav-link active">Home</a></li>
-                    <li><a href="#about" class="nav-link">About Us</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
                     <li><a href="#specialities" class="nav-link">Specialities</a></li>
                     <li><a href="#menu" class="nav-link">Menu</a></li>
                     <li><a href="#gallery" class="nav-link">Gallery</a></li>
@@ -87,8 +130,8 @@
     <section id="about" class="about section-padding">
         <div class="container">
             <div class="about-grid">
-                <div class="about-image-wrapper">
-                    <img src="images/hero.jpg" alt="Atmospheric drawing room background image">
+                <div class="about-image-wrapper reveal-zoom" >
+                    <img src="images/hero.jpg" loading="lazy" alt="Atmospheric drawing room background image">
                     <div class="about-badge">
                         <span class="badge-num">Est.</span>
                         <span class="badge-text">Locksbottom</span>
@@ -132,8 +175,8 @@
             <div class="speciality-grid">
                 <!-- Specialty Card 1 -->
                 <div class="speciality-card">
-                    <div class="speciality-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1594631252845-29fc4cc8cde9?auto=format&fit=crop&w=600&q=80" alt="Traditional Afternoon Tea tier stand" class="speciality-img">
+                    <div class="speciality-img-wrapper reveal-zoom"">
+                        <img src="https://images.unsplash.com/photo-1594631252845-29fc4cc8cde9?auto=format&fit=crop&w=600&q=80" loading="lazy" alt="Traditional Afternoon Tea tier stand" class="speciality-img">
                     </div>
                     <div class="speciality-info">
                         <span class="speciality-tag">Elegant Tradition</span>
@@ -144,8 +187,8 @@
 
                 <!-- Specialty Card 2 -->
                 <div class="speciality-card">
-                    <div class="speciality-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1553909489-cd47e0907980?auto=format&fit=crop&w=600&q=80" alt="Signature salt beef sandwich" class="speciality-img">
+                    <div class="speciality-img-wrapper reveal-zoom"">
+                        <img src="https://images.unsplash.com/photo-1553909489-cd47e0907980?auto=format&fit=crop&w=600&q=80" loading="lazy" alt="Signature salt beef sandwich" class="speciality-img">
                     </div>
                     <div class="speciality-info">
                         <span class="speciality-tag">Savory Classic</span>
@@ -156,8 +199,8 @@
 
                 <!-- Specialty Card 3 -->
                 <div class="speciality-card">
-                    <div class="speciality-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&q=80" alt="Victoria sponge cake with berries" class="speciality-img">
+                    <div class="speciality-img-wrapper reveal-zoom"">
+                        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&q=80" loading="lazy" alt="Victoria sponge cake with berries" class="speciality-img">
                     </div>
                     <div class="speciality-info">
                         <span class="speciality-tag">Baked Fresh</span>
@@ -169,8 +212,13 @@
         </div>
     </section>
 
-  <!-- Menu Section -->
+
+    <!-- Menu Section -->
     <section id="menu" class="menu section-padding">
+        <!-- Smart Weather recommendation Banner (Brand Styled) -->
+        <div id="weatherRecommender" class="hidden" style="max-width: 650px; margin: 0 auto 40px auto; text-align: center; background-color: var(--primary-color); border: 3px solid var(--text-light); outline: 1px solid var(--text-light); outline-offset: -5px; padding: 25px 30px; box-shadow: 0 10px 30px rgba(10, 45, 84, 0.15);">
+            <p id="weatherText" style="font-family: var(--font-accent); font-style: italic; font-size: 18px; color: var(--text-light); margin: 0; line-height: 1.6;"></p>
+        </div>
         <div class="container">
             <div class="section-header">
                 <span class="section-tagline">Our Menu</span>
@@ -212,8 +260,8 @@
             <div class="gallery-grid">
                 <!-- Gallery Item 1 -->
                 <div class="gallery-item">
-                    <div class="gallery-img-wrapper">
-                        <img src="images/afternoon-tea.jpg" alt="Afternoon tea tier stand" class="gallery-img">
+                    <div class="gallery-img-wrapper reveal-zoom"">
+                        <img src="images/afternoon-tea.jpg" loading="lazy" alt="Afternoon tea tier stand" class="gallery-img">
                         <div class="gallery-overlay">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </div>
@@ -221,8 +269,8 @@
                 </div>
                 <!-- Gallery Item 2 -->
                 <div class="gallery-item">
-                    <div class="gallery-img-wrapper">
-                        <img src="images/salt-beef.jpg" alt="Slow-roasted hot salt beef stack" class="gallery-img">
+                    <div class="gallery-img-wrapper reveal-zoom"">
+                        <img src="images/salt-beef.jpg" loading="lazy" alt="Slow-roasted hot salt beef stack" class="gallery-img">
                         <div class="gallery-overlay">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </div>
@@ -230,8 +278,8 @@
                 </div>
                 <!-- Gallery Item 3 -->
                 <div class="gallery-item">
-                    <div class="gallery-img-wrapper">
-                        <img src="images/sandwich.jpg" alt="Artisanal toasties and melts" class="gallery-img">
+                    <div class="gallery-img-wrapper reveal-zoom"">
+                        <img src="images/sandwich.jpg" loading="lazy" alt="Artisanal toasties and melts" class="gallery-img">
                         <div class="gallery-overlay">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </div>
@@ -239,8 +287,8 @@
                 </div>
                 <!-- Gallery Item 4 -->
                 <div class="gallery-item">
-                    <div class="gallery-img-wrapper">
-                        <img src="images/teapots.jpg" alt="Mismatched vintage teapots and chinaware" class="gallery-img">
+                    <div class="gallery-img-wrapper reveal-zoom"">
+                        <img src="images/teapots.jpg" loading="lazy" alt="Mismatched vintage teapots and chinaware" class="gallery-img">
                         <div class="gallery-overlay">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </div>
@@ -248,8 +296,8 @@
                 </div>
                 <!-- Gallery Item 5 -->
                 <div class="gallery-item">
-                    <div class="gallery-img-wrapper">
-                        <img src="images/panini.jpg" alt="Warm pressed melts and paninis" class="gallery-img">
+                    <div class="gallery-img-wrapper reveal-zoom"">
+                        <img src="images/panini.jpg" loading="lazy" alt="Warm pressed melts and paninis" class="gallery-img">
                         <div class="gallery-overlay">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </div>
@@ -257,14 +305,31 @@
                 </div>
                 <!-- Gallery Item 6 -->
                 <div class="gallery-item">
-                    <div class="gallery-img-wrapper">
-                        <img src="images/cakes.jpg" alt="Porcelain cake display tier" class="gallery-img">
+                    <div class="gallery-img-wrapper reveal-zoom"">
+                        <img src="images/cakes.jpg" loading="lazy" alt="Porcelain cake display tier" class="gallery-img">
                         <div class="gallery-overlay">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </div>
                     </div>
                 </div>
-            </div>
+                <!-- Gallery Item 6 -->
+                <div class="gallery-item">
+                    <div class="gallery-img-wrapper reveal-zoom"">
+                        <img src="images/breakfast.jpg" loading="lazy" alt="Breakfast" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- Gallery Item 6 -->
+                <div class="gallery-item">
+                    <div class="gallery-img-wrapper reveal-zoom"">
+                        <img src="images/pot.jpg" loading="lazy" alt="Pot" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </div>
+                    </div>
+                </div>
         </div>
     </section>
 
@@ -275,6 +340,9 @@
             <div class="hours-box">
                 <span class="section-tagline">Join Us Today</span>
                 <h2 class="section-title">Opening Hours</h2>
+                <div id="openStatusBadge" style="margin-bottom: 25px; font-weight: 600; font-size: 14px;">
+                    <!-- JavaScript will dynamically insert "We are open now!" or "We are closed" here -->
+                </div>
                 <div class="hours-list">
                     <div class="hours-row">
                         <span class="day">Monday - Friday</span>
@@ -312,27 +380,29 @@
                     <p class="contact-intro">Located beautifully on Crofton Road, we are a perfect local getaway for Orpington residents and visitors alike.</p>
                     
                     <div class="info-list">
-                        <div class="info-item">
-                            <i class="fa-solid fa-location-dot"></i>
-                            <div>
-                                <h4>Find Us</h4>
-                                <p>405 Crofton Road, Locksbottom, Orpington, BR6 8NL</p>
+                        <!-- Click to open Google Maps directly -->
+                        <a href="https://www.google.com/maps/search/?api=1&query=The+Drawing+Room+Locksbottom+BR6+8NL" target="_blank" class="info-item-link" style="display: block;">
+                            <div class="info-item">
+                                <i class="fa-solid fa-location-dot"></i>
+                                <div>
+                                    <h4>Find Us</h4>
+                                    <p>405 Crofton Road, Locksbottom, Orpington, BR6 8NL</p>
+                                    <small style="color: var(--accent-color); font-size: 11px;">Tap to open in Google Maps</small>
+                                </div>
                             </div>
-                        </div>
-                        <div class="info-item">
-                            <i class="fa-solid fa-phone"></i>
-                            <div>
-                                <h4>Call Us</h4>
-                                <p>+44 1689 852288</p>
+                        </a>
+
+                        <!-- Click-to-call for Mobile phones -->
+                        <a href="tel:+441689852288" class="info-item-link" style="display: block;">
+                            <div class="info-item">
+                                <i class="fa-solid fa-phone"></i>
+                                <div>
+                                    <h4>Call Us</h4>
+                                    <p>01689 852288</p>
+                                    <small style="color: var(--accent-color); font-size: 11px;">Tap to call directly</small>
+                                </div>
                             </div>
-                        </div>
-                        <div class="info-item">
-                            <i class="fa-solid fa-envelope"></i>
-                            <div>
-                                <h4>Email Us</h4>
-                                <p>hello@thedrawingroomlocksbottom.com</p>
-                            </div>
-                        </div>
+                        </a>
                     </div>
 
                     <div class="header-socials">
@@ -356,7 +426,28 @@
                         </div>
                         <div class="form-group">
                             <label for="subject">Subject</label>
-                            <input type="text" id="subject" name="subject" placeholder="Reservations, general inquiry..." required>
+                            <!-- Turned subject into a dropdown select menu -->
+                            <select id="subject" name="subject" required style="padding: 14px; font-family: var(--font-body); font-size: 14px; border: 1px solid var(--border-color); background-color: var(--bg-white); outline: none; transition: var(--transition-fast);">
+                                <option value="General Inquiry">General Inquiry / Question</option>
+                                <option value="Afternoon Tea Booking">Book Afternoon Tea (Advance booking required)</option>
+                                <option value="Event Inquiry">Private Event Hire</option>
+                            </select>
+                        </div>
+
+                        <!-- Hidden reservation fields that slide open only if they choose Afternoon Tea -->
+                        <div id="bookingFields" class="hidden" style="transition: all 0.3s ease; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-top: 5px;">
+                            <div class="form-group">
+                                <label for="bookDate">Date</label>
+                                <input type="date" id="bookDate" name="bookDate">
+                            </div>
+                            <div class="form-group">
+                                <label for="bookTime">Time</label>
+                                <input type="time" id="bookTime" name="bookTime">
+                            </div>
+                            <div class="form-group">
+                                <label for="guests">Guests</label>
+                                <input type="number" id="guests" name="guests" min="1" max="20" placeholder="2">
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="message">Your Message</label>
@@ -383,6 +474,11 @@
             <p class="footer-copy">&copy; 2026 The Drawing Room of Locksbottom. All rights reserved.</p>
         </div>
     </footer>
+
+    <!-- Floating Back to Top Button -->
+    <button id="backToTop" class="back-to-top" aria-label="Scroll back to top">
+        <i class="fa-solid fa-chevron-up"></i>
+    </button>
 
     <!-- Custom JS -->
     <script src="script.js"></script>
