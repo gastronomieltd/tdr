@@ -1333,21 +1333,20 @@ input[type="time"] {
     }
     
     .contact-form-container {
-        padding: 30px 20px; /* Compress horizontal padding slightly on small screens */
-        min-height: auto;   /* Unlocks rigid height constraints so form expands dynamically */
+        padding: 35px 20px;
     }
     
     .form-group-row {
         grid-template-columns: 1fr;
-        gap: 16px;
     }
 
-    /* Stacks date, time, and guest inputs vertically on all mobile/tablet viewports to prevent layout spills */
+    /* ADD THIS RULE TO FORCE THE 3 COLUMNS TO STACK VERTICALLY ON MOBILE */
     .booking-fields-grid {
         grid-template-columns: 1fr;
         gap: 16px;
     }
 
+    /* Footer Responsive */
     .footer-content {
         flex-direction: column;
         gap: 20px;
