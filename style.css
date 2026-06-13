@@ -350,6 +350,7 @@ a {
     z-index: 1001;
     position: relative;
     padding: 10px;
+    flex-shrink: 0;
 }
 
 .bar {
