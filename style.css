@@ -867,7 +867,7 @@ a {
     background-color: var(--primary-color);
     max-width: 650px;
     margin: 0 auto;
-    padding: 60px;
+    padding: 40px 20px;;
     color: var(--text-light);
     border: 1px solid rgba(255, 255, 255, 0.1);
     text-align: center;
@@ -1471,5 +1471,14 @@ input[type="time"] {
         width: 30px;
         height: 30px;
         font-size: 12px;
+    }
+
+    /* Add this inside your existing 480px block */
+    #openStatusBadge {
+        font-size: 12px !important; /* Slightly smaller text on tiny screens */
+    }
+    
+    #openStatusBadge span {
+        padding: 4px 10px !important; /* Slightly more compact padding */
     }
 }

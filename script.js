@@ -254,9 +254,9 @@ const initializeApp = () => {
         // Sunday: Closed
 
         if (isOpen) {
-            badge.innerHTML = '<span style="color: #2ec4b6; border: 1px solid #2ec4b6; padding: 6px 12px; border-radius: 20px;">● WE ARE OPEN NOW</span>';
+            badge.innerHTML = '<span style="color: #2ec4b6; border: 1px solid #2ec4b6; padding: 6px 12px; border-radius: 20px; display: inline-block; white-space: nowrap;">● WE ARE OPEN NOW</span>';
         } else {
-            badge.innerHTML = '<span style="color: #e76f51; border: 1px solid #e76f51; padding: 6px 12px; border-radius: 20px;">● WE ARE CURRENTLY CLOSED</span>';
+            badge.innerHTML = '<span style="color: #e76f51; border: 1px solid #e76f51; padding: 6px 12px; border-radius: 20px; display: inline-block; white-space: nowrap;">● WE ARE CURRENTLY CLOSED</span>';
         }
     };
     checkOpenStatus();
