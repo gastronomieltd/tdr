@@ -1040,10 +1040,11 @@ a {
     color: var(--primary-color);
 }
 
-/* Force inputs and textareas to always stretch to 100% of parent on all viewports with uniform height */
+/* Force inputs and textareas to always stretch to 100% of parent with uniform height */
 .form-group input,
 .contact-form select {
     width: 100%;
+    min-width: 0; /* Prevents layout items from overflowing flex/grid bounds */
     height: 50px; /* Forces identical vertical alignment across all browsers */
     padding: 14px;
     font-family: var(--font-body);
@@ -1057,6 +1058,7 @@ a {
 /* Keep textareas flexible to grow with rows */
 .form-group textarea {
     width: 100%;
+    min-width: 0;
     padding: 14px;
     font-family: var(--font-body);
     font-size: 14px;
@@ -1072,17 +1074,22 @@ a {
     border-color: var(--accent-color);
 }
 
-/* Special adjustment for native pickers to prevent browser-native icon padding bloating */
+/* Special adjustment for native pickers to prevent browser-native padding bloating */
 input[type="date"],
 input[type="time"] {
-    padding: 10px 14px; /* Lower vertical padding to compensate for hidden native icons */
-    line-height: 1.4;
+    width: 100%;
+    min-width: 0;
+    height: 50px;
+    padding: 0 14px; /* Eliminates vertical padding completely, letting height: 50px control the size */
+    line-height: 50px;
+    box-sizing: border-box;
 }
 
 /* Dynamic Booking Fields Grid Layout */
 .booking-fields-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    /* minmax(0, 1fr) forces the columns to fit the container instead of expanding to fit native input widths */
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 20px;
     transition: opacity var(--transition-fast), transform var(--transition-fast);
 }
