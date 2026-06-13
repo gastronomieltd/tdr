@@ -348,6 +348,8 @@ a {
     flex-direction: column;
     gap: 6px;
     z-index: 1001;
+    position: relative;
+    padding: 10px;
 }
 
 .bar {

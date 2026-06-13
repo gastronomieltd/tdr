@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Global variable to store sheet items
     let MENU_DATA = [];
-    let activeCategoryTab = 'lunch'; // Start on Lunch category
+    let activeCategoryTab = 'day-special'; // Start on Lunch category
 
 
     // ==========================================================================
@@ -294,25 +294,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // ==========================================================================
-    // 4. Contact Form Live Google Sheets Integration & Submission Feedback
+    // 4. Contact Form Submission (With Duplicate Protection Lock)
     // ==========================================================================
     const contactForm = document.getElementById('contactForm');
     const formSuccessMsg = document.getElementById('formSuccess');
-
-    // PASTE YOUR DEPLOYED GOOGLE WEB APP URL HERE:
-    const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbz9N2Y6oZZzBigEKrVjFsZLphHCRSkL2LNh0iG0xrUQMeH7u_eEL_E9si_q4GMCEh4y/exec';
+    
+    // Add a state variable to lock duplicate submissions
+    let isFormSubmitting = false;
 
     if (contactForm && formSuccessMsg) {
         contactForm.addEventListener('submit', (event) => {
             event.preventDefault(); // Stop standard browser form redirects
 
-            // Retrieve the submit button and show standard sending indicators
+            // IF A SUBMISSION IS ALREADY UNDERWAY, BLOCK ALL DUPLICATE ATTEMPTS
+            if (isFormSubmitting) {
+                return; 
+            }
+
+            // Lock the form
+            isFormSubmitting = true;
+
             const submitBtn = contactForm.querySelector('.btn-submit');
             const originalBtnText = submitBtn.textContent;
             submitBtn.textContent = 'Sending...';
             submitBtn.disabled = true;
 
-            // Form data structured to exactly match Google Apps Script parameters
             const formData = {
                 name: document.getElementById('name').value,
                 email: document.getElementById('email').value,
@@ -320,28 +326,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 message: document.getElementById('message').value
             };
 
-            // Post values to your Google Sheet receiver
             fetch(GOOGLE_SHEET_URL, {
                 method: 'POST',
-                mode: 'no-cors', // Solves standard CORS lock warnings on browser-side calls
+                mode: 'no-cors',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(formData)
             })
             .then(() => {
-                // Successfully received: display confirmation, clear input states
                 contactForm.classList.add('hidden');
                 formSuccessMsg.classList.remove('hidden');
                 contactForm.reset();
+                // Release the lock
+                isFormSubmitting = false;
             })
             .catch(error => {
-                console.error('Submission error details:', error);
+                console.error('Submission error:', error);
                 alert('We encountered a problem sending your message. Please try again.');
-                
-                // Re-enable interactive elements on network failure
                 submitBtn.textContent = originalBtnText;
                 submitBtn.disabled = false;
+                // Release the lock so they can try again
+                isFormSubmitting = false;
             });
         });
     }
