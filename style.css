@@ -304,6 +304,7 @@ a {
 /* ==========================================================================
    Header Social Icons
    ========================================================================== */
+
 .header-socials {
     display: flex;
     align-items: center;
@@ -332,6 +333,33 @@ a {
     border-color: var(--accent-color);
     background-color: rgba(255, 255, 255, 0.05);
     transform: translateY(-2px);
+}
+
+/* Facebook Hover - Classic Brand Blue */
+.header-socials a.social-fb {
+    color: #1877f2;
+    border-color: rgba(24, 119, 242, 0.3);
+}
+
+.header-socials a.social-fb:hover {
+    background-color: #1877f2;
+    color: #ffffff;
+    border-color: #1877f2;
+    transform: translateY(-5px);
+}
+
+/* Instagram Default & Hover States */
+.header-socials a.social-ig {
+    color: #e1306c;
+    border-color: rgba(225, 48, 108, 0.3);
+}
+
+.header-socials a.social-ig:hover {
+    /* Transitions into the authentic Instagram multi-color gradient on hover */
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    color: #ffffff;
+    border-color: transparent;
+    transform: translateY(-5px);
 }
 
 /* Navigation Links */
