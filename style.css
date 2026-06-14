@@ -1338,6 +1338,7 @@ input[type="time"] {
 
     /* Stacks date, time, and guest inputs vertically on all mobile/tablet viewports to prevent layout spills */
     .booking-fields-grid {
+        /* grid-template-columns: minmax(0, 1fr); */
         grid-template-columns: 1fr;
         gap: 16px;
     }
