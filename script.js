@@ -17,12 +17,13 @@ const initializeApp = () => {
     const searchInput = document.getElementById('menuSearch');
     const tabButtons = document.querySelectorAll('.menu-tab');
 
-const renderMenu = (category, searchKeyword = '') => {
+    const renderMenu = (category, searchKeyword = '') => {
         if (!menuGrid) return;
         menuGrid.innerHTML = ''; 
 
         const query = searchKeyword.toLowerCase().trim();
 
+        // 1. Filter items matching the active category tab and search query
         const filteredItems = MENU_DATA.filter(item => {
             const matchesCategory = item.category === category;
             const matchesSearch = 
@@ -30,7 +31,7 @@ const renderMenu = (category, searchKeyword = '') => {
                 item.description.toLowerCase().includes(query) ||
                 item.subcategory.toLowerCase().includes(query) ||
                 (item.tags && item.tags.toLowerCase().includes(query)) ||
-                (item.extras && item.extras.toLowerCase().includes(query)); // Search bar can also find matching extras!
+                (item.extras && item.extras.toLowerCase().includes(query));
             return matchesCategory && matchesSearch;
         });
 
@@ -39,38 +40,66 @@ const renderMenu = (category, searchKeyword = '') => {
             return;
         }
 
+        // 2. Group the filtered items by their subcategory field
+        const groupedItems = {};
         filteredItems.forEach(item => {
-            // 1. Process Tags
-            const tagsArray = item.tags ? item.tags.toString().split(',').map(t => t.trim()).filter(t => t !== '') : [];
-            const tagsHTML = tagsArray.map(tag => `<span style="background-color: var(--accent-color); color: #fff; font-size: 10px; padding: 2px 6px; margin-left: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">${tag}</span>`).join('');
-            
-            // 2. Process Extras (Splits by comma and joins elegantly with a bullet dot)
-            let extrasHTML = '';
-            if (item.extras) {
-                const extrasArray = item.extras.toString().split(',').map(x => x.trim()).filter(x => x !== '');
-                if (extrasArray.length > 0) {
-                    extrasHTML = `
-                        <div class="menu-item-extras" style="margin-top: 10px; font-size: 12px; color: var(--accent-color); font-weight: 500; font-family: var(--font-body);">
-                            <span style="font-weight: 600; text-transform: uppercase; font-size: 10px; letter-spacing: 1px; color: var(--text-dark); margin-right: 6px;">Add-ons:</span>
-                            ${extrasArray.join(' &bull; ')}
-                        </div>
-                    `;
-                }
+            // Fallback header name if the Subcategory cell is left empty in Google Sheets
+            const subName = item.subcategory ? item.subcategory.trim() : 'House Selection';
+            if (!groupedItems[subName]) {
+                groupedItems[subName] = [];
             }
+            groupedItems[subName].push(item);
+        });
 
-            // 3. Assemble and Inject Item Card
-            const itemHTML = `
-                <div class="menu-item">
-                    <div class="menu-item-header">
-                        <h3 class="menu-item-name">${item.name} ${tagsHTML}</h3>
-                        <span class="menu-item-price">${item.price}</span>
-                    </div>
-                    <p class="menu-item-desc">${item.description}</p>
-                    ${extrasHTML}
+        // 3. Loop through each subcategory group and render
+        let isFirstSection = true;
+        for (const subcategoryName in groupedItems) {
+            
+            // Generate a full-width subheader spanning both columns
+            const subheaderHTML = `
+                <div class="menu-subcategory-header" style="grid-column: 1 / -1; margin-top: ${isFirstSection ? '0' : '10px'}; margin-bottom: 10px;">
+                    <h3 style="font-family: var(--font-heading); color: var(--accent-color); font-size: 20px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
+                        ${subcategoryName}
+                    </h3>
                 </div>
             `;
-            menuGrid.insertAdjacentHTML('beforeend', itemHTML);
-        });
+            menuGrid.insertAdjacentHTML('beforeend', subheaderHTML);
+            isFirstSection = false;
+
+            // Render each item belonging to this subcategory
+            groupedItems[subcategoryName].forEach(item => {
+                // Process Tags
+                const tagsArray = item.tags ? item.tags.toString().split(',').map(t => t.trim()).filter(t => t !== '') : [];
+                const tagsHTML = tagsArray.map(tag => `<span style="background-color: var(--accent-color); color: #fff; font-size: 10px; padding: 2px 6px; margin-left: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">${tag}</span>`).join('');
+                
+                // Process Extras
+                let extrasHTML = '';
+                if (item.extras) {
+                    const extrasArray = item.extras.toString().split(',').map(x => x.trim()).filter(x => x !== '');
+                    if (extrasArray.length > 0) {
+                        extrasHTML = `
+                            <div class="menu-item-extras" style="margin-top: 10px; font-size: 12px; color: var(--accent-color); font-weight: 500; font-family: var(--font-body);">
+                                <span style="font-weight: 600; text-transform: uppercase; font-size: 10px; letter-spacing: 1px; color: var(--text-dark); margin-right: 6px;">Add-ons:</span>
+                                ${extrasArray.join(' &bull; ')}
+                            </div>
+                        `;
+                    }
+                }
+
+                // Generate individual card HTML
+                const itemHTML = `
+                    <div class="menu-item">
+                        <div class="menu-item-header">
+                            <h3 class="menu-item-name">${item.name} ${tagsHTML}</h3>
+                            <span class="menu-item-price">${item.price}</span>
+                        </div>
+                        <p class="menu-item-desc">${item.description}</p>
+                        ${extrasHTML}
+                    </div>
+                `;
+                menuGrid.insertAdjacentHTML('beforeend', itemHTML);
+            });
+        }
     };
 
     const loadMenuFromSheet = () => {
