@@ -1472,4 +1472,15 @@ input[type="time"] {
         height: 30px;
         font-size: 12px;
     }
+
+    input[type="date"],
+    input[type="time"] {
+        display: block;    /* Overrides mobile WebKit native inline-flex user-agent layouts */
+        width: 100% !important;
+        min-width: 0;
+        height: 50px;
+        padding: 0;   /* Removes vertical padding completely, letting height: 50px center placeholder */
+        line-height: 50px;
+        box-sizing: border-box;
+    }    
 }
