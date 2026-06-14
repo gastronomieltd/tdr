@@ -287,13 +287,13 @@ const initializeApp = () => {
     if (subjectSelect && bookingFields) {
         subjectSelect.addEventListener('change', (e) => {
             if (e.target.value === 'Afternoon Tea Booking') {
-                //bookingFields.classList.remove('hidden');
+                bookingFields.classList.remove('hidden');
                 // Make the sub-fields required
                 document.getElementById('bookDate').required = true;
                 document.getElementById('bookTime').required = true;
                 document.getElementById('guests').required = true;
             } else {
-                //bookingFields.classList.add('hidden');
+                bookingFields.classList.add('hidden');
                 // Remove required status
                 document.getElementById('bookDate').required = false;
                 document.getElementById('bookTime').required = false;
