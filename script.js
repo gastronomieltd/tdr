@@ -17,7 +17,7 @@ const initializeApp = () => {
     const searchInput = document.getElementById('menuSearch');
     const tabButtons = document.querySelectorAll('.menu-tab');
 
-    const renderMenu = (category, searchKeyword = '') => {
+const renderMenu = (category, searchKeyword = '') => {
         if (!menuGrid) return;
         menuGrid.innerHTML = ''; 
 
@@ -29,7 +29,8 @@ const initializeApp = () => {
                 item.name.toLowerCase().includes(query) || 
                 item.description.toLowerCase().includes(query) ||
                 item.subcategory.toLowerCase().includes(query) ||
-                (item.tags && item.tags.toLowerCase().includes(query));
+                (item.tags && item.tags.toLowerCase().includes(query)) ||
+                (item.extras && item.extras.toLowerCase().includes(query)); // Search bar can also find matching extras!
             return matchesCategory && matchesSearch;
         });
 
@@ -39,9 +40,25 @@ const initializeApp = () => {
         }
 
         filteredItems.forEach(item => {
+            // 1. Process Tags
             const tagsArray = item.tags ? item.tags.toString().split(',').map(t => t.trim()).filter(t => t !== '') : [];
             const tagsHTML = tagsArray.map(tag => `<span style="background-color: var(--accent-color); color: #fff; font-size: 10px; padding: 2px 6px; margin-left: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">${tag}</span>`).join('');
             
+            // 2. Process Extras (Splits by comma and joins elegantly with a bullet dot)
+            let extrasHTML = '';
+            if (item.extras) {
+                const extrasArray = item.extras.toString().split(',').map(x => x.trim()).filter(x => x !== '');
+                if (extrasArray.length > 0) {
+                    extrasHTML = `
+                        <div class="menu-item-extras" style="margin-top: 10px; font-size: 12px; color: var(--accent-color); font-weight: 500; font-family: var(--font-body);">
+                            <span style="font-weight: 600; text-transform: uppercase; font-size: 10px; letter-spacing: 1px; color: var(--text-dark); margin-right: 6px;">Add-ons:</span>
+                            ${extrasArray.join(' &bull; ')}
+                        </div>
+                    `;
+                }
+            }
+
+            // 3. Assemble and Inject Item Card
             const itemHTML = `
                 <div class="menu-item">
                     <div class="menu-item-header">
@@ -49,6 +66,7 @@ const initializeApp = () => {
                         <span class="menu-item-price">${item.price}</span>
                     </div>
                     <p class="menu-item-desc">${item.description}</p>
+                    ${extrasHTML}
                 </div>
             `;
             menuGrid.insertAdjacentHTML('beforeend', itemHTML);
