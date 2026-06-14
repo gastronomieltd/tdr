@@ -1482,5 +1482,67 @@ input[type="time"] {
         padding: 0;   /* Removes vertical padding completely, letting height: 50px center placeholder */
         line-height: 50px;
         box-sizing: border-box;
-    }    
+    }  
+}
+
+/* ==========================================================================
+   Drawing Room by Night - Theme Overrides
+   ========================================================================== */
+body.night-mode {
+    /* Transitions day shades into cozy midnight blue, gold & warm ivory */
+    --primary-color: #051329;    /* Deeper midnight navy */
+    --bg-light: #080d1a;         /* Dark velvet night background */
+    --bg-white: #0c1424;         /* Soft slate container background */
+    --text-dark: #f5f5f7;        /* Soft readability white text */
+    --text-muted: #a0aec0;       /* Muted silver grey */
+    --border-color: #1e2d42;     /* Subtle midnight dark borders */
+}
+
+/* Specific background updates for the evening page */
+body.night-mode .hero {
+    /* Dimly lit luxurious sofa / bar lounge image */
+    background-image: url('https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=500&q=80');
+}
+
+body.night-mode .hours {
+    /* Warm ambient bar image for the hours section background */
+    background-image: url('https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&w=1600&q=80');
+}
+
+/* Fixes default focus styling for dark inputs */
+body.night-mode .form-group input,
+body.night-mode .form-group textarea,
+body.night-mode .contact-form select {
+    background-color: #080d1a;
+    color: var(--text-light);
+    border-color: #1e2d42;
+}
+
+body.night-mode .form-group input:focus,
+body.night-mode .form-group textarea:focus,
+body.night-mode .contact-form select:focus {
+    border-color: var(--accent-color);
+}
+
+/* Adjust secondary button color boundaries on dark backdrop */
+body.night-mode .btn-blue {
+    background-color: var(--accent-color);
+    color: var(--text-light);
+    border-color: var(--accent-color);
+}
+
+body.night-mode .btn-blue:hover {
+    background-color: transparent;
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+body.night-mode .menu-tab:hover {
+    color: var(--text-light);
+    border-bottom-color: var(--accent-color);
+}
+
+body.night-mode .menu-tab.active {
+    color: var(--accent-color);
+    border-bottom-color: var(--accent-color);
 }

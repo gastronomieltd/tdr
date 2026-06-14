@@ -227,40 +227,6 @@ const initializeApp = () => {
         });
     }
 
-    const checkOpenStatus = () => {
-        const badge = document.getElementById('openStatusBadge');
-        if (!badge) return;
-
-        const now = new Date();
-        const day = now.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
-        const hour = now.getHours();
-        const minutes = now.getMinutes();
-        const timeInMinutes = (hour * 60) + minutes; // Convert current time to total minutes
-
-        let isOpen = false;
-
-        // Mon - Fri: 8:30 AM (510 mins) to 4:30 PM (990 mins)
-        if (day >= 1 && day <= 5) {
-            if (timeInMinutes >= 510 && timeInMinutes < 990) {
-                isOpen = true;
-            }
-        } 
-        // Saturday: 8:30 AM (510 mins) to 3:30 PM (930 mins)
-        else if (day === 6) {
-            if (timeInMinutes >= 510 && timeInMinutes < 930) {
-                isOpen = true;
-            }
-        }
-        // Sunday: Closed
-
-        if (isOpen) {
-            badge.innerHTML = '<span style="color: #2ec4b6; border: 1px solid #2ec4b6; padding: 6px 12px; border-radius: 20px; display: inline-block; white-space: nowrap;">● WE ARE OPEN NOW</span>';
-        } else {
-            badge.innerHTML = '<span style="color: #e76f51; border: 1px solid #e76f51; padding: 6px 12px; border-radius: 20px; display: inline-block; white-space: nowrap;">● WE ARE CURRENTLY CLOSED</span>';
-        }
-    };
-    checkOpenStatus();
-
     const updateHeroGreeting = () => {
         const subtitle = document.querySelector('.hero-subtitle');
         if (!subtitle) return;
@@ -322,39 +288,96 @@ const initializeApp = () => {
         });
     }
 
+// ==========================================================================
+    // Dynamic "Open Now" Check (Supports both Day & Night schedules)
     // ==========================================================================
-    // Weather-Responsive Dynamic Recommendation System
+    const checkOpenStatus = () => {
+        const badge = document.getElementById('openStatusBadge');
+        if (!badge) return;
+
+        const now = new Date();
+        const day = now.getDay(); // 0 = Sun, 1 = Mon, ..., 6 = Sat
+        const hour = now.getHours();
+        const minutes = now.getMinutes();
+        const timeInMinutes = (hour * 60) + minutes;
+
+        let isOpen = false;
+
+        const isNightPage = document.body.classList.contains('night-mode');
+
+        if (isNightPage) {
+            // NIGHT Sched: Thursday, Friday, Saturday from 6:00 PM (1080 mins) to 11:30 PM (1410 mins)
+            if (day === 4 || day === 5 || day === 6) {
+                if (timeInMinutes >= 1080 && timeInMinutes < 1410) {
+                    isOpen = true;
+                }
+            }
+        } else {
+            // DAY Sched: Monday - Friday 8:30 AM (510 mins) to 4:30 PM (990 mins)
+            if (day >= 1 && day <= 5) {
+                if (timeInMinutes >= 510 && timeInMinutes < 990) {
+                    isOpen = true;
+                }
+            } 
+            // DAY Sched: Saturday 8:30 AM (510 mins) to 3:30 PM (930 mins)
+            else if (day === 6) {
+                if (timeInMinutes >= 510 && timeInMinutes < 930) {
+                    isOpen = true;
+                }
+            }
+        }
+
+        if (isOpen) {
+            badge.innerHTML = '<span style="color: #2ec4b6; border: 1px solid #2ec4b6; padding: 6px 12px; border-radius: 20px; display: inline-block; white-space: nowrap;">● WE ARE OPEN NOW</span>';
+        } else {
+            badge.innerHTML = '<span style="color: #e76f51; border: 1px solid #e76f51; padding: 6px 12px; border-radius: 20px; display: inline-block; white-space: nowrap;">● WE ARE CURRENTLY CLOSED</span>';
+        }
+    };
+    checkOpenStatus();
+
+    // ==========================================================================
+    // Weather Recommendations (Day vs Night Context)
     // ==========================================================================
     const checkWeatherInLocksbottom = () => {
         const recommenderBox = document.getElementById('weatherRecommender');
         const weatherText = document.getElementById('weatherText');
         if (!recommenderBox || !weatherText) return;
 
-        // Locksbottom, Orpington coordinates
         const lat = '51.3653';
         const lon = '0.0631';
         const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`;
 
+        const isNightPage = document.body.classList.contains('night-mode');
+
         fetch(weatherUrl)
             .then(response => response.json())
             .then(data => {
-                const temp = Math.round(data.current_weather.temperature); // Temp in Celsius (rounded)
-                const code = data.current_weather.weathercode;             // Weather condition code
-                
-                // Weather codes representing rain/snow/showers
+                const temp = Math.round(data.current_weather.temperature);
+                const code = data.current_weather.weathercode;
                 const isRaining = [51, 53, 55, 61, 63, 65, 80, 81, 82].includes(code);
 
                 let suggestion = "";
 
-                if (isRaining) {
-                    suggestion = "It is a damp, rainy day out in Locksbottom—step inside for a comforting Hot Chocolate or a steaming pot of our House Blend Tea.";
-                } else if (temp >= 20) {
-                    suggestion = `It is a beautiful ${temp}°C day! Stop by for a refreshing Artisan Flat White served iced, paired with a cool slice of cake.`;
-                } else if (temp < 10) {
-                    suggestion = `It is a brisk ${temp}°C outside today. Warm up inside with our signature Loaded Jacket Potato or a fresh-pressed toastie.`;
+                if (isNightPage) {
+                    // Evening-specific recommendations
+                    if (isRaining) {
+                        suggestion = "It is a damp, rainy evening out in Locksbottom—unwind in our candlelit lounge with a rich glass of Red Wine or our cozy Liqueur Coffee.";
+                    } else if (temp >= 18) {
+                        suggestion = `It is a pleasant ${temp}°C evening. Enjoy a refreshing, botanically infused Gin &amp; Tonic or botanical spritz in our lounge tonight.`;
+                    } else {
+                        suggestion = `It is a cool ${temp}°C evening outside. Cosy up on our velvet sofas with a rich dark chocolate torte and our signature Espresso Martini.`;
+                    }
                 } else {
-                    // NEW FALLBACK: Triggers on dry, mild days (10°C to 19°C)
-                    suggestion = `It is a pleasant ${temp}°C out in Locksbottom today—the perfect weather to relax with a warm scone and a loose leaf tea.`;
+                    // Daytime-specific recommendations
+                    if (isRaining) {
+                        suggestion = "It is a damp, rainy day out in Locksbottom—step inside for a comforting Hot Chocolate or a steaming pot of our House Blend Tea.";
+                    } else if (temp >= 20) {
+                        suggestion = `It is a beautiful ${temp}°C day! Stop by for a refreshing Artisan Flat White served iced, paired with a cool slice of cake.`;
+                    } else if (temp < 10) {
+                        suggestion = `It is a brisk ${temp}°C outside today. Warm up inside with our signature Loaded Jacket Potato or a fresh-pressed toastie.`;
+                    } else {
+                        suggestion = `It is a pleasant ${temp}°C out in Locksbottom today—the perfect weather to relax with a warm scone and a loose leaf tea.`;
+                    }
                 }
 
                 if (suggestion !== "") {
@@ -364,10 +387,8 @@ const initializeApp = () => {
             })
             .catch(error => {
                 console.error("Unable to check Locksbottom weather:", error);
-                // Fails silently (keeps banner hidden) if there is a network block
             });
     };
-
     checkWeatherInLocksbottom();
 };
 
