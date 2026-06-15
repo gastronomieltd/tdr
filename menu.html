@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Drawing Room - Printable Menu</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0a2d54;    /* Brand Navy */
+            --accent-color: #c99b3b;     /* Brand Gold */
+            --bg-white: #ffffff;
+            --text-dark: #202b38;
+            --text-muted: #5e6875;
+            --border-color: #e5dec9;
+            
+            --font-heading: 'Cinzel', Georgia, serif;
+            --font-accent: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'Montserrat', Arial, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--text-dark);
+            background-color: var(--bg-white);
+            line-height: 1.5;
+            padding: 40px;
+        }
+
+        /* Floating helper banner (Hidden during printing) */
+        .print-helper {
+            max-width: 650px;
+            margin: 0 auto 30px auto;
+            text-align: center;
+            background-color: var(--primary-color);
+            border: 1px solid var(--accent-color);
+            padding: 15px;
+            color: var(--text-light);
+            font-size: 14px;
+        }
+        .print-helper button {
+            background-color: var(--accent-color);
+            color: #fff;
+            border: none;
+            padding: 6px 16px;
+            margin-left: 10px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        /* Centered double-bordered brand logo */
+        .header-container {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .brand-logo {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            border: 3px solid var(--primary-color);
+            outline: 1px solid var(--primary-color);
+            outline-offset: -5px;
+            padding: 15px 30px;
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .logo-top {
+            font-family: var(--font-heading);
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            color: var(--accent-color);
+            line-height: 1;
+        }
+
+        .logo-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            margin: 4px 0;
+        }
+
+        .logo-line {
+            width: 60px;
+            height: 1px;
+            background-color: var(--accent-color);
+        }
+
+        .logo-of {
+            font-family: var(--font-accent);
+            font-style: italic;
+            font-size: 15px;
+            color: var(--accent-color);
+            margin: 0 8px;
+            text-transform: lowercase;
+            line-height: 0.8;
+        }
+
+        .logo-bottom {
+            font-family: var(--font-heading);
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 3.5px;
+            color: var(--accent-color);
+            line-height: 1;
+        }
+
+        .header-tagline {
+            font-family: var(--font-accent);
+            font-style: italic;
+            font-size: 18px;
+            color: var(--text-muted);
+            margin-top: 10px;
+        }
+
+        /* 2-Column Menu Layout */
+        .menu-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        /* Section Headings */
+        .menu-section {
+            margin-bottom: 35px;
+            page-break-inside: avoid;
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 18px;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 6px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .subcategory-title {
+            font-family: var(--font-heading);
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent-color);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin: 20px 0 12px 0;
+        }
+
+        /* Menu Items & Dot Leaders */
+        .menu-item {
+            margin-bottom: 18px;
+            page-break-inside: avoid;
+        }
+
+        .menu-item-header {
+            display: flex;
+            align-items: baseline;
+            margin-bottom: 5px;
+        }
+
+        .item-name {
+            font-family: var(--font-heading);
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .item-dots {
+            flex-grow: 1;
+            border-bottom: 1px dotted var(--border-color);
+            margin: 0 10px;
+        }
+
+        .item-price {
+            font-family: var(--font-heading);
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .item-desc {
+            font-size: 11.5px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .item-extras {
+            font-size: 10.5px;
+            color: var(--accent-color);
+            font-weight: 500;
+            margin-top: 4px;
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 50px;
+            font-family: var(--font-accent);
+            font-style: italic;
+            font-size: 14px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            padding-top: 15px;
+        }
+
+        /* Printable Sheet Optimization */
+        @media print {
+            @page {
+                size: A4;
+                margin: 15mm;
+            }
+            body {
+                padding: 0;
+            }
+            .print-helper {
+                display: none !important; /* Hides help banner when printing */
+            }
+            .brand-logo {
+                background-color: transparent !important;
+                border-color: var(--primary-color) !important;
+                color: var(--primary-color) !important;
+            }
+            .logo-top, .logo-bottom, .logo-of {
+                color: var(--primary-color) !important;
+            }
+            .logo-line {
+                background-color: var(--primary-color) !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Logo -->
+    <div class="header-container">
+        <div id="logoBox" class="brand-logo">
+            <span class="logo-top">THE DRAWING ROOM</span>
+            <div class="logo-divider">
+                <span class="logo-line"></span>
+                <span class="logo-of">of</span>
+                <span class="logo-line"></span>
+            </div>
+            <span id="logoBottomText" class="logo-bottom">LOCKSBOTTOM</span>
+        </div>
+        <p class="header-tagline" id="menuTagline">Loading Menu...</p>
+    </div>
+
+    <!-- Dynamic 2-Column Menu Content -->
+    <div id="printMenuColumns" class="menu-columns">
+        <!-- JavaScript will automatically inject sections here -->
+    </div>
+
+    <!-- Footer Note -->
+    <div class="footer-note">
+        Thank you for visiting us. If you have any food allergies or intolerances, please speak to a member of our team before ordering.
+    </div>
+
+    <!-- Dynamic Fetching Script -->
+    <script>
+        const GOOGLE_SHEET_MENU_URL = 'https://script.google.com/macros/s/AKfycbzjiCsO-ZF72QTLWEP-k18L2glWtF3sWE3giy9cyvIURwOqbpI7D1owwiYLLwLYfqzmLQ/exec';
+
+        // 1. Detect if we are loading Day or Night menu from the URL parameters (?sheet=MenuDay or ?sheet=MenuNight)
+        const urlParams = new URLSearchParams(window.location.search);
+        const sheetName = urlParams.get('sheet') || 'MenuDay';
+        
+        // Adjust title and logo depending on daytime vs nighttime
+        const tagline = document.getElementById('menuTagline');
+        const logoBottomText = document.getElementById('logoBottomText');
+        const isEvening = sheetName === 'MenuEvening';
+
+        if (isEvening) {
+            tagline.textContent = "Evening Menu";
+            logoBottomText.textContent = "BY NIGHT";
+            document.title = "The Drawing Room - Evening Menu (Printable)";
+        } else {
+            tagline.textContent = "Classic Daytime Menu";
+            logoBottomText.textContent = "LOCKSBOTTOM";
+            document.title = "The Drawing Room - Daytime Menu (Printable)";
+        }
+
+        // Map category IDs to clean readable titles
+        const categoryTitles = {
+            'lunch': 'Classic Lunch',
+            'tea': 'Teas & Coffee',
+            'pastries': 'Homemade Cakes',
+            'day-special': 'Today\'s Specials',
+            'cocktails': 'Cocktails & Spirits',
+            'wine': 'Fine Wine & Beer',
+            'graze': 'Grazing & Sweets'
+        };
+
+        const loadAndBuildMenu = () => {
+            fetch(`${GOOGLE_SHEET_MENU_URL}?sheet=${sheetName}`)
+                .then(response => response.json())
+                .then(data => {
+                    
+                    // 2. Group items by Category AND Subcategory
+                    const categories = {};
+                    data.forEach(item => {
+                        if (!item.category) return;
+                        const cat = item.category.trim();
+                        if (!categories[cat]) categories[cat] = {};
+
+                        const sub = item.subcategory ? item.subcategory.trim() : 'House Selection';
+                        if (!categories[cat][sub]) categories[cat][sub] = [];
+
+                        categories[cat][sub].push(item);
+                    });
+
+                    const menuContainer = document.getElementById('printMenuColumns');
+                    menuContainer.innerHTML = ''; // Clear loader
+
+                    // Create two columns to distribute categories evenly
+                    const col1 = document.createElement('div');
+                    col1.className = 'menu-column';
+                    const col2 = document.createElement('div');
+                    col2.className = 'menu-column';
+                    
+                    menuContainer.appendChild(col1);
+                    menuContainer.appendChild(col2);
+
+                    let colIndex = 0;
+
+                    // 3. Loop through categories and build the sections
+                    for (const catKey in categories) {
+                        const targetCol = colIndex % 2 === 0 ? col1 : col2;
+                        colIndex++;
+
+                        const sectionTitle = categoryTitles[catKey] || catKey;
+                        let sectionHTML = `
+                            <div class="menu-section">
+                                <h2 class="section-title">${sectionTitle}</h2>
+                        `;
+
+                        // Loop through subcategories inside this category
+                        for (const subKey in categories[catKey]) {
+                            sectionHTML += `<h3 class="subcategory-title">${subKey}</h3>`;
+
+                            // Loop through items inside this subcategory
+                            categories[catKey][subKey].forEach(item => {
+                                let extrasHTML = '';
+                                if (item.extras) {
+                                    const extrasArray = item.extras.toString().split(',').map(x => x.trim()).filter(x => x !== '');
+                                    if (extrasArray.length > 0) {
+                                        extrasHTML = `<div class="item-extras">Add-ons: ${extrasArray.join(' &bull; ')}</div>`;
+                                    }
+                                }
+
+                                sectionHTML += `
+                                    <div class="menu-item">
+                                        <div class="menu-item-header">
+                                            <span class="item-name">${item.name}</span>
+                                            <span class="item-dots"></span>
+                                            <span class="item-price">${item.price}</span>
+                                        </div>
+                                        <p class="item-desc">${item.description}</p>
+                                        ${extrasHTML}
+                                    </div>
+                                `;
+                            });
+                        }
+
+                        sectionHTML += `</div>`;
+                        targetCol.insertAdjacentHTML('beforeend', sectionHTML);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading printable menu:', error);
+                    document.getElementById('printMenuColumns').innerHTML = `
+                        <div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 40px 0;">
+                            Unable to fetch sheet data. Please verify your connection or sheet tab names.
+                        </div>
+                    `;
+                });
+        };
+
+        loadAndBuildMenu();
+    </script>
+</body>
+</html>

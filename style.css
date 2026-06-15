@@ -1619,6 +1619,23 @@ input[type="time"] {
 }
 
 /* ==========================================================================
+   Header / Section Title PDF Links
+   ========================================================================== */
+.title-pdf-link {
+    font-size: 22px;              /* Keeps the icon proportionate to the 36px title */
+    color: var(--accent-color);   /* Brand Gold */
+    margin-left: 12px;
+    display: inline-block;
+    vertical-align: middle;       /* Vertically centers the icon with your text */
+    transition: var(--transition-fast);
+}
+
+.title-pdf-link:hover {
+    color: var(--accent-hover);   /* Darker Gold on hover */
+    transform: scale(1.1) translateY(-2px); /* Subtle hover lift effect */
+}
+
+/* ==========================================================================
    Drawing Room by Night - Theme Overrides
    ========================================================================== */
 body.night-mode {
