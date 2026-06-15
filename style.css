@@ -1636,6 +1636,58 @@ input[type="time"] {
 }
 
 /* ==========================================================================
+   Interactive Photo Lightbox
+   ========================================================================== */
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(10, 20, 36, 0.95); /* Deep dark background */
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition-fast);
+}
+
+.lightbox.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.lightbox-content {
+    max-width: 85%;
+    max-height: 80%;
+    border: 3px solid var(--accent-color);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    transform: scale(0.95);
+    transition: var(--transition-normal);
+}
+
+.lightbox.show .lightbox-content {
+    transform: scale(1);
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    color: var(--text-light);
+    font-size: 40px;
+    font-weight: 300;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.lightbox-close:hover {
+    color: var(--accent-color);
+}
+
+/* ==========================================================================
    Drawing Room by Night - Theme Overrides
    ========================================================================== */
 body.night-mode {
@@ -1651,7 +1703,7 @@ body.night-mode {
 /* Specific background updates for the evening page */
 body.night-mode .hero {
     /* Dimly lit luxurious sofa / bar lounge image */
-    background-image: url('images/bar.jpg');
+    background-image: url('images/evening-hero3.jpg');
 }
 
 body.night-mode .hours {
