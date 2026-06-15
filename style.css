@@ -1199,6 +1199,25 @@ input[type="time"] {
 }
 
 /* ==========================================================================
+   Medium Desktops (Prevents menu items from wrapping on smaller laptops)
+   ========================================================================== */
+@media (min-width: 1101px) and (max-width: 1250px) {
+    .nav-links {
+        gap: 16px; /* Compresses gaps from 32px to 16px to save space */
+    }
+    .nav-link {
+        font-size: 11px; /* Slightly smaller text */
+        letter-spacing: 1px;
+    }
+    .header-socials {
+        gap: 10px; /* Tighter social gaps */
+    }
+    .brand-logo {
+        padding: 8px 12px; /* Marginally smaller logo borders */
+    }
+}
+
+/* ==========================================================================
    Responsive Media Queries
    ========================================================================== */
 @media (max-width: 1024px) {
@@ -1213,16 +1232,10 @@ input[type="time"] {
     }
 }
 
-@media (max-width: 768px) {
-    /* Compress extensive section padding for dynamic mobile viewports */
-    .section-padding {
-        padding: 60px 0;
-    }
-
-    .section-title {
-        font-size: 30px;
-    }
-
+/* ==========================================================================
+   Mobile Header & Navigation Breakpoint (Now triggers at 1100px)
+   ========================================================================== */
+@media (max-width: 1100px) {
     /* Navbar Toggle */
     .hamburger {
         display: flex;
@@ -1239,9 +1252,6 @@ input[type="time"] {
     .hamburger.active .bar:nth-child(3) {
         transform: translateY(-8px) rotate(-45deg);
     }
-
- @media (max-width: 768px) {
-    /* ... keep your other mobile rules here ... */
 
     .nav-menu {
         position: fixed;
@@ -1295,14 +1305,31 @@ input[type="time"] {
 
     .nav-link-sub {
         font-size: 14px;
-        padding: 6px 0; /* Marginally tighter padding for mobile taps */
+        padding: 8px 0; /* Marginally tighter padding for mobile taps */
     }
 
     /* Hide the small desktop chevron icon on vertical mobile menus */
     .nav-dropdown .dropdown-toggle i {
         display: none;
     }
+
+    .header-socials {
+        margin-right: 15px; /* Creates a clean gap between the socials and the hamburger button */
+    }
 }
+
+/* ==========================================================================
+   Page Content Grid Breakpoint (Stays at 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+    /* Compress extensive section padding for dynamic mobile viewports */
+    .section-padding {
+        padding: 60px 0;
+    }
+
+    .section-title {
+        font-size: 30px;
+    }
 
     /* Hero Responsive */
     .hero-title {
@@ -1371,7 +1398,6 @@ input[type="time"] {
 
     /* Stacks date, time, and guest inputs vertically on all mobile/tablet viewports to prevent layout spills */
     .booking-fields-grid {
-        /* grid-template-columns: minmax(0, 1fr); */
         grid-template-columns: 1fr;
         gap: 16px;
     }
@@ -1390,39 +1416,6 @@ input[type="time"] {
         flex-direction: column;
         gap: 20px;
         text-align: center;
-    }
-
-    .header-socials {
-        margin-right: 15px;
-    }
-
-    /* Collapse the absolute positioning on mobile to let links flow vertically */
-    .dropdown-menu {
-        position: static;
-        transform: none;
-        opacity: 1;
-        visibility: visible;
-        border: none;
-        box-shadow: none;
-        padding: 10px 0 0 0;
-        gap: 15px;
-        background-color: transparent;
-        text-align: center;
-        width: 100%;
-    }
-
-    .nav-dropdown:hover .dropdown-menu {
-        transform: none;
-    }
-
-    .nav-link-sub {
-        font-size: 14px;
-        padding: 8px 0;
-    }
-
-    /* Hide the small desktop chevron icon on vertical mobile menus */
-    .nav-dropdown .dropdown-toggle i {
-        display: none;
     }
 
     /* Automatically converts your gallery grid into a native horizontal swipe track */
@@ -1803,4 +1796,3 @@ body.night-mode .info-item h4 {
 body.night-mode .form-group label {
     color: var(--accent-color);
 }
-
