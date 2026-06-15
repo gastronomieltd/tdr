@@ -458,7 +458,7 @@ a {
 .hero-subtitle {
     font-family: var(--font-accent);
     font-style: italic;
-    font-size: 25px;
+    font-size: 35px;
     color: var(--accent-color);
     display: block;
     margin-bottom: 15px;
