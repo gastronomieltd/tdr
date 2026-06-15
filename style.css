@@ -1362,6 +1362,35 @@ input[type="time"] {
     .header-socials {
         margin-right: 15px;
     }
+
+    /* Collapse the absolute positioning on mobile to let links flow vertically */
+    .dropdown-menu {
+        position: static;
+        transform: none;
+        opacity: 1;
+        visibility: visible;
+        border: none;
+        box-shadow: none;
+        padding: 10px 0 0 0;
+        gap: 15px;
+        background-color: transparent;
+        text-align: center;
+        width: 100%;
+    }
+
+    .nav-dropdown:hover .dropdown-menu {
+        transform: none;
+    }
+
+    .nav-link-sub {
+        font-size: 14px;
+        padding: 8px 0;
+    }
+
+    /* Hide the small desktop chevron icon on vertical mobile menus */
+    .nav-dropdown .dropdown-toggle i {
+        display: none;
+    }
 }
 
 /* ==========================================================================
@@ -1486,6 +1515,54 @@ input[type="time"] {
 }
 
 /* ==========================================================================
+   Navigation Dropdown Menu
+   ========================================================================== */
+.nav-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background-color: var(--primary-color);
+    border: 1px solid var(--border-color);
+    padding: 10px 0;
+    min-width: 170px;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition-fast);
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Hover reveal trigger on desktop */
+.nav-dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.nav-link-sub {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 10px 20px;
+    display: block;
+    transition: var(--transition-fast);
+}
+
+.nav-link-sub:hover {
+    color: var(--accent-color);
+    background-color: rgba(255, 255, 255, 0.04);
+}
+
+/* ==========================================================================
    Drawing Room by Night - Theme Overrides
    ========================================================================== */
 body.night-mode {
@@ -1501,12 +1578,12 @@ body.night-mode {
 /* Specific background updates for the evening page */
 body.night-mode .hero {
     /* Dimly lit luxurious sofa / bar lounge image */
-    background-image: url('https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=500&q=80');
+    background-image: url('images/bar.jpg');
 }
 
 body.night-mode .hours {
     /* Warm ambient bar image for the hours section background */
-    background-image: url('https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&w=1600&q=80');
+    background-image: url('images/wine.jpg');
 }
 
 /* Fixes default focus styling for dark inputs */
@@ -1545,4 +1622,24 @@ body.night-mode .menu-tab:hover {
 body.night-mode .menu-tab.active {
     color: var(--accent-color);
     border-bottom-color: var(--accent-color);
+}
+
+body.night-mode .menu-item-name {
+    color: var(--accent-color);
+}
+
+body.night-mode .section-title {
+    color: var(--accent-color);
+}
+
+.contact-heading {
+    color: var(--accent-color);
+}
+
+.info-item h4 {
+    color: var(--accent-color);
+}
+
+.form-group label {
+    color: var(--accent-color);
 }

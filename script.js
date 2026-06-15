@@ -107,7 +107,12 @@ const initializeApp = () => {
             menuGrid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 40px 0;"><i class="fa-solid fa-spinner fa-spin" style="margin-right: 10px; color: var(--accent-color);"></i>Loading our daily offerings...</div>`;
         }
 
-        fetch(GOOGLE_SHEET_MENU_URL)
+        // DYNAMIC PARAMETER: Detects if the current page is daytime or nighttime
+        const isNightPage = document.body.classList.contains('night-mode');
+        const sheetParam = isNightPage ? '?sheet=MenuEvening' : '?sheet=MenuDay';
+
+        // Appends the parameter directly to your Web App URL
+        fetch(GOOGLE_SHEET_MENU_URL + sheetParam)
             .then(response => response.json())
             .then(data => {
                 MENU_DATA = data;

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Drawing Room of Locksbottom | Cozy Cafe & Tea Room</title>
+    <title>The Drawing Room by Evening | Artisan Cocktails & Wine Lounge</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,22 +11,22 @@
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=1.1">
 
     <!-- Custom Tab Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' fill='%230a2d54'/%3E%3Crect x='24' y='24' width='464' height='464' fill='none' stroke='%23ffffff' stroke-width='8'/%3E%3Crect x='42' y='42' width='428' height='428' fill='none' stroke='%23c99b3b' stroke-width='4'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Cinzel, Georgia, serif' font-size='150' font-weight='700' fill='%23c99b3b' letter-spacing='6'%3ETDR%3C/text%3E%3C/svg%3E">
 
-    <!-- Local Business SEO Structured Data -->
+    <!-- Local Business SEO Structured Data (Optimized for Bar/Lounge) -->
     <script type="application/ld+json">
     {
     "@context": "https://schema.org",
-    "@type": "Cafe",
-    "name": "The Drawing Room of Locksbottom",
-    "image": "https://thedrawingroomlocksbottom.com/images/hero.jpg",
-    "url": "https://thedrawingroomlocksbottom.com",
+    "@type": "BarOrPub",
+    "name": "The Drawing Room by Evening",
+    "image": "https://thedrawingroomlocksbottom.com/images/hero-night.jpg",
+    "url": "https://thedrawingroomlocksbottom.com/night.html",
     "telephone": "+441689852288",
-    "priceRange": "£",
-    "menu": "https://thedrawingroomlocksbottom.com#menu",
+    "priceRange": "££",
+    "menu": "https://thedrawingroomlocksbottom.com/night.html#menu",
     "address": {
         "@type": "PostalAddress",
         "streetAddress": "405 Crofton Road, Locksbottom",
@@ -35,41 +35,30 @@
         "addressCountry": "GB"
     },
     "openingHoursSpecification": [
-        {
+      {
         "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-        "opens": "08:30",
-        "closes": "16:30"
-        },
-        {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": "Saturday",
-        "opens": "08:30",
-        "closes": "15:30"
-        }
-    ],
-    "sameAs": [
-        "https://www.facebook.com/thedrawingroomlocksbottom",
-        "https://www.instagram.com/thedrawingroomlocksbottom"
+        "dayOfWeek": ["Thursday", "Friday", "Saturday"],
+        "opens": "18:00",
+        "closes": "23:30"
+      }
     ]
     }
     </script>
-
 </head>
-<body>
+<!-- Notice the night-mode class applied here to trigger CSS overrides -->
+<body class="night-mode">
 
     <!-- Header / Navigation -->
     <header class="header">
         <div class="nav-container">
-            <!-- CSS representation of your physical logo -->
             <a href="#hero" class="brand-logo">
                 <span class="logo-top">THE DRAWING ROOM</span>
                 <div class="logo-divider">
                     <span class="logo-line"></span>
-                    <span class="logo-of">of</span>
+                    <span class="logo-of">by</span>
                     <span class="logo-line"></span>
                 </div>
-                <span class="logo-bottom">LOCKSBOTTOM</span>
+                <span class="logo-bottom">EVENING</span>
             </a>
 
             <div class="header-socials">
@@ -91,8 +80,8 @@
                         <ul class="dropdown-menu">
                             <li><a href="#hours" class="nav-link-sub">Opening Hours</a></li>
                             <li><a href="#contact" class="nav-link-sub">Contact Us</a></li>
-                            <!-- Link to Cozy Evening site -->
-                            <li><a href="evening.html" class="nav-link-sub" style="color: var(--accent-color); font-weight: 600;"><i class="fa-solid fa-moon" style="margin-right: 5px;"></i> Cozy Evening</a></li>
+                            <!-- Link back to standard daytime site -->
+                            <li><a href="index.html" class="nav-link-sub" style="color: var(--accent-color); font-weight: 600;"><i class="fa-solid fa-sun" style="margin-right: 5px;"></i> Classic Day</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -110,25 +99,23 @@
     <section id="hero" class="hero">
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <!-- Structured the big decorative logo separately from the titles to fix the link box bug -->
             <div class="hero-brand-box">
                 <span class="big-logo-top">THE DRAWING ROOM</span>
                 <div class="big-logo-divider">
                     <span class="big-logo-line"></span>
-                    <span class="big-logo-of">of</span>
+                    <span class="big-logo-of">by</span>
                     <span class="big-logo-line"></span>
                 </div>
-                <span class="big-logo-bottom">LOCKSBOTTOM</span>
+                <span class="big-logo-bottom">EVENING</span>
             </div>
             
-            <span class="hero-subtitle">Welcome to Our Sanctuary</span>
-            <h1 class="hero-title">Vintage Charm &amp; Modern Delights</h1>
-            <p class="hero-description">Indulge in classic English fare and hand-picked loose leaf teas, served elegantly on fine bone china amidst cozy, nostalgic surroundings.</p>
+            <span class="hero-subtitle">Welcome to Our Evening Sanctuary</span>
+            <h1 class="hero-title">Candlelight, Fine Wines &amp; Cocktails</h1>
+            <p class="hero-description">As dusk falls over Locksbottom, our drawing room transforms. Unwind with exquisite craft cocktails, organic wines, and gourmet platters served in an intimate, dimly lit sanctuary.</p>
             
             <div class="hero-buttons">
-                <a href="#specialities" class="btn btn-blue">Our Specialities</a>
-                <a href="#menu" class="btn btn-blue">Menu</a>
-                <a href="#contact" class="btn btn-blue">Book Afternoon Tea</a>
+                <a href="#menu" class="btn btn-blue">Evening Menu</a>
+                <a href="#contact" class="btn btn-blue">Reserve Table</a>
             </div>
         </div>
         <div class="scroll-indicator">
@@ -136,35 +123,36 @@
         </div>
     </section>
 
-    <!-- About Us Section -->
+    <!-- The Vibe Section -->
     <section id="about" class="about section-padding">
         <div class="container">
             <div class="about-grid">
-                <div class="about-image-wrapper reveal-zoom" >
-                    <img src="images/hero.jpg" loading="lazy" alt="Atmospheric drawing room background image">
+                <div class="about-image-wrapper reveal-zoom">
+                    <!-- Elegant evening bar visual -->
+                    <img src="images/evening-hero2.jpg" loading="lazy" alt="Dimly lit romantic evening bar">
                     <div class="about-badge">
-                        <span class="badge-num">Est.</span>
-                        <span class="badge-text">Locksbottom</span>
+                        <span class="badge-num">Cozy</span>
+                        <span class="badge-text">Evenings</span>
                     </div>
                 </div>
                 <div class="about-text-wrapper">
-                    <span class="section-tagline">Our Story</span>
-                    <h2 class="section-title">Where Nostalgia Meets Hospitality</h2>
-                    <p class="section-desc">Nestled in the heart of Locksbottom, The Drawing Room is a charming haven that radiates warmth and elegant simplicity. Upon stepping inside, you are greeted by cozy vintage decor, fresh blooms, and beautiful mismatched teacups that set the stage for an unforgettable visit.</p>
-                    <p class="section-desc">Our dedicated team is committed to delivering heartwarming, traditional English cuisine infused with quality and flair. From our hearty lunches to the delicate pastries served during our signature afternoon tea, everything we present is crafted with care.</p>
+                    <span class="section-tagline">The Vibe</span>
+                    <h2 class="section-title">An Intimate Escape</h2>
+                    <p class="section-desc">When the sun sets, the day's chatter gives way to the gentle hum of acoustic music, clinking crystal glasses, and warm, soft candlelight. The Drawing Room by Evening is designed as a sophisticated yet deeply cozy hideaway to decompress after a busy week.</p>
+                    <p class="section-desc">We showcase a curated list of artisanal spirits, signature cocktails crafted with fresh botanicals, and hand-selected small-producer wines. Relax on our velvet sofas and enjoy a grazing experience created to be savoured slowly.</p>
                     <div class="about-features">
                         <div class="feature-item">
-                            <i class="fa-solid fa-mug-hot"></i>
+                            <i class="fa-solid fa-wine-glass"></i>
                             <div>
-                                <h4>Fine Bone China</h4>
-                                <p>Sip your favorite blends out of beautiful, classic teacups.</p>
+                                <h4>Artisan Pairings</h4>
+                                <p>Premium local charcuterie and cheeses selected to complement our wine lists.</p>
                             </div>
                         </div>
                         <div class="feature-item">
-                            <i class="fa-solid fa-cake-candles"></i>
+                            <i class="fa-solid fa-music"></i>
                             <div>
-                                <h4>Fresh Baked Daily</h4>
-                                <p>Cakes and pastries lovingly made on the premises each morning.</p>
+                                <h4>Acoustic Ambient Music</h4>
+                                <p>Sip your favorite cocktails to the backdrop of low, relaxing sounds.</p>
                             </div>
                         </div>
                     </div>
@@ -178,51 +166,51 @@
         <div class="container">
             <div class="section-header">
                 <span class="section-tagline">Curated Favourites</span>
-                <h2 class="section-title">Our House Specialties</h2>
-                <p class="section-subtitle-text">The quintessential Drawing Room experiences, handcrafted daily and designed to delight your senses.</p>
+                <h2 class="section-title">Evening Specialities</h2>
+                <p class="section-subtitle-text">Indulge in our signature night-time creations, designed for relaxed, late-night sharing.</p>
             </div>
             
             <div class="speciality-grid">
                 <!-- Specialty Card 1 -->
                 <div class="speciality-card">
                     <div class="speciality-img-wrapper reveal-zoom">
-                        <img src="https://images.unsplash.com/photo-1594631252845-29fc4cc8cde9?auto=format&fit=crop&w=600&q=80" loading="lazy" alt="Traditional Afternoon Tea tier stand" class="speciality-img">
+                        <img src="images/pizza.jpg" loading="lazy" alt="Artisan Pizzas" class="speciality-img">
                     </div>
                     <div class="speciality-info">
-                        <span class="speciality-tag">Elegant Tradition</span>
-                        <h3 class="speciality-card-title">Traditional Afternoon Tea</h3>
-                        <p class="speciality-card-desc">Delicate finger sandwiches, freshly baked warm scones served with Cornish clotted cream, and an exquisite tier of miniature pastries paired with your choice of tea.</p>
+                        <span class="speciality-tag">Graze &amp; Share</span>
+                        <h3 class="speciality-card-title">Artisan Pizzas</h3>
+                        <p class="speciality-card-desc">Artisan pizza made from hand-stretched dough and fresh ingredients, perfect for sharing over wine or beer on a laid-back evening..</p>
                     </div>
                 </div>
 
                 <!-- Specialty Card 2 -->
                 <div class="speciality-card">
                     <div class="speciality-img-wrapper reveal-zoom">
-                        <img src="https://images.unsplash.com/photo-1553909489-cd47e0907980?auto=format&fit=crop&w=600&q=80" loading="lazy" alt="Signature salt beef sandwich" class="speciality-img">
+                        <img src="images/drinks.jpg" loading="lazy" alt="A glass of red wine next to cheese board" class="speciality-img">
                     </div>
                     <div class="speciality-info">
-                        <span class="speciality-tag">Savory Classic</span>
-                        <h3 class="speciality-card-title">Signature Salt Beef</h3>
-                        <p class="speciality-card-desc">Slow-braised, melt-in-the-mouth salt beef stacked high on freshly cut, thick-sliced bloomer bread. Accompanied by traditional pickle wedges and hot English mustard.</p>
+                        <span class="speciality-tag">Wines, Beers &amp; Cocktails</span>
+                        <h3 class="speciality-card-title">Fine Wine &amp; Grazing</h3>
+                        <p class="speciality-card-desc">Explore hand-selected Old World and organic wines, served alongside custom boards piled with British cured meats, artisan cheeses, warm breads, and olives.</p>
                     </div>
                 </div>
 
                 <!-- Specialty Card 3 -->
                 <div class="speciality-card">
                     <div class="speciality-img-wrapper reveal-zoom">
-                        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&q=80" loading="lazy" alt="Victoria sponge cake with berries" class="speciality-img">
+                        <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=600&q=80" loading="lazy" alt="Indulgent chocolate cake dessert" class="speciality-img">
                     </div>
                     <div class="speciality-info">
-                        <span class="speciality-tag">Baked Fresh</span>
-                        <h3 class="speciality-card-title">Victoria Sponge</h3>
-                        <p class="speciality-card-desc">Our masterfully light, double-layered sponge filled generously with rich vanilla buttercream and deep, sweet home-style raspberry preserve, dusted with powdered sugar.</p>
+                        <span class="speciality-tag">Late-Night Sweet</span>
+                        <h3 class="speciality-card-title">Decadent Desserts</h3>
+                        <p class="speciality-card-desc">End your night with a slice of rich, warm dark chocolate torte or a classic lemon tart, elegantly accompanied by our late-night liqueur coffees.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Menu Section -->
+    <!-- Menu Section (Reads dynamically from your Google Sheet Menu Tab) -->
     <section id="menu" class="menu section-padding">
         <!-- Smart Weather recommendation Banner (Brand Styled) -->
         <div id="weatherRecommender" class="hidden" style="max-width: 650px; margin: 0 auto 40px auto; text-align: center; background-color: var(--primary-color); border: 3px solid var(--text-light); outline: 1px solid var(--text-light); outline-offset: -5px; padding: 25px 30px; box-shadow: 0 10px 30px rgba(10, 45, 84, 0.15);">
@@ -230,25 +218,22 @@
         </div>
         <div class="container">
             <div class="section-header">
-                <span class="section-tagline">Our Menu</span>
-                <h2 class="section-title">Delectable Offerings</h2>
-                <p class="section-subtitle-text">Each dish is thoughtfully prepared with high-quality local ingredients and seasonal inspiration.</p>
+                <span class="section-tagline">The Cellar &amp; Kitchen</span>
+                <h2 class="section-title">Evening Menu</h2>
+                <p class="section-subtitle-text">We rotate our small-batch wines and craft beers weekly. Ask our team about tonight's featured vintage.</p>
             </div>
 
             <!-- Dynamic Live Search Bar -->
             <div class="menu-search-container" style="text-align: center; margin-bottom: 40px;">
-                <input type="text" id="menuSearch" placeholder="Search menu (e.g., 'scone', 'gluten free')..." style="padding: 14px 20px; width: 100%; max-width: 450px; border: 1px solid var(--border-color); background-color: var(--bg-white); outline: none; font-family: var(--font-body); font-size: 14px; transition: var(--transition-fast);">
+                <input type="text" id="menuSearch" placeholder="Search drinks or platters (e.g. 'wine', 'gin')..." style="padding: 14px 20px; width: 100%; max-width: 450px; border: 1px solid var(--border-color); background-color: var(--bg-white); outline: none; font-family: var(--font-body); font-size: 14px; transition: var(--transition-fast);">
             </div>
 
-            <!-- Menu Tabs -->
+            <!-- Menu Tabs (Requires you to create entries in your Google Sheet Menu tab with category: 'cocktails', 'wine', 'graze') -->
             <div class="menu-tabs-container">
-                <button class="menu-tab active" data-tab="day-special">Today's Special</button>
-                <button class="menu-tab" data-tab="breakfast">Breakfast</button>
-                <button class="menu-tab" data-tab="cereals-pancakes">Cereals &amp; Pancakes</button>
-                <button class="menu-tab" data-tab="lunch">Classic Lunch</button>
-                <button class="menu-tab" data-tab="sandwich">Sandwiches &amp; Toasties</button>
-                <button class="menu-tab" data-tab="beverages">Coffee &amp; Hot Drinks</button>
-                <button class="menu-tab" data-tab="pastries">Desserts & Sweet Treats</button>
+                <button class="menu-tab active" data-tab="wine">Fine Wine, Beer &amp; Cocktails</button>
+                <button class="menu-tab" data-tab="graze">Grazing</button>
+                <button class="menu-tab" data-tab="beverages">Beverages</button>
+                <button class="menu-tab" data-tab="pastries">Desserts</button>
             </div>
 
             <!-- Empty Grid for Dynamic JS Generation -->
@@ -265,15 +250,15 @@
         <div class="container">
             <div class="section-header">
                 <span class="section-tagline">Visual Diary</span>
-                <h2 class="section-title">Scenes from The Drawing Room</h2>
-                <p class="section-subtitle-text">A preview of our cozy interiors, beautiful crockery, and everyday cafe moments.</p>
+                <h2 class="section-title">Evenings at The Drawing Room</h2>
+                <p class="section-subtitle-text">A glimpse into our candlelit lounge atmosphere, wine cellars, and social moments.</p>
             </div>
             
             <div class="gallery-grid">
                 <!-- Gallery Item 1 -->
                 <div class="gallery-item">
                     <div class="gallery-img-wrapper reveal-zoom">
-                        <img src="images/afternoon-tea.jpg" loading="lazy" alt="Afternoon tea tier stand" class="gallery-img">
+                        <img src="images/pizza.jpg" loading="lazy" alt="Dimly lit romantic sofa area" class="gallery-img">
                         <div class="gallery-overlay">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </div>
@@ -282,7 +267,7 @@
                 <!-- Gallery Item 2 -->
                 <div class="gallery-item">
                     <div class="gallery-img-wrapper reveal-zoom">
-                        <img src="images/salt-beef.jpg" loading="lazy" alt="Slow-roasted hot salt beef stack" class="gallery-img">
+                        <img src="images/wine.jpg" alt="Pouring red wine in a glass" class="gallery-img">
                         <div class="gallery-overlay">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </div>
@@ -291,7 +276,7 @@
                 <!-- Gallery Item 3 -->
                 <div class="gallery-item">
                     <div class="gallery-img-wrapper reveal-zoom">
-                        <img src="images/sandwich.jpg" loading="lazy" alt="Artisanal toasties and melts" class="gallery-img">
+                        <img src="images/cocktails.jpg" alt="A variety of cocktails" class="gallery-img">
                         <div class="gallery-overlay">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </div>
@@ -300,43 +285,7 @@
                 <!-- Gallery Item 4 -->
                 <div class="gallery-item">
                     <div class="gallery-img-wrapper reveal-zoom">
-                        <img src="images/teapots.jpg" loading="lazy" alt="Mismatched vintage teapots and chinaware" class="gallery-img">
-                        <div class="gallery-overlay">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </div>
-                    </div>
-                </div>
-                <!-- Gallery Item 5 -->
-                <div class="gallery-item">
-                    <div class="gallery-img-wrapper reveal-zoom">
-                        <img src="images/panini.jpg" loading="lazy" alt="Warm pressed melts and paninis" class="gallery-img">
-                        <div class="gallery-overlay">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </div>
-                    </div>
-                </div>
-                <!-- Gallery Item 6 -->
-                <div class="gallery-item">
-                    <div class="gallery-img-wrapper reveal-zoom">
-                        <img src="images/cakes.jpg" loading="lazy" alt="Porcelain cake display tier" class="gallery-img">
-                        <div class="gallery-overlay">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </div>
-                    </div>
-                </div>
-                <!-- Gallery Item 7 -->
-                <div class="gallery-item">
-                    <div class="gallery-img-wrapper reveal-zoom">
-                        <img src="images/breakfast.jpg" loading="lazy" alt="Breakfast" class="gallery-img">
-                        <div class="gallery-overlay">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </div>
-                    </div>
-                </div>
-                <!-- Gallery Item 8 -->
-                <div class="gallery-item">
-                    <div class="gallery-img-wrapper reveal-zoom">
-                        <img src="images/pot.jpg" loading="lazy" alt="Pot" class="gallery-img">
+                        <img src="images/tapas.jpg" alt="Cheese board" class="gallery-img">
                         <div class="gallery-overlay">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </div>
@@ -351,33 +300,37 @@
         <div class="hours-bg-overlay"></div>
         <div class="container relative-z">
             <div class="hours-box">
-                <span class="section-tagline">Join Us Today</span>
-                <h2 class="section-title">Opening Hours</h2>
+                <span class="section-tagline">Join Us Tonight</span>
+                <h2 class="section-title">Evening Hours</h2>
                 <div id="openStatusBadge" style="margin-bottom: 25px; font-weight: 600; font-size: 14px;">
                     <!-- JavaScript will dynamically insert "We are open now!" or "We are closed" here -->
                 </div>
                 <div class="hours-list">
-                    <div class="hours-row" id="hours-mon-fri">
-                        <span class="day">Monday - Friday</span>
-                        <span class="time">8:30 AM - 4:30 PM</span>
+                    <div class="hours-row" id="hours-thu">
+                        <span class="day">Thursday</span>
+                        <span class="time">6:00 PM - 11:00 PM</span>
+                    </div>
+                    <div class="hours-row" id="hours-fri">
+                        <span class="day">Friday</span>
+                        <span class="time">6:00 PM - 11:30 PM</span>
                     </div>
                     <div class="hours-row highlight" id="hours-sat">
                         <span class="day">Saturday</span>
-                        <span class="time">8:30 AM - 3:30 PM</span>
+                        <span class="time">6:00 PM - 11:30 PM</span>
                     </div>
-                    <div class="hours-row" id="hours-sun">
-                        <span class="day">Sunday</span>
-                        <span class="time">Closed</span>
+                    <div class="hours-row" id="hours-sun-wed">
+                        <span class="day">Sunday - Wednesday</span>
+                        <span class="time">Closed (Available for Private Hire)</span>
                     </div>
                 </div>
                 <div class="hours-note">
-                    <p><i class="fa-solid fa-bell"></i> Booking in advance is highly recommended for afternoon tea!</p>
+                    <p><i class="fa-solid fa-bell"></i> Table reservations are highly recommended on Fridays and Saturdays.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
+     <!-- Contact Section -->
     <section id="contact" class="contact section-padding">
         <div class="container">
             <div class="section-header">
@@ -481,7 +434,7 @@
     <footer class="footer">
         <div class="container footer-content">
             <div class="footer-logo">
-                <span>THE DRAWING ROOM OF LOCKSBOTTOM</span>
+                <span>THE DRAWING ROOM BY EVENING</span>
             </div>
             <p class="footer-copy">&copy; 2026 The Drawing Room of Locksbottom. All rights reserved.</p>
         </div>
@@ -492,7 +445,7 @@
         <i class="fa-solid fa-chevron-up"></i>
     </button>
 
-    <!-- Custom JS -->
+    <!-- Custom JS (Uses same script.js with automatic theme detection) -->
     <script src="script.js"></script>
 </body>
 </html>
