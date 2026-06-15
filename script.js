@@ -149,7 +149,7 @@ const initializeApp = () => {
 
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
-    const navLinksList = document.querySelectorAll('.nav-link');
+    const navLinksList = document.querySelectorAll('.nav-link, .nav-link-sub');
 
     const toggleMenu = () => {
         hamburger.classList.toggle('active');

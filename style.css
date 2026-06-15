@@ -1424,6 +1424,29 @@ input[type="time"] {
     .nav-dropdown .dropdown-toggle i {
         display: none;
     }
+
+    /* Automatically converts your gallery grid into a native horizontal swipe track */
+    .gallery-grid {
+        display: flex;                  /* Switches grid to a single horizontal row */
+        overflow-x: auto;               /* Enables horizontal swipe scrolling */
+        scroll-snap-type: x mandatory;   /* Forces the browser to snap perfectly to the next image */
+        -webkit-overflow-scrolling: touch; /* Unlocks smooth native swipe momentum on iOS Safari */
+        gap: 15px;
+        padding-bottom: 15px;           /* Subtle spacing beneath the slider */
+        scrollbar-width: none;          /* Hides ugly scrollbar on Firefox */
+    }
+
+    /* Hide the scrollbar completely on WebKit browsers (Safari/Chrome) for a cleaner look */
+    .gallery-grid::-webkit-scrollbar {
+        display: none;
+    }
+
+    .gallery-item {
+        flex: 0 0 270px;                /* Forces each slide to remain exactly 270px wide */
+        height: 270px;                  /* Keeps them as clean, uniform squares */
+        scroll-snap-align: start;       /* Sets the point where the image snaps to on the screen */
+        border-radius: 0;
+    }
 }
 
 /* ==========================================================================
