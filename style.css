@@ -445,7 +445,7 @@ a {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(rgba(10, 45, 84, 0.65), rgba(10, 45, 84, 0.75));
+    background: linear-gradient(rgba(9, 57, 111, 0.65), rgba(137, 161, 189, 0.75));
 }
 
 .hero-content {
@@ -1697,6 +1697,10 @@ body.night-mode {
 body.night-mode .hero {
     /* Dimly lit luxurious sofa / bar lounge image */
     background-image: url('images/evening-hero3.jpg');
+}
+
+body.night-mode .hero-overlay {
+    background: linear-gradient(rgba(57, 59, 62, 0.65), rgba(39, 65, 94, 0.75));
 }
 
 body.night-mode .hours {
