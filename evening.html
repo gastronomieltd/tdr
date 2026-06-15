@@ -353,7 +353,13 @@
                                 <div>
                                     <h4>Find Us</h4>
                                     <p>405 Crofton Road, Locksbottom, Orpington, BR6 8NL</p>
-                                    <small style="color: var(--accent-color); font-size: 11px;">Tap to open in Google Maps</small>
+                                    <span style="display: flex; gap: 15px; margin-top: 5px;">
+                                        <small style="color: var(--accent-color); font-size: 11px; text-decoration: underline;">Open in Google Maps</small>
+                                        <!-- Copy button -->
+                                        <small id="copyAddressBtn" style="color: var(--accent-color); font-size: 11px; cursor: pointer; display: inline-block;">
+                                            <i class="fa-regular fa-copy"></i> Copy Address
+                                        </small>
+                                    </span>
                                 </div>
                             </div>
                         </a>
@@ -439,6 +445,11 @@
             <p class="footer-copy">&copy; 2026 The Drawing Room of Locksbottom. All rights reserved.</p>
         </div>
     </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/447766832952?text=Hello%20The%20Drawing%20Room!%20I'd%20love%20to%20ask%20a%20quick%20question..." target="_blank" class="whatsapp-float" aria-label="Chat on WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
 
     <!-- Floating Back to Top Button -->
     <button id="backToTop" class="back-to-top" aria-label="Scroll back to top">

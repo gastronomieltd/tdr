@@ -442,6 +442,30 @@ const initializeApp = () => {
             });
     };
     checkWeatherInLocksbottom();
+
+    // ==========================================================================
+    // One-Click Address Copier
+    // ==========================================================================
+    const copyBtn = document.getElementById('copyAddressBtn');
+    if (copyBtn) {
+        copyBtn.addEventListener('click', (e) => {
+            e.preventDefault(); // Prevents the outer link anchor from opening
+            e.stopPropagation();
+
+            const addressText = '405 Crofton Road, Locksbottom, Orpington, BR6 8NL';
+            
+            navigator.clipboard.writeText(addressText).then(() => {
+                const originalText = copyBtn.innerHTML;
+                copyBtn.innerHTML = '<i class="fa-solid fa-check" style="color: #2ec4b6;"></i> Copied!';
+                
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalText;
+                }, 2000);
+            }).catch(err => {
+                console.error('Could not copy text: ', err);
+            });
+        });
+    }
 };
 
 // SAFE LAUNCH: If the browser is already loaded, run immediately. If not, wait for DOM.

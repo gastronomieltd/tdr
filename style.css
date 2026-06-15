@@ -1657,6 +1657,41 @@ body.night-mode .contact-form select:focus {
     border-color: var(--accent-color);
 }
 
+/* Floating WhatsApp Button */
+.whatsapp-float {
+    position: fixed;
+    bottom: 30px;
+    right: 90px; /* Positioned neatly next to the Back to Top button */
+    background-color: #25d366; /* Official WhatsApp Green */
+    color: #ffffff;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 999;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    transition: var(--transition-fast);
+    font-size: 20px;
+}
+
+.whatsapp-float:hover {
+    background-color: #128c7e; /* Darker WhatsApp Teal */
+    transform: translateY(-2px);
+}
+
+@media (max-width: 480px) {
+    .whatsapp-float {
+        bottom: 20px;
+        right: 75px; /* Offset adjusted for smaller smartphone screen borders */
+        width: 38px;
+        height: 38px;
+        font-size: 18px;
+    }
+}
+
 /* Adjust secondary button color boundaries on dark backdrop */
 body.night-mode .btn-blue {
     background-color: var(--accent-color);
@@ -1688,14 +1723,15 @@ body.night-mode .section-title {
     color: var(--accent-color);
 }
 
-.contact-heading {
+body.night-mode .contact-heading {
     color: var(--accent-color);
 }
 
-.info-item h4 {
+body.night-mode .info-item h4 {
     color: var(--accent-color);
 }
 
-.form-group label {
+body.night-mode .form-group label {
     color: var(--accent-color);
 }
+
