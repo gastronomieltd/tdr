@@ -61,7 +61,7 @@ body.menu-open {
 }
 
 .section-padding {
-    padding: 100px 0;
+    padding: 50px 0;
 }
 
 .relative-z {
@@ -684,7 +684,7 @@ a {
     display: flex;
     justify-content: center;
     gap: 15px;
-    margin-bottom: 60px;
+    margin-bottom: 20px;
     flex-wrap: wrap;
 }
 
@@ -697,7 +697,7 @@ a {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 2px;
-    padding: 12px 28px;
+    padding: 6px 14px;
     cursor: pointer;
     color: var(--text-muted);
     border-bottom: 2px solid transparent;
@@ -726,7 +726,7 @@ a {
 .menu-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 40px 60px;
+    gap: 20px 30px;
 }
 
 .menu-item {
@@ -738,7 +738,7 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
 }
 
 .menu-item-name {
@@ -875,7 +875,7 @@ a {
     /* Defines exactly three columns: 100px for the day, and two equal columns for the times */
     grid-template-columns: 100px 1fr 1fr; 
     gap: 20px;
-    padding-bottom: 12px;
+    padding-bottom: 5px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     text-align: left; /* Left align for clean tabular flow */
     align-items: center;
@@ -888,14 +888,14 @@ a {
 
 .hours-row .day {
     font-family: var(--font-heading);
-    font-size: 14px;
+    font-size: 13px;
     letter-spacing: 1px;
 }
 
 .hours-row .time {
     color: var(--accent-color);
     font-weight: 500;
-    font-size: 13.5px;
+    font-size: 13px;
 }
 
 .hours-row.highlight {
@@ -1031,7 +1031,7 @@ a {
    ========================================================================== */
 .contact-form-container {
     background-color: var(--bg-light);
-    padding: 50px;
+    padding: 25px;
     border: 1px solid var(--border-color);
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
     position: relative;
@@ -1041,14 +1041,14 @@ a {
 .contact-form {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 15px;
     transition: opacity var(--transition-fast);
 }
 
 .form-group-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 24px;
+    gap: 15px;
 }
 
 .form-group {
