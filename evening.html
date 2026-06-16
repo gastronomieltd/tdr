@@ -101,6 +101,11 @@
     <!-- Header / Navigation -->
     <header class="header">
         <div class="nav-container">
+            <div class="header-socials">
+                <a href="https://www.facebook.com/p/The-Drawing-Room-Of-Locksbottom-100065169061606/" class="social-fb" aria-label="Facebook" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/thedrawingroomlocksbottom/?hl=en" class="social-ig" aria-label="Instagram" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+
             <a href="#hero" class="brand-logo">
                 <span class="logo-top">THE DRAWING ROOM</span>
                 <div class="logo-divider">
@@ -111,17 +116,10 @@
                 <span class="logo-bottom">EVENING</span>
             </a>
 
-            <div class="header-socials">
-                <a href="https://www.facebook.com/p/The-Drawing-Room-Of-Locksbottom-100065169061606/" class="social-fb" aria-label="Facebook" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
-                <a href="https://www.instagram.com/thedrawingroomlocksbottom/?hl=en" class="social-ig" aria-label="Instagram" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-            </div>
-
             <nav class="nav-menu">
                 <ul class="nav-links">
-                    <li><a href="#hero" class="nav-link active">Home</a></li>
-                    <li><a href="#specialities" class="nav-link">Specialities</a></li>
                     <li><a href="#menu" class="nav-link">Menu</a></li>
-                    <li><a href="#gallery" class="nav-link">Gallery</a></li>
+                    <li><a href="#contact" class="nav-link">Events</a></li>
                     <!-- Link back to standard daytime site -->
                     <li><a href="index.html?manual=true" class="nav-link" style="color: var(--accent-color); font-weight: 600;"><i class="fa-solid fa-sun" style="margin-right: 5px;"></i> Classic Day</a></li>
                     
@@ -151,35 +149,39 @@
                 <div class="hero-about-media reveal-zoom">
                     <!-- Elegant evening bar visual -->
                     <img src="images/evening-hero2.jpg" loading="lazy" alt="Dimly lit romantic evening bar">
+                    <!-- 
                     <div class="about-badge">
                         <span class="badge-num">Cozy</span>
                         <span class="badge-text">Evenings</span>
                     </div>
+                     -->
                 </div>
                 <div class="hero-about-text reveal">
                     <span class="hero-subtitle">Welcome to Our Evening Sanctuary</span>
-                    <h1 class="hero-title">Candlelight, Fine Wines &amp; Cocktails</h1>
-                    <p class="section-desc">When the sun sets, the day's chatter gives way to the gentle hum of acoustic music, clinking crystal glasses, and warm, soft candlelight. The Drawing Room by Evening is designed as a sophisticated yet deeply cozy hideaway to decompress after a busy week.</p>
-                    <p class="section-desc">We showcase a curated list of artisanal spirits, signature cocktails crafted with fresh botanicals, and hand-selected small-producer wines. Relax on our velvet sofas and enjoy a grazing experience created to be savoured slowly.</p>
+                    <h1 class="hero-title">Relaxing Dine & Wine</h1>
+                    <p class="section-desc">Nestled in the heart of Locksbottom, The Drawing Room is a charming haven that radiates warmth and elegant simplicity. 
+                        The Drawing Room by Evening is designed as a sophisticated yet deeply cosy hideaway to decompress after a busy day.</p>
+                    <p class="section-desc">Our dedicated team is committed to serving heartwarming artisan food with wide range of wines and spirits.</p>
                     <div class="about-features">
                         <div class="feature-item">
                             <i class="fa-solid fa-wine-glass"></i>
                             <div>
-                                <h4>Artisan Pairings</h4>
-                                <p>Premium local charcuterie and cheeses selected to complement our wine lists.</p>
+                                <h4>Indulge in artisan pizzas, tapas, and handcrafted charcuterie and cheese boards.</h4>
                             </div>
                         </div>
                         <div class="feature-item">
                             <i class="fa-solid fa-music"></i>
                             <div>
-                                <h4>Acoustic Ambient Music</h4>
-                                <p>Sip your favorite cocktails to the backdrop of low, relaxing sounds.</p>
+                                <h4>Unwind with your favourite wine or bubbly, accompanied by relaxing music.</h4>
                             </div>
                         </div>
                     </div>
                     <div class="hero-buttons">
-                        <a href="#menu" class="btn btn-blue">Evening Menu</a>
-                        <a href="#contact" class="btn btn-blue">Reserve Table</a>
+                        <!-- Notifications                        -->
+                        <div id="announcementBanner" class="hidden" style="margin-top: 20px; background-color: var(--accent-color); color: #fff; text-align: center; padding: 12px 24px; font-size: 14px; font-weight: 600; text-transform: propercase; letter-spacing: 1px; position: relative; z-index: 999; box-shadow: 0 4px 15px rgba(10, 45, 84, 0.05);">
+                                <i class="fa-solid fa-bullhorn" style="margin-right: 8px;"></i>
+                                <span id="announcementText"></span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -202,9 +204,9 @@
                         <img src="images/pizza.jpg" loading="lazy" alt="Artisan Pizzas" class="speciality-img">
                     </div>
                     <div class="speciality-info">
-                        <span class="speciality-tag">Graze &amp; Share</span>
+                        <span class="speciality-tag">Tickle the Palate</span>
                         <h3 class="speciality-card-title">Artisan Pizzas</h3>
-                        <p class="speciality-card-desc">Artisan pizza made from hand-stretched dough and fresh ingredients, perfect for sharing over wine or beer on a laid-back evening..</p>
+                        <p class="speciality-card-desc">Artisan pizza made from hand-stretched dough and fresh ingredients, perfect for sharing.</p>
                     </div>
                 </div>
 
@@ -214,9 +216,9 @@
                         <img src="images/drinks.jpg" loading="lazy" alt="A glass of red wine next to cheese board" class="speciality-img">
                     </div>
                     <div class="speciality-info">
-                        <span class="speciality-tag">Wines, Beers &amp; Cocktails</span>
-                        <h3 class="speciality-card-title">Fine Wine &amp; Grazing</h3>
-                        <p class="speciality-card-desc">Explore hand-selected Old World and organic wines, served alongside custom boards piled with British cured meats, artisan cheeses, warm breads, and olives.</p>
+                        <span class="speciality-tag">Pairing</span>
+                        <h3 class="speciality-card-title">Fine Wine &amp; Spirits</h3>
+                        <p class="speciality-card-desc">Complement your meal with a curated selection of fine wines and premium spirits.</p>
                     </div>
                 </div>
 
@@ -228,7 +230,7 @@
                     <div class="speciality-info">
                         <span class="speciality-tag">Late-Night Sweet</span>
                         <h3 class="speciality-card-title">Decadent Desserts</h3>
-                        <p class="speciality-card-desc">End your night with a slice of rich, warm dark chocolate torte or a classic lemon tart, elegantly accompanied by our late-night liqueur coffees.</p>
+                        <p class="speciality-card-desc">End your night with a slice of warm, rich cake, where every bite lingers like a gentle farewell.</p>
                     </div>
                 </div>
             </div>
@@ -237,10 +239,11 @@
 
     <!-- Menu Section (Reads dynamically from your Google Sheet Menu Tab) -->
     <section id="menu" class="menu section-padding">
-        <!-- Smart Weather recommendation Banner (Brand Styled) -->
+        <!-- Smart Weather recommendation Banner (Brand Styled)
         <div id="weatherRecommender" class="hidden" style="max-width: 650px; margin: 0 auto 40px auto; text-align: center; background-color: var(--primary-color); border: 3px solid var(--text-light); outline: 1px solid var(--text-light); outline-offset: -5px; padding: 25px 30px; box-shadow: 0 10px 30px rgba(10, 45, 84, 0.15);">
             <p id="weatherText" style="font-family: var(--font-accent); font-style: italic; font-size: 18px; color: var(--text-light); margin: 0; line-height: 1.6;"></p>
         </div>
+         -->
         <div class="container">
             <div class="section-header">
                 <span class="section-tagline">The Cellar &amp; Kitchen</span>
@@ -288,7 +291,7 @@
     <section id="gallery" class="gallery section-padding">
         <div class="container">
             <div class="section-header">
-                <span class="section-tagline">Visual Diary</span>
+                <span class="section-tagline">Gallery</span>
                 <h2 class="section-title">Evenings at The Drawing Room</h2>
                 <p class="section-subtitle-text">A glimpse into our candlelit lounge atmosphere, wine cellars, and social moments.</p>
             </div>
@@ -438,9 +441,8 @@
                         <div class="form-group">
                             <label for="subject">Subject</label>
                             <select id="subject" name="subject" required>
-                                <option value="General Inquiry">General Inquiry / Question</option>
                                 <option value="Book Afternoon Tea">Book Afternoon Tea (Advance booking required)</option>
-                                <option value="Book Event">Private Event Hire</option>
+                                <option value="Book Event">Event Enquiry</option>
                             </select>
                         </div>
 

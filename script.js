@@ -287,7 +287,7 @@ const initializeApp = () => {
         if (hour >= 5 && hour < 12) {
             greeting = 'Good morning &amp; Welcome to Our Sanctuary';
         } else if (hour >= 12 && hour < 17) {
-            greeting = 'Good afternoon &amp; Welcome to Our Sanctuary';
+            greeting = 'Good Afternoon &amp; Welcome to Our Sanctuary';
         } else if (hour >= 17 || hour < 5) {
             greeting = 'Good evening &amp; Welcome to Our Sanctuary';
         }

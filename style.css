@@ -112,7 +112,7 @@ a {
 }
 
 .section-subtitle-text {
-    font-size: 15px;
+    font-size: 14px;
     color: var(--text-muted);
 }
 
@@ -556,7 +556,7 @@ a {
 }
 
 .about-features {
-    margin-top: 40px;
+    margin-top: 10px;
     display: grid;
     gap: 24px;
 }
@@ -1132,6 +1132,7 @@ input[type="time"] {
 
 .footer-copy {
     font-size: 12px;
+    font-style: italic;
 }
 
 /* ==========================================================================
@@ -1732,6 +1733,10 @@ body.night-mode .contact-form select:focus {
 }
 
 body.night-mode .feature-item h4 {
+    color: var(--accent-color);
+}
+
+body.night-mode .speciality-card-title {
     color: var(--accent-color);
 }
 
