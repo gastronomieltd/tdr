@@ -410,31 +410,64 @@
         </div>
     </section>
 
-    <!-- Opening Hours Section -->
+    <!-- Opening Hours Section (Aligned 3-Column Week Grid) -->
     <section id="hours" class="hours section-padding">
         <div class="hours-bg-overlay"></div>
         <div class="container relative-z">
-            <div class="hours-box">
+            <div class="hours-box" style="max-width: 650px;">
                 <span class="section-tagline">Join Us Today</span>
                 <h2 class="section-title">Opening Hours</h2>
                 <div id="openStatusBadge" style="margin-bottom: 25px; font-weight: 600; font-size: 14px;">
                     <!-- JavaScript will dynamically insert "We are open now!" or "We are closed" here -->
                 </div>
+                
                 <div class="hours-list">
-                    <div class="hours-row" id="hours-mon-fri">
-                        <span class="day">Monday - Friday</span>
-                        <span class="time">8:30 AM - 4:30 PM</span>
+                    <!-- Column Header Row -->
+                    <div class="hours-row header-row" style="border-bottom: 2px solid var(--accent-color); padding-bottom: 8px; margin-bottom: 10px;">
+                        <span class="day-header" style="font-family: var(--font-heading); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-color); font-weight: 700;">Day</span>
+                        <span class="time-header" style="font-family: var(--font-heading); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-color); font-weight: 700;">Daytime</span>
+                        <span class="time-header" style="font-family: var(--font-heading); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-color); font-weight: 700;">Evenings</span>
                     </div>
-                    <div class="hours-row highlight" id="hours-sat">
+
+                    <!-- Unique IDs applied to each individual day row for correct JS highlighting -->
+                    <div class="hours-row" id="hours-mon">
+                        <span class="day">Monday</span>
+                        <span class="time">8:30 AM - 4:30 PM</span>
+                        <span class="time">6:00 PM - 11:00 PM</span>
+                    </div>
+                    <div class="hours-row" id="hours-tue">
+                        <span class="day">Tuesday</span>
+                        <span class="time">8:30 AM - 4:30 PM</span>
+                        <span class="time">6:00 PM - 11:00 PM</span>
+                    </div>
+                    <div class="hours-row" id="hours-wed">
+                        <span class="day">Wednesday</span>
+                        <span class="time">8:30 AM - 4:30 PM</span>
+                        <span class="time">6:00 PM - 11:00 PM</span>
+                    </div>
+                    <div class="hours-row" id="hours-thu">
+                        <span class="day">Thursday</span>
+                        <span class="time">8:30 AM - 4:30 PM</span>
+                        <span class="time">6:00 PM - 11:00 PM</span>
+                    </div>
+                    <div class="hours-row" id="hours-fri">
+                        <span class="day">Friday</span>
+                        <span class="time">8:30 AM - 4:30 PM</span>
+                        <span class="time">6:00 PM - 11:00 PM</span>
+                    </div>
+                    <div class="hours-row" id="hours-sat">
                         <span class="day">Saturday</span>
                         <span class="time">8:30 AM - 3:30 PM</span>
+                        <span class="time">6:00 PM - 11:30 PM</span>
                     </div>
                     <div class="hours-row" id="hours-sun">
                         <span class="day">Sunday</span>
                         <span class="time">Closed</span>
+                        <span class="time">Closed</span>
                     </div>
                 </div>
-                <div class="hours-note">
+                
+                <div class="hours-note" style="margin-top: 30px;">
                     <p><i class="fa-solid fa-bell"></i> Booking in advance is highly recommended for afternoon tea!</p>
                 </div>
             </div>

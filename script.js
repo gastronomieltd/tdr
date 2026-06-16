@@ -571,6 +571,24 @@ const initializeApp = () => {
 
     // Trigger the configuration check
     loadConfigFromSheet();
+
+    // ==========================================================================
+    // Automatic Current Weekday Highlighting (Custom 3-Column Aligner)
+    // ==========================================================================
+    const highlightCurrentDay = () => {
+        const weekdays = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+        const dayIndex = new Date().getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+        
+        // Formulates the exact ID to query (e.g. hours-mon, hours-sat)
+        const todayRowId = 'hours-' + weekdays[dayIndex];
+
+        const currentRow = document.getElementById(todayRowId)
+        if (currentRow) {
+            currentRow.classList.add('highlight');
+        }
+    };
+    highlightCurrentDay();
+
 };
 
 // SAFE LAUNCH: If the browser is already loaded, run immediately. If not, wait for DOM.
