@@ -110,17 +110,17 @@
 </head>
 <body>
 
-    <!-- Header / Navigation -->
+<!-- Header / Navigation -->
     <header class="header">
         <div class="nav-container">
             
-
+            <!-- 1. Left Cell: Social Icons (Moved to first position) -->
             <div class="header-socials">
                 <a href="https://www.facebook.com/p/The-Drawing-Room-Of-Locksbottom-100065169061606/" class="social-fb" aria-label="Facebook" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
                 <a href="https://www.instagram.com/thedrawingroomlocksbottom/?hl=en" class="social-ig" aria-label="Instagram" target="_blank"><i class="fa-brands fa-instagram"></i></a>
             </div>
 
-            <!-- CSS representation of your physical logo -->
+            <!-- 2. Center Cell: Brand Logo (Centered perfectly) -->
             <a href="#hero" class="brand-logo">
                 <span class="logo-top">THE DRAWING ROOM</span>
                 <div class="logo-divider">
@@ -131,20 +131,13 @@
                 <span class="logo-bottom">LOCKSBOTTOM</span>
             </a>
 
+            <!-- 3. Right Cell: Navigation Menu -->
             <nav class="nav-menu">
                 <ul class="nav-links">
-                    <!-- 
-                    <li><a href="#specialities" class="nav-link">Specialities</a></li> 
-                    -->
                     <li><a href="#menu" class="nav-link">Menu</a></li>
                     <li><a href="#contact" class="nav-link">Events</a></li>
-                    <!-- 
-                    <li><a href="#gallery" class="nav-link">Gallery</a></li>
-                    -->
-                    <!-- Link to Cosy Evening site -->
-                    <li><a href="evening.html?manual=true" class="nav-link" style="color: var(--accent-color); font-weight: 600;"><i class="fa-solid fa-moon" style="margin-right: 5px;"></i> Cosy Evening</a></li>
+                    <li><a href="evening.html" class="nav-link" style="color: var(--accent-color); font-weight: 600;"><i class="fa-solid fa-moon" style="margin-right: 5px;"></i> Cosy Evening</a></li>
                                            
-                    <!-- Collapsed Dropdown Item -->
                     <li class="nav-dropdown">
                         <a href="#hours" class="nav-link dropdown-toggle">Visit<i class="fa-solid fa-chevron-down" style="font-size: 10px; margin-left: 4px;"></i></a>
                         <ul class="dropdown-menu">
@@ -155,11 +148,15 @@
                 </ul>
             </nav>
 
-            <div class="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
+            <!-- 4. Far Right Cell: Mobile Hamburger Wrapper -->
+            <div class="hamburger-wrapper">
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
             </div>
+
         </div>
     </header>
 
@@ -195,7 +192,7 @@
                             </div>
                         </div>
                         <div class="feature-item">
-                            <i class="fa-solid fa-cake-candles"></i>
+                            <i class="fa-solid fa-cookie-bite"></i>
                             <div>
                                 <h4>Cakes and pastries lovingly baked each morning.</h4>
                             </div>
@@ -214,9 +211,7 @@
                                 <span id="announcementText"></span>
                         </div>
                     </div>
-
                 </div>
-
             </div>
         </div>
     </section>
