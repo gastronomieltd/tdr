@@ -119,7 +119,7 @@ a {
 /* Buttons */
 .btn {
     display: inline-block;
-    padding: 15px 36px;
+    padding: 20px 30px;
     font-size: 12px;
     font-weight: 600;
     text-transform: uppercase;
@@ -422,43 +422,32 @@ a {
 }
 
 /* ==========================================================================
-   Hero Section
+   Hero & About Merged Section
    ========================================================================== */
-.hero {
-    height: 100vh;
-    min-height: 600px;
+.hero-about {
+    padding-top: calc(var(--header-height) + 60px); /* Keeps content clear of fixed navbar */
+    min-height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: center;
-    position: relative;
-    background-image: url('images/hero.jpg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    color: var(--text-light);
-    text-align: center;
 }
 
-.hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(rgba(9, 57, 111, 0.65), rgba(137, 161, 189, 0.75));
+.hero-about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr; /* Image on left (1fr), narrative text on right (1.2fr) */
+    gap: 80px;
+    align-items: start;
 }
 
-.hero-content {
-    position: relative;
-    z-index: 5;
-    max-width: 800px;
-    padding: 0 24px;
+.hero-about-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .hero-subtitle {
     font-family: var(--font-accent);
     font-style: italic;
-    font-size: 35px;
+    font-size: 25px;
     color: var(--accent-color);
     display: block;
     margin-bottom: 15px;
@@ -473,43 +462,32 @@ a {
     letter-spacing: 1px;
 }
 
-.hero-description {
-    font-size: 16px;
-    max-width: 600px;
-    margin: 0 auto 30px auto;
-    font-weight: 300;
-    line-height: 1.8;
-    color: rgba(255, 255, 255, 0.9);
+/*
+.hero-about-text .hero-subtitle {
+    margin-bottom: 12px;
 }
 
-.hero-buttons {
+.hero-about-text .hero-title {
+    margin-bottom: 24px;
+}
+*/
+
+.hero-about-text .section-desc {
+    margin-bottom: 20px;
+    font-size: 15px;
+    color: var(--text-muted);
+}
+
+.hero-about-text .hero-buttons {
     display: flex;
-    justify-content: center;
-    gap: 20px;
+    gap: 15px;
+    margin-top: 20px;
 }
 
-.scroll-indicator {
-    position: absolute;
-    bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 5;
-    animation: bounce 2s infinite;
-}
-
-.scroll-indicator a {
-    font-size: 20px;
-    color: rgba(255, 255, 255, 0.6);
-}
-
-.scroll-indicator a:hover {
-    color: var(--accent-color);
-}
-
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% { transform: translate(-50%, 0); }
-    40% { transform: translate(-50%, -10px); }
-    60% { transform: translate(-50%, -5px); }
+.hero-about-media {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
 }
 
 /* ==========================================================================
@@ -544,10 +522,10 @@ a {
     right: -20px;
     background-color: var(--primary-color);
     color: var(--text-light);
-    padding: 30px;
+    padding: 10px;
     border-left: 5px solid var(--accent-color);
     text-align: center;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.150);
 }
 
 .badge-num {
@@ -772,6 +750,7 @@ a {
     font-size: 14px;
     color: var(--text-muted);
     line-height: 1.6;
+    white-space: pre-line; /* PRESERVES GOOGLE SHEETS MULTI-LINE TEXT BREAKS NATIVELY */
 }
 
 /* ==========================================================================
@@ -1221,11 +1200,9 @@ input[type="time"] {
    Responsive Media Queries
    ========================================================================== */
 @media (max-width: 1024px) {
-    .hero-title {
-        font-size: 38px;
-    }
-    .about-grid {
-        gap: 40px;
+    .hero-about-grid {
+        grid-template-columns: 1fr;
+        gap: 50px;
     }
     .about-img {
         height: 450px;
@@ -1331,47 +1308,37 @@ input[type="time"] {
         font-size: 30px;
     }
 
-    /* Hero Responsive */
-    .hero-title {
-        font-size: 34px;
-    }
-    
-    .hero-subtitle {
-        font-size: 20px;
-    }
-
-    .hero-buttons {
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
-    }
-    
-    .hero-buttons .btn {
-        width: 100%;
-        max-width: 280px;
-    }
-
-    /* About Responsive */
-    .about-grid {
-        grid-template-columns: 1fr;
-        gap: 50px;
-    }
-    
+    /* About Image Responsive 
     .about-image-wrapper {
         max-width: 500px;
         margin: 0 auto;
         width: 100%;
+    }*/
+
+    .about-image-wrapper {
+        position: relative; /* Unlocks absolute positioning for the badge */
     }
-    
+
     .about-img {
-        height: 380px;
+        width: 100%;
+        height: 520px;
+        object-fit: cover;
+        border: 1px solid var(--border-color);
+        box-shadow: 20px 20px 0px var(--bg-light);
     }
 
     /* Contains the absolute-positioned badge cleanly inside the screen borders on mobile */
     .about-badge {
-        right: 0;
-        bottom: -10px;
-        padding: 24px;
+        position: absolute;
+        bottom: -20px;
+        right: -20px;
+        background-color: var(--primary-color);
+        color: var(--text-light);
+        padding: 30px;
+        border-left: 5px solid var(--accent-color);
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        z-index: 10;
     }
 
     /* Menu Responsive */
@@ -1472,6 +1439,51 @@ input[type="time"] {
 .reveal-zoom.active {
     opacity: 1;
     transform: scale(1);
+}
+
+/* Dietary Quick-Filter Buttons */
+.filter-tag-btn {
+    background-color: var(--bg-white);
+    border: 1px solid var(--border-color);
+    color: var(--text-dark);
+    padding: 6px 14px;
+    font-size: 10px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.filter-tag-btn.active,
+.filter-tag-btn:hover {
+    background-color: var(--accent-color);
+    color: var(--text-light);
+    border-color: var(--accent-color);
+}
+
+/* Menu Subcategory Headers */
+.menu-subcategory-header {
+    grid-column: 1 / -1; /* Forces the header to stretch across both columns */
+    margin-top: 50px;
+    margin-bottom: 25px;
+}
+
+/* If the header is the very first item inside the grid, remove the top margin gap */
+.menu-grid > .menu-subcategory-header:first-child {
+    margin-top: 0;
+}
+
+.menu-subcategory-header h3 {
+    font-family: var(--font-heading);
+    color: var(--accent-color);
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 8px;
 }
 
 @media (max-width: 480px) {
@@ -1696,11 +1708,7 @@ body.night-mode {
 /* Specific background updates for the evening page */
 body.night-mode .hero {
     /* Dimly lit luxurious sofa / bar lounge image */
-    background-image: url('images/evening-hero3.jpg');
-}
-
-body.night-mode .hero-overlay {
-    background: linear-gradient(rgba(57, 59, 62, 0.65), rgba(39, 65, 94, 0.75));
+    background-image: url('images/bar.jpg');
 }
 
 body.night-mode .hours {
@@ -1721,6 +1729,10 @@ body.night-mode .form-group input:focus,
 body.night-mode .form-group textarea:focus,
 body.night-mode .contact-form select:focus {
     border-color: var(--accent-color);
+}
+
+body.night-mode .feature-item h4 {
+    color: var(--accent-color);
 }
 
 /* Floating WhatsApp Button */
@@ -1763,6 +1775,7 @@ body.night-mode .btn-blue {
     background-color: var(--accent-color);
     color: var(--text-light);
     border-color: var(--accent-color);
+    padding: 20px 30px;
 }
 
 body.night-mode .btn-blue:hover {

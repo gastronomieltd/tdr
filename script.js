@@ -5,7 +5,7 @@ const initializeApp = () => {
     // Your Unified Google Sheet Web App URL
     // ==========================================================================
     const GOOGLE_SHEET_ENQUIRY_URL = 'https://script.google.com/macros/s/AKfycbz9N2Y6oZZzBigEKrVjFsZLphHCRSkL2LNh0iG0xrUQMeH7u_eEL_E9si_q4GMCEh4y/exec';
-    const GOOGLE_SHEET_MENU_URL = 'https://script.google.com/macros/s/AKfycbzjiCsO-ZF72QTLWEP-k18L2glWtF3sWE3giy9cyvIURwOqbpI7D1owwiYLLwLYfqzmLQ/exec';
+    const GOOGLE_SHEET_SITECONFIG_URL = 'https://script.google.com/macros/s/AKfycbzjiCsO-ZF72QTLWEP-k18L2glWtF3sWE3giy9cyvIURwOqbpI7D1owwiYLLwLYfqzmLQ/exec';
     // Global variable to store sheet items
     let MENU_DATA = [];
     
@@ -54,13 +54,11 @@ const initializeApp = () => {
         // 3. Loop through each subcategory group and render
         let isFirstSection = true;
         for (const subcategoryName in groupedItems) {
-            
+
             // Generate a full-width subheader spanning both columns
             const subheaderHTML = `
-                <div class="menu-subcategory-header" style="grid-column: 1 / -1; margin-top: ${isFirstSection ? '0' : '10px'}; margin-bottom: 10px;">
-                    <h3 style="font-family: var(--font-heading); color: var(--accent-color); font-size: 20px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
-                        ${subcategoryName}
-                    </h3>
+                <div class="menu-subcategory-header">
+                    <h3>${subcategoryName}</h3>
                 </div>
             `;
             menuGrid.insertAdjacentHTML('beforeend', subheaderHTML);
@@ -112,7 +110,7 @@ const initializeApp = () => {
         const sheetParam = isNightPage ? '?sheet=MenuEvening' : '?sheet=MenuDay';
 
         // Appends the parameter directly to your Web App URL
-        fetch(GOOGLE_SHEET_MENU_URL + sheetParam)
+        fetch(GOOGLE_SHEET_SITECONFIG_URL + sheetParam)
             .then(response => response.json())
             .then(data => {
                 MENU_DATA = data;
@@ -303,21 +301,28 @@ const initializeApp = () => {
     const bookingFields = document.getElementById('bookingFields');
 
     if (subjectSelect && bookingFields) {
-        subjectSelect.addEventListener('change', (e) => {
-            if (e.target.value === 'Afternoon Tea Booking') {
+        const handleBookingFieldsVisibility = (value) => {
+            if (value === 'Book Afternoon Tea' || value === 'Event Inquiry') {
                 bookingFields.classList.remove('hidden');
-                // Make the sub-fields required
                 document.getElementById('bookDate').required = true;
                 document.getElementById('bookTime').required = true;
                 document.getElementById('guests').required = true;
             } else {
                 bookingFields.classList.add('hidden');
-                // Remove required status
                 document.getElementById('bookDate').required = false;
                 document.getElementById('bookTime').required = false;
                 document.getElementById('guests').required = false;
             }
+        };
+
+        // Listen for user select changes
+        subjectSelect.addEventListener('change', (e) => {
+            handleBookingFieldsVisibility(e.target.value);
         });
+
+        // Run once on page load to set the correct initial state
+        // (This makes the booking fields visible by default on evening.html!)
+        handleBookingFieldsVisibility(subjectSelect.value);
     }
 
     // ==========================================================================
@@ -466,6 +471,106 @@ const initializeApp = () => {
             });
         });
     }
+
+    // ==========================================================================
+    // Menu Dietary Quick-Filter Event Listeners
+    // ==========================================================================
+    const filterBtns = document.querySelectorAll('.filter-tag-btn');
+    if (filterBtns && searchInput) {
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const filterValue = btn.getAttribute('data-filter');
+                searchInput.value = filterValue; // Update search input box
+                
+                // Trigger your existing Fuse.js fuzzy search automatically!
+                renderMenu(activeCategoryTab, filterValue);
+            });
+        });
+    }
+
+    // ==========================================================================
+    // Gallery Lightbox Controller
+    // ==========================================================================
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+
+    if (lightbox && lightboxImg && galleryItems) {
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const img = item.querySelector('.gallery-img');
+                if (img) {
+                    lightboxImg.src = img.src;
+                    lightboxImg.alt = img.alt;
+                    lightbox.classList.add('show');
+                    document.body.classList.add('menu-open'); // Locks background page scrolling
+                }
+            });
+        });
+
+        const closeLightbox = () => {
+            lightbox.classList.remove('show');
+            document.body.classList.remove('menu-open');
+        };
+
+        lightbox.addEventListener('click', closeLightbox);
+    }
+
+    // ==========================================================================
+    // Fetch & Apply Site Configurations from Google Sheets
+    // ==========================================================================
+    const loadConfigFromSheet = () => {
+        fetch(GOOGLE_SHEET_SITECONFIG_URL + '?sheet=Config')
+            .then(response => response.json())
+            .then(data => {
+                // Convert array of rows into a key-value lookup object
+                const config = {};
+                data.forEach(row => {
+                    if (row.key) {
+                        config[row.key.toString().trim().toLowerCase()] = row.value;
+                    }
+                });
+
+                // 1. Handle Announcement Banner
+                const banner = document.getElementById('announcementBanner');
+                const bannerText = document.getElementById('announcementText');
+                if (banner && bannerText) {
+                    if (config.announcement && config.announcement.trim() !== "") {
+                        bannerText.textContent = config.announcement;
+                        banner.classList.remove('hidden');
+                    } else {
+                        banner.classList.add('hidden');
+                    }
+                }
+
+                // 2. Handle Force Mode Page Switching
+                const forceMode = config.forcemode ? config.forcemode.toString().trim().toLowerCase() : 'auto';
+                const path = window.location.pathname;
+                const isEveningPage = path.includes('evening.html');
+                const isDayPage = path.includes('index.html') || path.endsWith('/') || path === '';
+
+                // If the user manually clicked a navigation link, respect their session override
+                if (sessionStorage.getItem('manual_override') === 'true') {
+                    return;
+                }
+
+                // Run forced redirects if configured in Google Sheets
+                if (forceMode === 'day' && isEveningPage) {
+                    window.location.replace('index.html');
+                } else if (forceMode === 'evening' && isDayPage) {
+                    window.location.replace('evening.html');
+                }
+            })
+            .catch(error => {
+                console.error("Error loading site configurations:", error);
+            });
+    };
+
+    // Trigger the configuration check
+    loadConfigFromSheet();
 };
 
 // SAFE LAUNCH: If the browser is already loaded, run immediately. If not, wait for DOM.

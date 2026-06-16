@@ -1,10 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Automatic Time-Based Router (Self-Clearing Manual Override) -->
+    <script>
+    (function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        
+        // 1. If the URL has ?manual=true, lock the manual preference
+        if (urlParams.get('manual') === 'true') {
+            sessionStorage.setItem('manual_override', 'true');
+        } else {
+            // 2. If they type or open a raw URL without ?manual=true, CLEAR the manual override
+            sessionStorage.removeItem('manual_override');
+        }
+
+        // If manual override is active, do nothing and respect their choice
+        if (sessionStorage.getItem('manual_override') === 'true') {
+            return;
+        }
+
+        // 3. Determine current hour strictly in the London/UK timezone
+        const londonHourStr = new Intl.DateTimeFormat('en-GB', {
+            timeZone: 'Europe/London',
+            hour: 'numeric',
+            hour12: false
+        }).format(new Date());
+        
+        const hour = parseInt(londonHourStr, 10);
+        const isEveningTime = (hour >= 18 || hour < 5); // 6:00 PM to 5:00 AM UK Time
+
+        // Detect current page file path
+        const path = window.location.pathname;
+        const isEveningPage = path.includes('evening.html');
+        const isDayPage = path.includes('index.html') || path.endsWith('/') || path === '';
+
+        // 4. Run redirection
+        if (isEveningTime && isDayPage) {
+            window.location.replace('evening.html');
+        } else if (!isEveningTime && isEveningPage) {
+            window.location.replace('index.html');
+        }
+    })();
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Drawing Room by Evening | Artisan Cocktails & Wine Lounge</title>
-
 
     <!-- Open Graph / Facebook Social Share Metadata -->
     <meta property="og:type" content="website">
@@ -82,15 +123,14 @@
                     <li><a href="#menu" class="nav-link">Menu</a></li>
                     <li><a href="#gallery" class="nav-link">Gallery</a></li>
                     <!-- Link back to standard daytime site -->
-                    <li><a href="index.html" class="nav-link" style="color: var(--accent-color); font-weight: 600;"><i class="fa-solid fa-sun" style="margin-right: 5px;"></i> Classic Day</a></li>
+                    <li><a href="index.html?manual=true" class="nav-link" style="color: var(--accent-color); font-weight: 600;"><i class="fa-solid fa-sun" style="margin-right: 5px;"></i> Classic Day</a></li>
                     
                     <!-- Collapsed Dropdown Item -->
                     <li class="nav-dropdown">
                         <a href="#hours" class="nav-link dropdown-toggle">Visit<i class="fa-solid fa-chevron-down" style="font-size: 10px; margin-left: 4px;"></i></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#about" class="nav-link-sub">About Us</a></li>
-                            <li><a href="#contact" class="nav-link-sub">Contact Us</a></li>
                             <li><a href="#hours" class="nav-link-sub">Opening Hours</a></li>
+                            <li><a href="#contact" class="nav-link-sub">Contact Us</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -104,41 +144,11 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section id="hero" class="hero">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <!-- 
-            <div class="hero-brand-box">
-                <span class="big-logo-top">THE DRAWING ROOM</span>
-                <div class="big-logo-divider">
-                    <span class="big-logo-line"></span>
-                    <span class="big-logo-of">by</span>
-                    <span class="big-logo-line"></span>
-                </div>
-                <span class="big-logo-bottom">EVENING</span>
-            </div>
-            -->
-
-            <span class="hero-subtitle">Welcome to Our Evening Sanctuary</span>
-            <h1 class="hero-title">Candlelight, Fine Wines &amp; Cocktails</h1>
-            <p class="hero-description">As dusk falls over Locksbottom, our drawing room transforms. Unwind with exquisite craft cocktails, organic wines, and gourmet platters served in an intimate, dimly lit sanctuary.</p>
-            
-            <div class="hero-buttons">
-                <a href="#menu" class="btn btn-blue">Evening Menu</a>
-                <a href="#contact" class="btn btn-blue">Reserve Table</a>
-            </div>
-        </div>
-        <div class="scroll-indicator">
-            <a href="#about"><i class="fa-solid fa-chevron-down"></i></a>
-        </div>
-    </section>
-
-    <!-- The Vibe Section -->
-    <section id="about" class="about section-padding">
+    <!-- Merged Hero & About Section -->
+   <section id="hero" class="hero-about section-padding">
         <div class="container">
-            <div class="about-grid">
-                <div class="about-image-wrapper reveal-zoom">
+            <div class="hero-about-grid">
+                <div class="hero-about-media reveal-zoom">
                     <!-- Elegant evening bar visual -->
                     <img src="images/evening-hero2.jpg" loading="lazy" alt="Dimly lit romantic evening bar">
                     <div class="about-badge">
@@ -146,9 +156,9 @@
                         <span class="badge-text">Evenings</span>
                     </div>
                 </div>
-                <div class="about-text-wrapper">
-                    <span class="section-tagline">The Vibe</span>
-                    <h2 class="section-title">An Intimate Escape</h2>
+                <div class="hero-about-text reveal">
+                    <span class="hero-subtitle">Welcome to Our Evening Sanctuary</span>
+                    <h1 class="hero-title">Candlelight, Fine Wines &amp; Cocktails</h1>
                     <p class="section-desc">When the sun sets, the day's chatter gives way to the gentle hum of acoustic music, clinking crystal glasses, and warm, soft candlelight. The Drawing Room by Evening is designed as a sophisticated yet deeply cozy hideaway to decompress after a busy week.</p>
                     <p class="section-desc">We showcase a curated list of artisanal spirits, signature cocktails crafted with fresh botanicals, and hand-selected small-producer wines. Relax on our velvet sofas and enjoy a grazing experience created to be savoured slowly.</p>
                     <div class="about-features">
@@ -166,6 +176,10 @@
                                 <p>Sip your favorite cocktails to the backdrop of low, relaxing sounds.</p>
                             </div>
                         </div>
+                    </div>
+                    <div class="hero-buttons">
+                        <a href="#menu" class="btn btn-blue">Evening Menu</a>
+                        <a href="#contact" class="btn btn-blue">Reserve Table</a>
                     </div>
                 </div>
             </div>
@@ -230,6 +244,7 @@
         <div class="container">
             <div class="section-header">
                 <span class="section-tagline">The Cellar &amp; Kitchen</span>
+                <!-- Added a styled gold PDF link next to the title -->
                 <h2 class="section-title">
                     Evening Menu 
                     <a href="menu.html?sheet=MenuEvening" target="_blank" class="title-pdf-link" title="View &amp; Print PDF Menu">
@@ -240,12 +255,19 @@
             </div>
 
             <!-- Dynamic Live Search Bar -->
-            <div class="menu-search-container" style="text-align: center; margin-bottom: 40px;">
+            <div class="menu-search-container" style="text-align: center; margin-bottom: 40px; display: flex; flex-direction: column; align-items: center; gap: 15px; max-width: 450px; margin: 0 auto 40px auto;">
                 <input type="text" id="menuSearch" placeholder="Search drinks or platters (e.g. 'wine', 'gin')..." style="padding: 14px 20px; width: 100%; max-width: 450px; border: 1px solid var(--border-color); background-color: var(--bg-white); outline: none; font-family: var(--font-body); font-size: 14px; transition: var(--transition-fast);">
+                
+                <!-- Dietary Quick Filters -->
+                <div class="menu-filter-tags" style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 5px;">
+                    <button class="filter-tag-btn active" data-filter="">All</button>
+                    <button class="filter-tag-btn" data-filter="Gluten-Free">Gluten-Free</button>
+                    <button class="filter-tag-btn" data-filter="Vegan">Vegan</button>
+                    <button class="filter-tag-btn" data-filter="Vegetarian">Vegetarian</button>
+                </div>
             </div>
 
-
-            <!-- Menu Tabs (Requires you to create entries in your Google Sheet Menu tab with category: 'cocktails', 'wine', 'graze') -->
+            <!-- Menu Tabs (Requires you to create entries in your Google Sheet Menu tab with category: 'wine', 'graze', 'beverages', 'pastries') -->
             <div class="menu-tabs-container">
                 <button class="menu-tab active" data-tab="wine">Fine Wine, Beer &amp; Cocktails</button>
                 <button class="menu-tab" data-tab="graze">Grazing</button>
@@ -360,7 +382,7 @@
                 <!-- Contact Information -->
                 <div class="contact-info">
                     <h3 class="contact-heading">The Drawing Room</h3>
-                    <p class="contact-intro">Located beautifully on Crofton Road, we are a perfect local getaway for Orpington residents and visitors alike.</p>
+                    <p class="contact-intro">Located convenietnly on Crofton Road, we are a perfect local getaway for Orpington residents and visitors alike.</p>
                     
                     <div class="info-list">
                         <!-- Click to open Google Maps directly -->
@@ -417,12 +439,12 @@
                             <label for="subject">Subject</label>
                             <select id="subject" name="subject" required>
                                 <option value="General Inquiry">General Inquiry / Question</option>
-                                <option value="Afternoon Tea Booking">Book Afternoon Tea (Advance booking required)</option>
-                                <option value="Event Inquiry">Private Event Hire</option>
+                                <option value="Book Afternoon Tea">Book Afternoon Tea (Advance booking required)</option>
+                                <option value="Book Event">Private Event Hire</option>
                             </select>
                         </div>
 
-                        <!-- Hidden reservation fields that slide open only if they choose Afternoon Tea -->
+                        <!-- Hidden reservation fields that slide open only if they choose Table Reservation -->
                         <div id="bookingFields" class="booking-fields-grid hidden">
                             <div class="form-group">
                                 <label for="bookDate">Date</label>
@@ -463,11 +485,6 @@
         </div>
     </footer>
 
-    <!-- Floating WhatsApp Button -->
-    <a href="https://wa.me/447766832952?text=Hello%20The%20Drawing%20Room!%20I'd%20love%20to%20ask%20a%20quick%20question..." target="_blank" class="whatsapp-float" aria-label="Chat on WhatsApp">
-        <i class="fa-brands fa-whatsapp"></i>
-    </a>
-
     <!-- Floating Back to Top Button -->
     <button id="backToTop" class="back-to-top" aria-label="Scroll back to top">
         <i class="fa-solid fa-chevron-up"></i>
@@ -478,6 +495,11 @@
         <span class="lightbox-close">&times;</span>
         <img class="lightbox-content" id="lightboxImg" alt="Enlarged gallery view">
     </div>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/447766832952?text=Hello%20The%20Drawing%20Room!%20I'd%20love%20to%20ask%20a%20quick%20question..." target="_blank" class="whatsapp-float" aria-label="Chat on WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
 
     <!-- Custom JS (Uses same script.js with automatic theme detection) -->
     <script src="script.js"></script>

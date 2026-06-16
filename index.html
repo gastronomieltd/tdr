@@ -1,6 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Automatic Time-Based Router (Self-Clearing Manual Override)
+    <script>
+    (function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        
+        // 1. If the URL has ?manual=true, lock the manual preference
+        if (urlParams.get('manual') === 'true') {
+            sessionStorage.setItem('manual_override', 'true');
+        } else {
+            // 2. If they type or open a raw URL without ?manual=true, CLEAR the manual override
+            sessionStorage.removeItem('manual_override');
+        }
+
+        // If manual override is active, do nothing and respect their choice
+        if (sessionStorage.getItem('manual_override') === 'true') {
+            return;
+        }
+
+        // 3. Determine current hour strictly in the London/UK timezone
+        const londonHourStr = new Intl.DateTimeFormat('en-GB', {
+            timeZone: 'Europe/London',
+            hour: 'numeric',
+            hour12: false
+        }).format(new Date());
+        
+        const hour = parseInt(londonHourStr, 10);
+        const isEveningTime = (hour >= 18 || hour < 5); // 6:00 PM to 5:00 AM UK Time
+
+        // Detect current page file path
+        const path = window.location.pathname;
+        const isEveningPage = path.includes('evening.html');
+        const isDayPage = path.includes('index.html') || path.endsWith('/') || path === '';
+
+        // 4. Run redirection
+        if (isEveningTime && isDayPage) {
+            window.location.replace('evening.html');
+        } else if (!isEveningTime && isEveningPage) {
+            window.location.replace('index.html');
+        }
+    })();
+    </script>
+    -->
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Drawing Room of Locksbottom | Cozy Cafe & Tea Room</title>
@@ -20,7 +63,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=1.2">
 
     <!-- Custom Tab Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' fill='%230a2d54'/%3E%3Crect x='24' y='24' width='464' height='464' fill='none' stroke='%23ffffff' stroke-width='8'/%3E%3Crect x='42' y='42' width='428' height='428' fill='none' stroke='%23c99b3b' stroke-width='4'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Cinzel, Georgia, serif' font-size='150' font-weight='700' fill='%23c99b3b' letter-spacing='6'%3ETDR%3C/text%3E%3C/svg%3E">
@@ -93,15 +136,14 @@
                     <li><a href="#menu" class="nav-link">Menu</a></li>
                     <li><a href="#gallery" class="nav-link">Gallery</a></li>
                     <!-- Link to Cozy Evening site -->
-                    <li><a href="evening.html" class="nav-link" style="color: var(--accent-color); font-weight: 600;"><i class="fa-solid fa-moon" style="margin-right: 5px;"></i> Cozy Evening</a></li>
+                    <li><a href="evening.html?manual=true" class="nav-link" style="color: var(--accent-color); font-weight: 600;"><i class="fa-solid fa-moon" style="margin-right: 5px;"></i> Cozy Evening</a></li>
                                            
                     <!-- Collapsed Dropdown Item -->
                     <li class="nav-dropdown">
                         <a href="#hours" class="nav-link dropdown-toggle">Visit<i class="fa-solid fa-chevron-down" style="font-size: 10px; margin-left: 4px;"></i></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#about" class="nav-link-sub">About Us</a></li>
-                            <li><a href="#contact" class="nav-link-sub">Contact Us</a></li>
                             <li><a href="#hours" class="nav-link-sub">Opening Hours</a></li>
+                            <li><a href="#contact" class="nav-link-sub">Contact Us</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -115,50 +157,32 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section id="hero" class="hero">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <!-- 
-            <div class="hero-brand-box">
-                <span class="big-logo-top">THE DRAWING ROOM</span>
-                <div class="big-logo-divider">
-                    <span class="big-logo-line"></span>
-                    <span class="big-logo-of">of</span>
-                    <span class="big-logo-line"></span>
-                </div>
-                <span class="big-logo-bottom">LOCKSBOTTOM</span>
-            </div>
-            -->
-            <span class="hero-subtitle">Welcome to Our Sanctuary</span>
-            <h1 class="hero-title">Vintage Charm &amp; Modern Delights</h1>
-            <p class="hero-description">Indulge in classic English fare and hand-picked loose leaf teas, served elegantly on fine bone china amidst cozy, nostalgic surroundings.</p>
-            
-            <div class="hero-buttons">
-                <a href="#specialities" class="btn btn-primary">Our Specialities</a>
-                <a href="#menu" class="btn btn-primary">Menu</a>
-                <a href="#contact" class="btn btn-primary">Book Afternoon Tea</a>
-            </div>
-        </div>
-        <div class="scroll-indicator">
-            <a href="#about"><i class="fa-solid fa-chevron-down"></i></a>
-        </div>
-    </section>
-
-    <!-- About Us Section -->
-    <section id="about" class="about section-padding">
+    <!-- Notifications
+    <div id="announcementBanner" class="hidden" style="margin-top: 50px; background-color: var(--accent-color); color: #fff; text-align: center; padding: 12px 24px; font-size: 12px; font-weight: 400; text-transform: propercase; letter-spacing: 1px; position: relative; z-index: 999; box-shadow: 0 4px 15px rgba(10, 45, 84, 0.05);">
+            <i class="fa-solid fa-bullhorn" style="margin-right: 8px;"></i>
+            <span id="announcementText"></span>
+    </div>
+     -->
+    
+    <!-- Merged Hero & About Section -->
+    <section id="hero" class="hero-about section-padding">
         <div class="container">
-            <div class="about-grid">
-                <div class="about-image-wrapper reveal-zoom" >
-                    <img src="images/hero.jpg" loading="lazy" alt="Atmospheric drawing room background image">
-                    <div class="about-badge">
-                        <span class="badge-num">Est.</span>
-                        <span class="badge-text">Locksbottom</span>
+            <div class="hero-about-grid">
+                <!-- Left Column: Graphic Media, Badge, and Feature Icons -->
+                <div class="hero-about-media reveal-zoom">
+                    <div class="about-image-wrapper">
+                        <img src="images/hero.jpg" loading="lazy" alt="Atmospheric drawing room background image">
+                        <div class="about-badge">
+                            <span class="badge-num">Est.</span>
+                            <span class="badge-text">Locksbottom</span>
+                        </div>
                     </div>
                 </div>
-                <div class="about-text-wrapper">
-                    <span class="section-tagline">Our Story</span>
-                    <h2 class="section-title">Where Nostalgia Meets Hospitality</h2>
+
+                <!-- Right Column: Text content (Brand box, greeting, story, CTA buttons) -->
+                <div class="hero-about-text reveal">
+                    <span class="hero-subtitle">Welcome to Our Sanctuary</span>
+                    <h1 class="hero-title">Vintage Charm &amp; Modern Delights</h1>
                     <p class="section-desc">Nestled in the heart of Locksbottom, The Drawing Room is a charming haven that radiates warmth and elegant simplicity. Upon stepping inside, you are greeted by cozy vintage decor, fresh blooms, and beautiful mismatched teacups that set the stage for an unforgettable visit.</p>
                     <p class="section-desc">Our dedicated team is committed to delivering heartwarming, traditional English cuisine infused with quality and flair. From our hearty lunches to the delicate pastries served during our signature afternoon tea, everything we present is crafted with care.</p>
                     <div class="about-features">
@@ -177,7 +201,14 @@
                             </div>
                         </div>
                     </div>
+                    <div class="hero-buttons">
+                        <a href="#specialities" class="btn btn-primary">Specialities</a>
+                        <a href="#menu" class="btn btn-primary">Menu</a>
+                        <a href="#contact" class="btn btn-primary">Book Afternoon Tea</a>
+                    </div>
+
                 </div>
+
             </div>
         </div>
     </section>
@@ -250,9 +281,17 @@
                 <p class="section-subtitle-text">Each dish is thoughtfully prepared with high-quality local ingredients and seasonal inspiration.</p>
             </div>
 
-            <!-- Dynamic Live Search Bar -->
-            <div class="menu-search-container" style="text-align: center; margin-bottom: 40px;">
-                <input type="text" id="menuSearch" placeholder="Search menu (e.g., 'scone', 'gluten free')..." style="padding: 14px 20px; width: 100%; max-width: 450px; border: 1px solid var(--border-color); background-color: var(--bg-white); outline: none; font-family: var(--font-body); font-size: 14px; transition: var(--transition-fast);">
+            <!-- Dynamic Live Search Bar with Quick Filters & Print Button Container -->
+            <div class="menu-search-container" style="text-align: center; margin-bottom: 40px; display: flex; flex-direction: column; align-items: center; gap: 15px; max-width: 450px; margin: 0 auto 40px auto;">
+                <input type="text" id="menuSearch" placeholder="Search menu (e.g., 'scone', 'gluten free')..." style="padding: 14px 20px; width: 100%; border: 1px solid var(--border-color); background-color: var(--bg-white); outline: none; font-family: var(--font-body); font-size: 14px; transition: var(--transition-fast);">
+                
+                <!-- Dietary Quick Filters -->
+                <div class="menu-filter-tags" style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 5px;">
+                    <button class="filter-tag-btn active" data-filter="">All</button>
+                    <button class="filter-tag-btn" data-filter="Gluten-Free">Gluten-Free</button>
+                    <button class="filter-tag-btn" data-filter="Vegan">Vegan</button>
+                    <button class="filter-tag-btn" data-filter="Vegetarian">Vegetarian</button>
+                </div>
             </div>
 
             <!-- Menu Tabs -->
@@ -262,7 +301,8 @@
                 <button class="menu-tab" data-tab="cereals-pancakes">Cereals &amp; Pancakes</button>
                 <button class="menu-tab" data-tab="lunch">Classic Lunch</button>
                 <button class="menu-tab" data-tab="sandwich">Sandwiches &amp; Toasties</button>
-                <button class="menu-tab" data-tab="beverages">Coffee &amp; Hot Drinks</button>
+                <button class="menu-tab" data-tab="beverages">Coffee, Tea &amp; Cold Drinks</button>
+                <button class="menu-tab" data-tab="alcohol">Alcohol</button>
                 <button class="menu-tab" data-tab="pastries">Desserts & Sweet Treats</button>
             </div>
 
@@ -405,7 +445,7 @@
                 <!-- Contact Information -->
                 <div class="contact-info">
                     <h3 class="contact-heading">The Drawing Room</h3>
-                    <p class="contact-intro">Located beautifully on Crofton Road, we are a perfect local getaway for Orpington residents and visitors alike.</p>
+                    <p class="contact-intro">Located convenietnly on Crofton Road, we are a perfect local getaway for Orpington residents and visitors alike.</p>
                     
                     <div class="info-list">
                         <!-- Click to open Google Maps directly -->
@@ -462,7 +502,7 @@
                             <label for="subject">Subject</label>
                             <select id="subject" name="subject" required>
                                 <option value="General Inquiry">General Inquiry / Question</option>
-                                <option value="Afternoon Tea Booking">Book Afternoon Tea (Advance booking required)</option>
+                                <option value="Book Afternoon Tea">Book Afternoon Tea (Advance booking required)</option>
                                 <option value="Event Inquiry">Private Event Hire</option>
                             </select>
                         </div>
