@@ -61,7 +61,7 @@ body.menu-open {
 }
 
 .section-padding {
-    padding: 50px 0;
+    padding: 100px 0;
 }
 
 .relative-z {
@@ -241,7 +241,7 @@ a {
 
 .logo-bottom {
     font-family: var(--font-heading);
-    font-size: 13.5px;
+    font-size: 15px;
     font-weight: 700;
     letter-spacing: 3.5px;
     color: var(--accent-color);
@@ -313,6 +313,8 @@ a {
     display: flex;
     align-items: center;
     gap: 15px;
+    margin-left: 0;
+    margin-right: 0;
     z-index: 1001;
 }
 
@@ -430,6 +432,109 @@ a {
 }
 
 /* ==========================================================================
+   Hero Section (Pure CSS Crossfade Slideshow Enabled)
+   ========================================================================== */
+.hero {
+    height: 100vh;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: var(--text-light);
+    text-align: center;
+    
+    /* 18-second infinite loop (6 seconds per image including crossfades) */
+    animation: daySlideshow 18s infinite ease-in-out; 
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(10, 45, 84, 0.65), rgba(10, 45, 84, 0.75));
+}
+
+.hero-content {
+    position: relative;
+    z-index: 5;
+    max-width: 800px;
+    padding: 0 24px;
+}
+
+.hero-subtitle {
+    font-family: var(--font-accent);
+    font-style: italic;
+    font-size: 25px;
+    color: var(--accent-color);
+    display: block;
+    margin-bottom: 15px;
+}
+
+.hero-title {
+    font-family: var(--font-heading);
+    font-size: 44px;
+    line-height: 1.25;
+    margin-bottom: 24px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.hero-description {
+    font-size: 16px;
+    max-width: 600px;
+    margin: 0 auto 30px auto;
+    font-weight: 300;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    animation: bounce 2s infinite;
+}
+
+.scroll-indicator a {
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.scroll-indicator a:hover {
+    color: var(--accent-color);
+}
+
+/* Daytime Slideshow Keyframes (3-Image Cycle) */
+@keyframes daySlideshow {
+    0%, 28% { background-image: url('images/hero.jpg'); }
+    33%, 61% { background-image: url('images/breakfast.jpg'); }
+    66%, 95% { background-image: url('images/afternoon-tea.jpg'); }
+    100% { background-image: url('images/hero.jpg'); }
+}
+
+/* Evening Slideshow Keyframes (3-Image Cycle) */
+@keyframes eveningSlideshow {
+    0%, 28% { background-image: url('images/bar.jpg'); }
+    33%, 61% { background-image: url('images/wine.jpg'); }
+    66%, 95% { background-image: url('images/cocktails.jpg'); }
+    100% { background-image: url('images/bar.jpg'); }
+}
+
+/* ==========================================================================
    Hero & About Merged Section
    ========================================================================== */
 .hero-about {
@@ -514,6 +619,7 @@ a {
 
 .about-image-wrapper {
     position: relative;
+    /* 18-second infinite loop (6 seconds per image including crossfades) */
 }
 
 .about-img {
@@ -684,7 +790,7 @@ a {
     display: flex;
     justify-content: center;
     gap: 15px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     flex-wrap: wrap;
 }
 
@@ -694,7 +800,7 @@ a {
     outline: none;
     font-family: var(--font-heading);
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 2px;
     padding: 6px 14px;
@@ -708,6 +814,8 @@ a {
 .menu-tab.active {
     color: var(--primary-color);
     border-bottom-color: var(--accent-color);
+    font-size: 16px;
+    font-weight: 800;
 }
 
 .menu-category {
@@ -738,7 +846,7 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    margin-bottom: 4px;
+    margin-bottom: 8px;
 }
 
 .menu-item-name {
@@ -1285,6 +1393,21 @@ input[type="time"] {
         z-index: 1001;
     }
 
+    /* KEEP logo absolutely centered on mobile viewports as well */
+    .brand-logo {
+        position: absolute;     /* Locks logo to absolute coordinate space on mobile too */
+        left: 50%;              /* Places left edge exactly at 50% of screen */
+        transform: translateX(-50%); /* Shifts it left by half of its own width, centering it perfectly */
+        z-index: 1002;          /* Keeps logo box sitting safely above neighboring elements */
+    }
+
+    .nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;     /* Essential for mobile absolute centering */
+    }
+
     .nav-menu {
         position: fixed;
         left: -100%;
@@ -1347,7 +1470,10 @@ input[type="time"] {
     }
 
     .header-socials {
-        margin-right: 15px; /* Creates a clean gap between the socials and the hamburger button */
+        flex: 1 1 0%;
+        display: flex;
+        justify-content: flex-start;
+        margin-right: 0; /* Clears mobile margins that were shifting the logo to the right */
     }
 }
 
@@ -1433,39 +1559,6 @@ input[type="time"] {
         flex-direction: column;
         gap: 20px;
         text-align: center;
-    }
-
-    .header-socials {
-        margin-right: 15px;
-    }
-
-    /* Collapse the absolute positioning on mobile to let links flow vertically */
-    .dropdown-menu {
-        position: static;
-        transform: none;
-        opacity: 1;
-        visibility: visible;
-        border: none;
-        box-shadow: none;
-        padding: 10px 0 0 0;
-        gap: 15px;
-        background-color: transparent;
-        text-align: center;
-        width: 100%;
-    }
-
-    .nav-dropdown:hover .dropdown-menu {
-        transform: none;
-    }
-
-    .nav-link-sub {
-        font-size: 14px;
-        padding: 8px 0;
-    }
-
-    /* Hide the small desktop chevron icon on vertical mobile menus */
-    .nav-dropdown .dropdown-toggle i {
-        display: none;
     }
 
     /* Automatically converts your gallery grid into a native horizontal swipe track */
@@ -1582,7 +1675,11 @@ input[type="time"] {
         font-size: 28px;
     }
 
+    /* Keep logo centered on small mobile screens */
     .brand-logo {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
         padding: 6px 12px;
         outline-offset: -3px;
     }
@@ -1637,7 +1734,7 @@ input[type="time"] {
 
     .header-socials {
         gap: 10px;
-        margin-right: 5px;
+        margin-right: 0; /* Clears mobile margin-right that was shifting the logo to the right */
     }
     
     .header-socials a {
@@ -1725,7 +1822,7 @@ input[type="time"] {
 
 /* ==========================================================================
    Interactive Photo Lightbox
-   ========================================================================== */
+   ========================================================================= */
 .lightbox {
     position: fixed;
     top: 0;
@@ -1788,10 +1885,10 @@ body.night-mode {
     --border-color: #1e2d42;     /* Subtle midnight dark borders */
 }
 
-/* Specific background updates for the evening page */
+/* Specific background updates for the evening page using CSS keyframes slideshow */
 body.night-mode .hero {
-    /* Dimly lit luxurious sofa / bar lounge image */
-    background-image: url('images/bar.jpg');
+    /* 18-second infinite loop for evening images */
+    animation: eveningSlideshow 18s infinite ease-in-out;
 }
 
 body.night-mode .hours {
@@ -1812,14 +1909,6 @@ body.night-mode .form-group input:focus,
 body.night-mode .form-group textarea:focus,
 body.night-mode .contact-form select:focus {
     border-color: var(--accent-color);
-}
-
-body.night-mode .feature-item h4 {
-    color: var(--accent-color);
-}
-
-body.night-mode .speciality-card-title {
-    color: var(--accent-color);
 }
 
 /* Floating WhatsApp Button */
