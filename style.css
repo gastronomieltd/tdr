@@ -1915,7 +1915,7 @@ body.night-mode .contact-form select:focus {
 .whatsapp-float {
     position: fixed;
     bottom: 30px;
-    right: 90px; /* Positioned neatly next to the Back to Top button */
+    right: 80px; /* Positioned neatly next to the Back to Top button */
     background-color: #25d366; /* Official WhatsApp Green */
     color: #ffffff;
     width: 44px;
@@ -1988,4 +1988,41 @@ body.night-mode .info-item h4 {
 
 body.night-mode .form-group label {
     color: var(--accent-color);
+}
+
+/* ==========================================================================
+   Floating Phone Call Button
+   ========================================================================== */
+.phone-float {
+    position: fixed;
+    bottom: 30px;
+    right: 130px; /* Aligns horizontally: 30px (Top), 90px (WhatsApp), 150px (Phone) */
+    background-color: var(--accent-color); /* Gold background */
+    color: #ffffff;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 999;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    transition: var(--transition-fast);
+    font-size: 16px;
+}
+
+.phone-float:hover {
+    background-color: var(--accent-hover);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 480px) {
+    .phone-float {
+        bottom: 20px;
+        right: 130px; /* Offset adjusted to fit next to WhatsApp and Back to Top on mobile screens */
+        width: 38px;
+        height: 38px;
+        font-size: 14px;
+    }
 }
