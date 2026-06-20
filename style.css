@@ -1944,8 +1944,10 @@ body.night-mode .feature-item h4 {
 
 @media (max-width: 480px) {
     .whatsapp-float {
-        bottom: 20px;
-        right: 75px; /* Offset adjusted for smaller smartphone screen borders */
+        /*bottom: 20px;
+        right: 75px;*/ /* Offset adjusted for smaller smartphone screen borders */
+        bottom: 75px;
+        right: 20px;
         width: 38px;
         height: 38px;
         font-size: 18px;
@@ -2029,8 +2031,10 @@ body.night-mode .form-group label {
 
 @media (max-width: 480px) {
     .phone-float {
-        bottom: 20px;
-        right: 130px; /* Offset adjusted to fit next to WhatsApp and Back to Top on mobile screens */
+        /*bottom: 20px;
+        right: 130px;*/ /* Offset adjusted to fit next to WhatsApp and Back to Top on mobile screens */
+        bottom: 130px;
+        right: 20px;
         width: 38px;
         height: 38px;
         font-size: 14px;
