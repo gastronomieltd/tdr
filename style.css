@@ -1911,11 +1911,17 @@ body.night-mode .contact-form select:focus {
     border-color: var(--accent-color);
 }
 
+body.night-mode .feature-item h4 {
+    color: var(--accent-color);
+}
+
 /* Floating WhatsApp Button */
 .whatsapp-float {
     position: fixed;
-    bottom: 30px;
-    right: 80px; /* Positioned neatly next to the Back to Top button */
+    /*bottom: 30px;
+    right: 80px;*/ /* Positioned neatly next to the Back to Top button */
+    bottom: 90px;
+    right: 30px;
     background-color: #25d366; /* Official WhatsApp Green */
     color: #ffffff;
     width: 44px;
@@ -1995,8 +2001,12 @@ body.night-mode .form-group label {
    ========================================================================== */
 .phone-float {
     position: fixed;
-    bottom: 30px;
-    right: 130px; /* Aligns horizontally: 30px (Top), 90px (WhatsApp), 150px (Phone) */
+    
+    /*bottom: 30px;
+    right: 130px;*/ /* Aligns horizontally: 30px (Top), 90px (WhatsApp), 150px (Phone) */
+    bottom: 150px;
+    right: 30px;
+
     background-color: var(--accent-color); /* Gold background */
     color: #ffffff;
     width: 44px;
