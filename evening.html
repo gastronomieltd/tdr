@@ -99,6 +99,27 @@
 <!-- Notice the night-mode class applied here to trigger CSS overrides -->
 <body class="night-mode">
 
+    <!-- Cinematic Brand Preloader (Evening version) -->
+    <div id="introLoader" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--primary-color); z-index: 9999; display: flex; align-items: center; justify-content: center; transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1), visibility 1s cubic-bezier(0.25, 1, 0.5, 1);">
+        <div id="introLogo" class="brand-logo" style="position: static; transform: scale(0.75); opacity: 0; filter: blur(8px) drop-shadow(0 0 15px rgba(201, 155, 59, 0)); transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.2s ease, filter 1.5s ease; border: 3px solid var(--text-light); outline: 1px solid var(--text-light); outline-offset: -5px; padding: 24px 40px;">
+            <span class="logo-top" style="font-size: 18px; letter-spacing: 3px;">THE DRAWING ROOM</span>
+            <div class="logo-divider" style="margin: 6px 0;">
+                <span class="logo-line" style="max-width: 80px; height: 1.5px; background-color: var(--accent-color);"></span>
+                <span class="logo-of" style="font-size: 16px;">by</span>
+                <span class="logo-line" style="max-width: 80px; height: 1.5px; background-color: var(--accent-color);"></span>
+            </div>
+            <span class="logo-bottom" style="font-size: 16.5px; letter-spacing: 4.5px;">EVENING</span>
+        </div>
+        
+        <script>
+            if (sessionStorage.getItem('intro_played') === 'true') {
+                document.getElementById('introLoader').style.display = 'none';
+            } else {
+                document.write('<style>body { overflow: hidden; height: 100vh; }</style>');
+            }
+        </script>
+    </div>
+
     <!-- Header / Navigation -->
     <header class="header">
         <div class="nav-container">

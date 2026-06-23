@@ -589,6 +589,47 @@ const initializeApp = () => {
     };
     highlightCurrentDay();
 
+    // ==========================================================================
+    // 9. Dynamic First-Time Intro Preloader (Cinematic Focus & Glow)
+    // ==========================================================================
+    const introLoader = document.getElementById('introLoader');
+    const introLogo = document.getElementById('introLogo');
+
+    if (introLoader && introLogo) {
+        if (sessionStorage.getItem('intro_played') !== 'true') {
+            // Stage 1: Zoom in slightly, clear blur, and glow golden after a brief load delay
+            setTimeout(() => {
+                introLogo.style.opacity = '1';
+                introLogo.style.transform = 'scale(1.35)'; // Large majestic scale
+                introLogo.style.filter = 'blur(0px) drop-shadow(0 0 25px rgba(201, 155, 59, 0.45))'; // Gold aura drop-shadow
+            }, 150);
+
+            // Stage 2: Dissolve the dark overlay and unlock page scrolling after 2.4s
+            setTimeout(() => {
+                // Zoom slightly closer as it fades out to mimic a cinematic camera move
+                introLogo.style.transform = 'scale(1.45)';
+                introLogo.style.opacity = '0';
+                introLogo.style.filter = 'blur(5px)';
+                
+                introLoader.style.opacity = '0';
+                introLoader.style.visibility = 'hidden';
+                
+                document.body.style.overflow = ''; 
+                document.body.style.height = '';
+                
+                // Write session token so it bypasses on subsequent clicks
+                sessionStorage.setItem('intro_played', 'true');
+            }, 2400);
+
+            // Clean up the DOM to free browser memory
+            setTimeout(() => {
+                introLoader.remove();
+            }, 3400);
+        } else {
+            // If already played in this session, remove the preloader immediately
+            introLoader.remove();
+        }
+    }
 };
 
 // SAFE LAUNCH: If the browser is already loaded, run immediately. If not, wait for DOM.
