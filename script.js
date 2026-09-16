@@ -6,7 +6,7 @@ const initializeApp = () => {
     // ==========================================================================
     const GOOGLE_SHEET_ENQUIRY_URL = 'https://script.google.com/macros/s/AKfycbz9N2Y6oZZzBigEKrVjFsZLphHCRSkL2LNh0iG0xrUQMeH7u_eEL_E9si_q4GMCEh4y/exec';
     const GOOGLE_SHEET_SITECONFIG_URL = 'https://script.google.com/macros/s/AKfycbzjiCsO-ZF72QTLWEP-k18L2glWtF3sWE3giy9cyvIURwOqbpI7D1owwiYLLwLYfqzmLQ/exec';
-    
+        
     // Global variable to store sheet items
     let MENU_DATA = [];
     
@@ -17,18 +17,32 @@ const initializeApp = () => {
     const menuGrid = document.getElementById('dynamicMenuGrid');
     const searchInput = document.getElementById('menuSearch');
     const tabButtons = document.querySelectorAll('.menu-tab');
+    const categoryNoteEl = document.getElementById('categoryNoteDisplay');
+
+    // The "day-special" tab is virtual: it pulls in any item flagged with the
+    // Special column, regardless of that item's actual category, so the same
+    // item can appear both under its normal category and under Specials.
+    const isSpecialItem = (item) => (item.special || '').toString().trim().toLowerCase() === 'yes';
 
     const renderMenu = (category, searchKeyword = '') => {
         if (!menuGrid) return;
-        menuGrid.innerHTML = ''; 
+        menuGrid.innerHTML = '';
 
         const query = searchKeyword.toLowerCase().trim();
+        const isSpecialTab = category === 'day-special';
+
+        // Category note stays visible regardless of the search term, so look it up
+        // across all items in this category (not just the ones matching the search)
+        if (categoryNoteEl) {
+            const categoryNoteItem = MENU_DATA.find(item => (isSpecialTab ? isSpecialItem(item) : item.category === category) && item.categorynote);
+            categoryNoteEl.textContent = categoryNoteItem ? categoryNoteItem.categorynote : '';
+        }
 
         // 1. Filter items matching the active category tab and search query
         const filteredItems = MENU_DATA.filter(item => {
-            const matchesCategory = item.category === category;
-            const matchesSearch = 
-                item.name.toLowerCase().includes(query) || 
+            const matchesCategory = isSpecialTab ? isSpecialItem(item) : item.category === category;
+            const matchesSearch =
+                item.name.toLowerCase().includes(query) ||
                 item.description.toLowerCase().includes(query) ||
                 item.subcategory.toLowerCase().includes(query) ||
                 (item.tags && item.tags.toLowerCase().includes(query)) ||
@@ -56,10 +70,17 @@ const initializeApp = () => {
         let isFirstSection = true;
         for (const subcategoryName in groupedItems) {
 
+            // A subcategory note only needs to be set on one item in the group
+            const subcategoryNoteItem = groupedItems[subcategoryName].find(item => item.subcategorynote);
+            const subcategoryNoteHTML = subcategoryNoteItem
+                ? `<p style="margin-top: 4px; font-size: 12px; color: var(--accent-color); font-weight: 500; font-family: var(--font-body);">${subcategoryNoteItem.subcategorynote}</p>`
+                : '';
+
             // Generate a full-width subheader spanning both columns
             const subheaderHTML = `
                 <div class="menu-subcategory-header">
                     <h3>${subcategoryName}</h3>
+                    ${subcategoryNoteHTML}
                 </div>
             `;
             menuGrid.insertAdjacentHTML('beforeend', subheaderHTML);

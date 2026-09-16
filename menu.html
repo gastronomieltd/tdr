@@ -162,6 +162,20 @@
             margin: 20px 0 12px 0;
         }
 
+        .category-note {
+            font-size: 10.5px;
+            color: var(--accent-color);
+            font-weight: 500;
+            margin: -12px 0 20px 0;
+        }
+
+        .subcategory-note {
+            font-size: 10.5px;
+            color: var(--accent-color);
+            font-weight: 500;
+            margin: -8px 0 12px 0;
+        }
+
         /* Menu Items & Dot Leaders */
         .menu-item {
             margin-bottom: 18px;
@@ -303,12 +317,17 @@
             'graze': 'Grazing & Sweets'
         };
 
+        // An item flagged "Yes" in the Special column belongs to the virtual
+        // "day-special" category in addition to its normal category, so it can
+        // print under both sections.
+        const isSpecialItem = (item) => (item.special || '').toString().trim().toLowerCase() === 'yes';
+
         const loadAndBuildMenu = () => {
             MenuCache.getMenuData(sheetName)
                 .then(data => {
 
                     // 2. Group items by Category AND Subcategory
-                    const categories = {};
+                    const categories = { 'day-special': {} };
                     data.forEach(item => {
                         if (!item.category) return;
                         const cat = item.category.trim();
@@ -318,6 +337,11 @@
                         if (!categories[cat][sub]) categories[cat][sub] = [];
 
                         categories[cat][sub].push(item);
+
+                        if (isSpecialItem(item)) {
+                            if (!categories['day-special'][sub]) categories['day-special'][sub] = [];
+                            categories['day-special'][sub].push(item);
+                        }
                     });
 
                     const menuContainer = document.getElementById('printMenuColumns');
@@ -340,6 +364,12 @@
                         let sectionHTML = '';
                         let hasItems = false;
 
+                        // A category note only needs to be set on one item anywhere in the category
+                        const categoryNoteItem = Object.values(categories[catKey]).flat().find(item => item.categorynote);
+                        const categoryNoteHTML = categoryNoteItem
+                            ? `<p class="category-note">${categoryNoteItem.categorynote}</p>`
+                            : '';
+
                         // Loop through subcategories inside this category
                         for (const subKey in categories[catKey]) {
                             // Skip items with no takeaway price when building the takeaway menu
@@ -349,7 +379,14 @@
                             if (itemsToShow.length === 0) continue;
 
                             hasItems = true;
-                            sectionHTML += `<h3 class="subcategory-title">${subKey}</h3>`;
+
+                            // A subcategory note only needs to be set on one item in the group
+                            const subcategoryNoteItem = categories[catKey][subKey].find(item => item.subcategorynote);
+                            const subcategoryNoteHTML = subcategoryNoteItem
+                                ? `<p class="subcategory-note">${subcategoryNoteItem.subcategorynote}</p>`
+                                : '';
+
+                            sectionHTML += `<h3 class="subcategory-title">${subKey}</h3>${subcategoryNoteHTML}`;
 
                             itemsToShow.forEach(item => {
                                 const displayPrice = isTakeaway ? item.takeaway : item.price;
@@ -384,6 +421,7 @@
                         targetCol.insertAdjacentHTML('beforeend', `
                             <div class="menu-section">
                                 <h2 class="section-title">${sectionTitle}</h2>
+                                ${categoryNoteHTML}
                                 ${sectionHTML}
                             </div>
                         `);
