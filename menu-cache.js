@@ -3,7 +3,11 @@
 // checking a lightweight `&meta=true` timestamp and comparing it to what's cached.
 const MenuCache = (() => {
     const CACHE_PREFIX = 'tdr_menu_cache_';
-    const BASE_URL = 'https://script.google.com/macros/s/AKfycbzjiCsO-ZF72QTLWEP-k18L2glWtF3sWE3giy9cyvIURwOqbpI7D1owwiYLLwLYfqzmLQ/exec';
+    // Proxied through a Cloudflare Worker edge cache instead of calling
+    // script.google.com directly, so repeat visitors across the whole site
+    // share one cached response rather than each hitting Apps Script's
+    // slow cold-start latency individually.
+    const BASE_URL = 'https://tdr-menu-cache.gastronomie-ltd.workers.dev/';
 
     const readCache = (sheetName) => {
         try {
