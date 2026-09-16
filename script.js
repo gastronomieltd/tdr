@@ -6,6 +6,7 @@ const initializeApp = () => {
     // ==========================================================================
     const GOOGLE_SHEET_ENQUIRY_URL = 'https://script.google.com/macros/s/AKfycbz9N2Y6oZZzBigEKrVjFsZLphHCRSkL2LNh0iG0xrUQMeH7u_eEL_E9si_q4GMCEh4y/exec';
     const GOOGLE_SHEET_SITECONFIG_URL = 'https://script.google.com/macros/s/AKfycbzjiCsO-ZF72QTLWEP-k18L2glWtF3sWE3giy9cyvIURwOqbpI7D1owwiYLLwLYfqzmLQ/exec';
+    
     // Global variable to store sheet items
     let MENU_DATA = [];
     

@@ -276,20 +276,21 @@
         // 1. Detect if we are loading Day or Night menu from the URL parameters (?sheet=MenuDay or ?sheet=MenuNight)
         const urlParams = new URLSearchParams(window.location.search);
         const sheetName = urlParams.get('sheet') || 'MenuDay';
-        
+        const isTakeaway = urlParams.get('type') === 'takeaway';
+
         // Adjust title and logo depending on daytime vs nighttime
         const tagline = document.getElementById('menuTagline');
         const logoBottomText = document.getElementById('logoBottomText');
         const isEvening = sheetName === 'MenuEvening';
 
         if (isEvening) {
-            tagline.textContent = "Evening Menu";
+            tagline.textContent = isTakeaway ? "Evening Takeaway Menu" : "Evening Menu";
             logoBottomText.textContent = "BY NIGHT";
-            document.title = "The Drawing Room - Evening Menu (Printable)";
+            document.title = isTakeaway ? "The Drawing Room - Evening Takeaway Menu (Printable)" : "The Drawing Room - Evening Menu (Printable)";
         } else {
-            tagline.textContent = "Classic Daytime Menu";
+            tagline.textContent = isTakeaway ? "Takeaway Menu" : "Classic Daytime Menu";
             logoBottomText.textContent = "LOCKSBOTTOM";
-            document.title = "The Drawing Room - Daytime Menu (Printable)";
+            document.title = isTakeaway ? "The Drawing Room - Takeaway Menu (Printable)" : "The Drawing Room - Daytime Menu (Printable)";
         }
 
         // Map category IDs to clean readable titles
@@ -337,21 +338,24 @@
 
                     // 3. Loop through categories and build the sections
                     for (const catKey in categories) {
-                        const targetCol = colIndex % 2 === 0 ? col1 : col2;
-                        colIndex++;
-
                         const sectionTitle = categoryTitles[catKey] || catKey;
-                        let sectionHTML = `
-                            <div class="menu-section">
-                                <h2 class="section-title">${sectionTitle}</h2>
-                        `;
+                        let sectionHTML = '';
+                        let hasItems = false;
 
                         // Loop through subcategories inside this category
                         for (const subKey in categories[catKey]) {
+                            // Skip items with no takeaway price when building the takeaway menu
+                            const itemsToShow = isTakeaway
+                                ? categories[catKey][subKey].filter(item => item.takeaway)
+                                : categories[catKey][subKey];
+                            if (itemsToShow.length === 0) continue;
+
+                            hasItems = true;
                             sectionHTML += `<h3 class="subcategory-title">${subKey}</h3>`;
 
-                            // Loop through items inside this subcategory
-                            categories[catKey][subKey].forEach(item => {
+                            itemsToShow.forEach(item => {
+                                const displayPrice = isTakeaway ? item.takeaway : item.price;
+
                                 let extrasHTML = '';
                                 if (item.extras) {
                                     const extrasArray = item.extras.toString().split(',').map(x => x.trim()).filter(x => x !== '');
@@ -365,7 +369,7 @@
                                         <div class="menu-item-header">
                                             <span class="item-name">${item.name}</span>
                                             <span class="item-dots"></span>
-                                            <span class="item-price">${item.price}</span>
+                                            <span class="item-price">${displayPrice}</span>
                                         </div>
                                         <p class="item-desc">${item.description}</p>
                                         ${extrasHTML}
@@ -374,8 +378,17 @@
                             });
                         }
 
-                        sectionHTML += `</div>`;
-                        targetCol.insertAdjacentHTML('beforeend', sectionHTML);
+                        // Skip the whole category if none of its items have a takeaway price
+                        if (!hasItems) continue;
+
+                        const targetCol = colIndex % 2 === 0 ? col1 : col2;
+                        colIndex++;
+                        targetCol.insertAdjacentHTML('beforeend', `
+                            <div class="menu-section">
+                                <h2 class="section-title">${sectionTitle}</h2>
+                                ${sectionHTML}
+                            </div>
+                        `);
                     }
                 })
                 .catch(error => {

@@ -981,7 +981,7 @@ a {
 .hours-row {
     display: grid;
     /* Defines exactly three columns: 100px for the day, and two equal columns for the times */
-    grid-template-columns: 100px 1fr 1fr; 
+    grid-template-columns: 100px 1fr 1fr;
     gap: 20px;
     padding-bottom: 5px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);

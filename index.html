@@ -158,7 +158,9 @@
                 <ul class="nav-links">
                     <li><a href="#menu" class="nav-link">Menu</a></li>
                     <li><a href="#contact" class="nav-link">Events</a></li>
+                    <!--
                     <li><a href="evening.html" class="nav-link" style="color: var(--accent-color); font-weight: 600;"><i class="fa-solid fa-moon" style="margin-right: 5px;"></i> Cosy Evening</a></li>
+                    -->
                                            
                     <li class="nav-dropdown">
                         <a href="#hours" class="nav-link dropdown-toggle">Visit<i class="fa-solid fa-chevron-down" style="font-size: 10px; margin-left: 4px;"></i></a>
@@ -301,7 +303,10 @@
                 <h2 class="section-title">
                     Menu
                     <a href="menu.html?sheet=MenuDay" target="_blank" class="title-pdf-link" title="View &amp; Print PDF Menu">
-                        <i class="fa-regular fa-file-pdf"></i>
+                        <i class="fa-solid fa-utensils"></i>
+                    </a>
+                    <a href="menu.html?sheet=MenuDay&type=takeaway" target="_blank" class="title-pdf-link" title="View &amp; Print Takeaway PDF Menu">
+                        <i class="fa-solid fa-bag-shopping"></i>
                     </a>
                 </h2>
                 <p class="section-subtitle-text">Thoughtfully prepared with high-quality local ingredients and seasonal inspiration. <br> For any special request, please speak with our team.</p>
@@ -311,7 +316,6 @@
             <div class="menu-tabs-container">
                 <button class="menu-tab active" data-tab="day-special">Today's Special</button>
                 <button class="menu-tab" data-tab="breakfast">Breakfast</button>
-                <button class="menu-tab" data-tab="cereals-pancakes">Cereals &amp; Pancakes</button>
                 <button class="menu-tab" data-tab="lunch">Classic Lunch</button>
                 <button class="menu-tab" data-tab="sandwich">Sandwiches &amp; Toasties</button>
                 <button class="menu-tab" data-tab="beverages">Coffee, Tea &amp; Cold Drinks</button>
@@ -321,8 +325,8 @@
 
             <!-- Dynamic Live Search Bar with Quick Filters & Print Button Container -->
             <div class="menu-search-container" style="text-align: center; margin-bottom: 40px; display: flex; flex-direction: column; align-items: center; gap: 15px; max-width: 450px; margin: 0 auto 40px auto;">
-                <input type="text" id="menuSearch" placeholder="Search menu (e.g., 'scone', 'gluten free')..." style="padding: 14px 20px; width: 100%; border: 1px solid var(--border-color); background-color: var(--bg-white); outline: none; font-family: var(--font-body); font-size: 14px; transition: var(--transition-fast);">
-                
+                <input type="text" id="menuSearch" placeholder="Search menu (e.g., 'scone', 'gluten free')..." style="padding: 14px 20px; width: 100%; border: 1px solid var(--border-color); background-color: var(--bg-white); outline: none; font-family: var(--font-body); font-size: 14px; transition: var(--transition-fast); display: none;">
+
                 <!-- Dietary Quick Filters -->
                 <div class="menu-filter-tags" style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 5px;">
                     <button class="filter-tag-btn active" data-filter="">All</button>
@@ -450,37 +454,37 @@
                     <div class="hours-row" id="hours-mon">
                         <span class="day">Monday</span>
                         <span class="time">8:30 AM - 4:30 PM</span>
-                        <span class="time">6:00 PM - 11:00 PM</span>
+                        <!-- <span class="time">6:00 PM - 11:00 PM</span> -->
                     </div>
                     <div class="hours-row" id="hours-tue">
                         <span class="day">Tuesday</span>
                         <span class="time">8:30 AM - 4:30 PM</span>
-                        <span class="time">6:00 PM - 11:00 PM</span>
+                        <!-- <span class="time">6:00 PM - 11:00 PM</span> -->
                     </div>
                     <div class="hours-row" id="hours-wed">
                         <span class="day">Wednesday</span>
                         <span class="time">8:30 AM - 4:30 PM</span>
-                        <span class="time">6:00 PM - 11:00 PM</span>
+                        <!-- <span class="time">6:00 PM - 11:00 PM</span> -->
                     </div>
                     <div class="hours-row" id="hours-thu">
                         <span class="day">Thursday</span>
                         <span class="time">8:30 AM - 4:30 PM</span>
-                        <span class="time">6:00 PM - 11:00 PM</span>
+                        <!-- <span class="time">6:00 PM - 11:00 PM</span> -->
                     </div>
                     <div class="hours-row" id="hours-fri">
                         <span class="day">Friday</span>
                         <span class="time">8:30 AM - 4:30 PM</span>
-                        <span class="time">6:00 PM - 11:00 PM</span>
+                        <!-- <span class="time">6:00 PM - 11:00 PM</span> -->
                     </div>
                     <div class="hours-row" id="hours-sat">
                         <span class="day">Saturday</span>
                         <span class="time">8:30 AM - 3:30 PM</span>
-                        <span class="time">6:00 PM - 11:30 PM</span>
+                        <!-- <span class="time">6:00 PM - 11:30 PM</span> -->
                     </div>
                     <div class="hours-row" id="hours-sun">
                         <span class="day">Sunday</span>
                         <span class="time">Closed</span>
-                        <span class="time">Closed</span>
+                        <!-- <span class="time">Closed</span> -->
                     </div>
                 </div>
                 
