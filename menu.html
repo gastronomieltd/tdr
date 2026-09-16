@@ -270,9 +270,8 @@
     </div>
 
     <!-- Dynamic Fetching Script -->
+    <script src="menu-cache.js"></script>
     <script>
-        const GOOGLE_SHEET_MENU_URL = 'https://script.google.com/macros/s/AKfycbzjiCsO-ZF72QTLWEP-k18L2glWtF3sWE3giy9cyvIURwOqbpI7D1owwiYLLwLYfqzmLQ/exec';
-
         // 1. Detect if we are loading Day or Night menu from the URL parameters (?sheet=MenuDay or ?sheet=MenuNight)
         const urlParams = new URLSearchParams(window.location.search);
         const sheetName = urlParams.get('sheet') || 'MenuDay';
@@ -305,10 +304,9 @@
         };
 
         const loadAndBuildMenu = () => {
-            fetch(`${GOOGLE_SHEET_MENU_URL}?sheet=${sheetName}`)
-                .then(response => response.json())
+            MenuCache.getMenuData(sheetName)
                 .then(data => {
-                    
+
                     // 2. Group items by Category AND Subcategory
                     const categories = {};
                     data.forEach(item => {

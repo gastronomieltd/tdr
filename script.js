@@ -108,11 +108,9 @@ const initializeApp = () => {
 
         // DYNAMIC PARAMETER: Detects if the current page is daytime or nighttime
         const isNightPage = document.body.classList.contains('night-mode');
-        const sheetParam = isNightPage ? '?sheet=MenuEvening' : '?sheet=MenuDay';
+        const sheetName = isNightPage ? 'MenuEvening' : 'MenuDay';
 
-        // Appends the parameter directly to your Web App URL
-        fetch(GOOGLE_SHEET_SITECONFIG_URL + sheetParam)
-            .then(response => response.json())
+        MenuCache.getMenuData(sheetName)
             .then(data => {
                 MENU_DATA = data;
                 renderMenu(activeCategoryTab);
