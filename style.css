@@ -834,7 +834,7 @@ a {
 .menu-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px 30px;
+    gap: 10px 30px;
 }
 
 .menu-item {
@@ -1643,7 +1643,7 @@ input[type="time"] {
 .menu-subcategory-header {
     grid-column: 1 / -1; /* Forces the header to stretch across both columns */
     margin-top: 50px;
-    margin-bottom: 25px;
+    margin-bottom: 5px;
 }
 
 /* If the header is the very first item inside the grid, remove the top margin gap */
