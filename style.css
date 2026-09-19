@@ -1592,19 +1592,47 @@ input[type="time"] {
     }
     
     .contact-form-container {
-        padding: 30px 20px;
+        padding: 20px 16px;
         min-height: auto;
     }
-    
+
+    /* Compact the form so it (including the Send Message button) fits a mobile viewport without scrolling */
+    .contact-form {
+        gap: 10px;
+    }
+
+    .form-group {
+        gap: 4px;
+    }
+
+    .form-group label {
+        font-size: 10px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .contact-form select {
+        height: 42px;
+        padding: 10px 12px;
+    }
+
+    .form-group textarea {
+        height: 80px;
+    }
+
+    .btn-submit {
+        padding: 12px 30px;
+    }
+
     .form-group-row {
         grid-template-columns: 1fr;
-        gap: 16px;
+        gap: 10px;
     }
 
     /* Stacks date, time, and guest inputs vertically on all mobile/tablet viewports to prevent layout spills */
     .booking-fields-grid {
         grid-template-columns: 1fr;
-        gap: 16px;
+        gap: 10px;
     }
 
     /* Reset the column span to 1 so the Guests input behaves normally on mobile */
