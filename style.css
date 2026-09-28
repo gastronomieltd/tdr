@@ -1272,7 +1272,7 @@ input[type="time"] {
 .footer {
     background-color: var(--primary-color);
     color: rgba(255, 255, 255, 0.6);
-    padding: 50px 0;
+    padding: 28px 0 16px;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
@@ -1293,6 +1293,35 @@ input[type="time"] {
 .footer-copy {
     font-size: 12px;
     font-style: italic;
+}
+
+.powered-by-row {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    justify-content: center;
+}
+
+.powered-by {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.45);
+    text-decoration: none;
+    opacity: 0.8;
+    transition: var(--transition-fast);
+}
+
+.powered-by:hover {
+    opacity: 1;
+}
+
+.powered-by-logo {
+    height: 22px;
+    width: auto;
+    display: block;
 }
 
 /* ==========================================================================
@@ -1647,7 +1676,7 @@ input[type="time"] {
     /* Footer Responsive */
     .footer-content {
         flex-direction: column;
-        gap: 20px;
+        gap: 12px;
         text-align: center;
     }
 
