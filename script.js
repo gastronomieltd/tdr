@@ -106,9 +106,13 @@ const initializeApp = () => {
                     }
                 }
 
+                // Afternoon Tea items always span the full row, whether shown under
+                // their own category tab or pulled into the Specials tab
+                const isFullRow = item.category === 'afternoon-tea';
+
                 // Generate individual card HTML
                 const itemHTML = `
-                    <div class="menu-item">
+                    <div class="menu-item${isFullRow ? ' menu-item-full' : ''}">
                         <div class="menu-item-header">
                             <h3 class="menu-item-name">${item.name} ${tagsHTML}</h3>
                             <span class="menu-item-price">${item.price}</span>

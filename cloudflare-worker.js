@@ -12,8 +12,24 @@
 //    actually wait on the upstream fetch.
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzjiCsO-ZF72QTLWEP-k18L2glWtF3sWE3giy9cyvIURwOqbpI7D1owwiYLLwLYfqzmLQ/exec';
-const FRESH_SECONDS = 300;   // 5 minutes: serve straight from cache, no revalidation
-const STALE_SECONDS = 3600;  // 1 hour: still serve from cache, but refresh in the background
+const FRESH_SECONDS = 600;   // 10 minutes: serve straight from cache, no revalidation
+const STALE_SECONDS = 43200;  // 12 hours: still serve from cache, but refresh in the background
+
+// Change this to your own value - required to use the ?purge=true endpoint below,
+// so a stranger who finds the Worker URL can't force extra Apps Script load.
+const PURGE_KEY = 'tdr-purge-2026';
+
+// Strips the long-lived Cache-Control before a response goes back to the
+// browser, so the browser's own HTTP cache never holds onto it - otherwise
+// a visitor's browser would keep serving its own stale copy for up to
+// STALE_SECONDS, bypassing both the edge's freshness logic and ?purge=true
+// entirely. The long Cache-Control is still what controls how long
+// Cloudflare's own edge cache (caches.default) retains the entry.
+function forClient(response) {
+  const headers = new Headers(response.headers);
+  headers.set('Cache-Control', 'no-store');
+  return new Response(response.body, { status: response.status, headers });
+}
 
 // Fetches from Apps Script, validates it's real JSON (Apps Script/Drive can
 // transiently fail and still return HTTP 200 with an HTML error page), and
@@ -34,8 +50,10 @@ async function fetchAndCache(target, cacheKey, cache) {
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
-      // Cache-Control here governs how long Cloudflare keeps the entry at all;
-      // freshness within that window is tracked separately via X-Cached-At.
+      // This Cache-Control governs how long Cloudflare's edge cache keeps the
+      // entry; it's stripped before the response reaches the browser (see
+      // forClient above). Freshness within that window is tracked separately
+      // via X-Cached-At.
       'Cache-Control': isValidJson ? `public, max-age=${STALE_SECONDS}` : 'no-store',
       'X-Cached-At': String(Date.now()),
     },
@@ -44,14 +62,56 @@ async function fetchAndCache(target, cacheKey, cache) {
   if (isValidJson) {
     await cache.put(cacheKey, response.clone());
   }
-  return response;
+  return forClient(response);
+}
+
+// Clears the cached entry for one sheet (both the plain data response and
+// its &meta=true companion), so the next request fetches fresh immediately
+// instead of waiting out FRESH_SECONDS/STALE_SECONDS.
+async function purgeSheet(requestUrl, sheet, cache) {
+  const dataUrl = new URL(requestUrl);
+  dataUrl.search = `?sheet=${sheet}`;
+  const metaUrl = new URL(requestUrl);
+  metaUrl.search = `?sheet=${sheet}&meta=true`;
+
+  const [deletedData, deletedMeta] = await Promise.all([
+    cache.delete(new Request(dataUrl)),
+    cache.delete(new Request(metaUrl)),
+  ]);
+
+  return { sheet, deletedData, deletedMeta };
 }
 
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
-    const target = APPS_SCRIPT_URL + url.search;
     const cache = caches.default;
+
+    // Manual purge: /?purge=true&sheet=MenuDay&key=...
+    if (url.searchParams.get('purge') === 'true') {
+      if (url.searchParams.get('key') !== PURGE_KEY) {
+        return new Response(JSON.stringify({ error: 'Invalid or missing purge key' }), {
+          status: 403,
+          headers: { 'Content-Type': 'application/json' },
+        });
+      }
+
+      const sheet = url.searchParams.get('sheet');
+      if (!sheet) {
+        return new Response(JSON.stringify({ error: 'Missing ?sheet=... to purge' }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json' },
+        });
+      }
+
+      const result = await purgeSheet(request.url, sheet, cache);
+      return new Response(JSON.stringify(result), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    const target = APPS_SCRIPT_URL + url.search;
 
     const cached = await cache.match(request);
     if (cached) {
@@ -59,13 +119,13 @@ export default {
       const ageSeconds = (Date.now() - cachedAt) / 1000;
 
       if (ageSeconds <= FRESH_SECONDS) {
-        return cached;
+        return forClient(cached);
       }
 
       if (ageSeconds <= STALE_SECONDS) {
         // Serve the stale copy now; refresh the cache in the background for next time.
         ctx.waitUntil(fetchAndCache(target, request, cache));
-        return cached;
+        return forClient(cached);
       }
       // Older than STALE_SECONDS - fall through to a normal blocking fetch.
     }

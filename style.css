@@ -848,6 +848,10 @@ a {
     padding-bottom: 1px;
 }
 
+.menu-item-full {
+    grid-column: 1 / -1;
+}
+
 .menu-item-header {
     display: flex;
     justify-content: space-between;
