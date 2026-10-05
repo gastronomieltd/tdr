@@ -350,6 +350,54 @@ const initializeApp = () => {
         handleBookingFieldsVisibility(subjectSelect.value);
     }
 
+    // Afternoon Tea booking slots: 30-minute increments, 10:00am-3:00pm Mon-Fri,
+    // 10:00am-2:00pm Saturday, closed Sunday - the valid slot list depends on
+    // which date is picked, so it's rebuilt every time the date changes.
+    const bookDateInput = document.getElementById('bookDate');
+    const bookTimeSelect = document.getElementById('bookTime');
+
+    if (bookDateInput && bookTimeSelect) {
+        const formatTime12h = (hour, minute) => {
+            const period = hour >= 12 ? 'PM' : 'AM';
+            const displayHour = hour % 12 === 0 ? 12 : hour % 12;
+            return `${displayHour}:${minute.toString().padStart(2, '0')} ${period}`;
+        };
+
+        const populateTimeSlots = () => {
+            if (!bookDateInput.value) {
+                bookTimeSelect.innerHTML = '<option value="">Select a date first</option>';
+                return;
+            }
+
+            // Parse as a local date (avoids the UTC off-by-one from new Date('YYYY-MM-DD'))
+            const [year, month, day] = bookDateInput.value.split('-').map(Number);
+            const dayOfWeek = new Date(year, month - 1, day).getDay(); // 0 = Sunday, 6 = Saturday
+
+            if (dayOfWeek === 0) {
+                bookTimeSelect.innerHTML = '<option value="">Closed on Sundays</option>';
+                return;
+            }
+
+            const startHour = 10;
+            const endHour = dayOfWeek === 6 ? 14 : 15; // Saturday: 2pm, Mon-Fri: 3pm (last bookable slot)
+
+            bookTimeSelect.innerHTML = '<option value="">Select a time</option>';
+            for (let hour = startHour; hour <= endHour; hour++) {
+                for (const minute of [0, 30]) {
+                    if (hour === endHour && minute > 0) break;
+                    const value = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+                    const option = document.createElement('option');
+                    option.value = value;
+                    option.textContent = formatTime12h(hour, minute);
+                    bookTimeSelect.appendChild(option);
+                }
+            }
+        };
+
+        bookDateInput.addEventListener('change', populateTimeSlots);
+        populateTimeSlots(); // Run once in case a date is already set on load
+    }
+
     // ==========================================================================
     // 6. Back to Top Button Controller
     // ==========================================================================
