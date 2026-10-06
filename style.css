@@ -1159,20 +1159,20 @@ a {
 .contact-form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
     transition: opacity var(--transition-fast);
 }
 
 .form-group-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 15px;
+    gap: 10px;
 }
 
 .form-group {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 5px;
 }
 
 .form-group label {
@@ -1189,8 +1189,8 @@ a {
 .contact-form select {
     width: 100%;
     min-width: 0;
-    height: 50px;
-    padding: 14px;
+    height: 44px;
+    padding: 10px 12px;
     font-family: var(--font-body);
     font-size: 14px;
     border: 1px solid var(--border-color);
@@ -1221,7 +1221,7 @@ input[type="time"] {
 .booking-fields-grid {
     display: grid;
     grid-template-columns: 1fr 1fr; /* 2 columns to give date/time inputs ample room */
-    gap: 20px;
+    gap: 10px;
     transition: opacity var(--transition-fast), transform var(--transition-fast);
 }
 
@@ -1236,7 +1236,7 @@ input[type="time"] {
 
 .btn-submit {
     align-self: flex-start;
-    padding: 16px 40px;
+    padding: 12px 32px;
 }
 
 /* Form Success State */
