@@ -61,8 +61,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Font Awesome for Icons: loaded non-render-blocking since icons aren't needed for first paint -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css?v=1.2">
@@ -134,7 +135,8 @@
             if (sessionStorage.getItem('intro_played') === 'true') {
                 document.getElementById('introLoader').style.display = 'none';
             } else {
-                document.write('<style>body { overflow: hidden; height: 100vh; }</style>');
+                document.body.style.overflow = 'hidden';
+                document.body.style.height = '100vh';
             }
         </script>
     </div>
@@ -199,8 +201,8 @@
                 <!-- Left Column: Graphic Media, Badge, and Feature Icons -->
                 <div class="hero-about-media reveal-zoom">
                     <div class="about-image-wrapper hero-carousel">
-                        <img src="images/halloween-afternoon-tea.jpg" loading="lazy" width="1170" height="2073" alt="Children's Halloween Afternoon Tea at The Drawing Room, 19th to 31st October" class="hero-carousel-slide">
-                        <img src="images/hero.jpg" loading="lazy" width="765" height="1020" alt="Atmospheric drawing room background image" class="hero-carousel-slide">
+                        <img src="images/halloween-afternoon-tea.jpg" fetchpriority="high" width="1170" height="2073" alt="Children's Halloween Afternoon Tea at The Drawing Room, 19th to 31st October" class="hero-carousel-slide">
+                        <img src="images/hero.jpg" width="765" height="1020" alt="Atmospheric drawing room background image" class="hero-carousel-slide">
                         <!--
                         <div class="about-badge">
                             <span class="badge-num">Est.</span>

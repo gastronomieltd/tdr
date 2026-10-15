@@ -62,7 +62,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css?v=1.1">
 
@@ -122,7 +123,8 @@
             if (sessionStorage.getItem('intro_played') === 'true') {
                 document.getElementById('introLoader').style.display = 'none';
             } else {
-                document.write('<style>body { overflow: hidden; height: 100vh; }</style>');
+                document.body.style.overflow = 'hidden';
+                document.body.style.height = '100vh';
             }
         </script>
     </div>
@@ -177,7 +179,7 @@
             <div class="hero-about-grid">
                 <div class="hero-about-media reveal-zoom">
                     <!-- Elegant evening bar visual -->
-                    <img src="images/evening-hero2.jpg" loading="lazy" width="500" height="625" alt="Dimly lit romantic evening bar">
+                    <img src="images/evening-hero2.jpg" fetchpriority="high" width="500" height="625" alt="Dimly lit romantic evening bar">
                     <!-- 
                     <div class="about-badge">
                         <span class="badge-num">Cozy</span>
