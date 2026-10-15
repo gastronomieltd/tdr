@@ -255,6 +255,37 @@
         </div>
     </section>
 
+    <!-- Today's Bakes: rotating photo strip of the day's homemade cakes -->
+    <section id="bakes" class="bakes-strip">
+        <p class="bakes-strip-label">Today's Bakes</p>
+
+        <!-- Mobile: single crossfading photo -->
+        <div class="bakes-strip-photo">
+            <img src="images/victoria-sponge.jpg" loading="lazy" alt="Homemade Victoria sponge cake dusted with icing sugar">
+            <img src="images/chocolate-cake.jpg" loading="lazy" alt="Rich homemade chocolate cake with ridged chocolate buttercream">
+            <img src="images/caramel-cake.jpg" loading="lazy" alt="Homemade cake with a glossy caramel drip topping">
+            <img src="images/carrot-cake.jpg" loading="lazy" alt="Homemade carrot cake with walnuts and cream cheese frosting">
+            <img src="images/carrot-cake-2.jpg" loading="lazy" alt="Close-up of homemade carrot cake with walnut topping">
+        </div>
+
+        <!-- Desktop: continuously scrolling filmstrip, so several cakes show at once instead of one photo in a narrow box -->
+        <div class="bakes-strip-track">
+            <div class="bakes-strip-row">
+                <img src="images/victoria-sponge.jpg" loading="lazy" alt="Homemade Victoria sponge cake dusted with icing sugar">
+                <img src="images/chocolate-cake.jpg" loading="lazy" alt="Rich homemade chocolate cake with ridged chocolate buttercream">
+                <img src="images/caramel-cake.jpg" loading="lazy" alt="Homemade cake with a glossy caramel drip topping">
+                <img src="images/carrot-cake.jpg" loading="lazy" alt="Homemade carrot cake with walnuts and cream cheese frosting">
+                <img src="images/carrot-cake-2.jpg" loading="lazy" alt="Close-up of homemade carrot cake with walnut topping">
+                <!-- Repeated so the scroll loop is seamless -->
+                <img src="images/victoria-sponge.jpg" loading="lazy" alt="" aria-hidden="true">
+                <img src="images/chocolate-cake.jpg" loading="lazy" alt="" aria-hidden="true">
+                <img src="images/caramel-cake.jpg" loading="lazy" alt="" aria-hidden="true">
+                <img src="images/carrot-cake.jpg" loading="lazy" alt="" aria-hidden="true">
+                <img src="images/carrot-cake-2.jpg" loading="lazy" alt="" aria-hidden="true">
+            </div>
+        </div>
+    </section>
+
     <!-- Specialities Section -->
     <section id="specialities" class="specialities section-padding">
         <div class="container">

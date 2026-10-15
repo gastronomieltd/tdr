@@ -742,6 +742,95 @@ a {
 }
 
 /* ==========================================================================
+   Today's Bakes Strip (rotating photos of the day's homemade cakes)
+   ========================================================================== */
+.bakes-strip {
+    background-color: var(--primary-color);
+    padding: 32px 0 36px;
+}
+
+.bakes-strip-label {
+    text-align: center;
+    font-family: var(--font-heading);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent-color);
+    margin: 0 0 18px;
+}
+
+.bakes-strip-photo {
+    position: relative;
+    max-width: 480px;
+    aspect-ratio: 11 / 10;
+    margin: 0 auto;
+}
+
+.bakes-strip-photo img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    animation: bakesStripFade 20s infinite;
+}
+
+.bakes-strip-photo img:nth-of-type(1) { animation-delay: 0s; }
+.bakes-strip-photo img:nth-of-type(2) { animation-delay: 4s; }
+.bakes-strip-photo img:nth-of-type(3) { animation-delay: 8s; }
+.bakes-strip-photo img:nth-of-type(4) { animation-delay: 12s; }
+.bakes-strip-photo img:nth-of-type(5) { animation-delay: 16s; }
+
+@keyframes bakesStripFade {
+    0% { opacity: 0; }
+    3% { opacity: 1; }
+    17% { opacity: 1; }
+    20% { opacity: 0; }
+    100% { opacity: 0; }
+}
+
+/* Desktop: continuously scrolling filmstrip instead of the single-photo
+   crossfade, so the wide section doesn't sit mostly empty either side of a
+   narrow box. Hidden by default (mobile uses .bakes-strip-photo above). */
+.bakes-strip-track {
+    display: none;
+}
+
+@media (min-width: 769px) {
+    .bakes-strip-photo {
+        display: none;
+    }
+
+    .bakes-strip-track {
+        display: block;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .bakes-strip-row {
+        display: flex;
+        gap: 20px;
+        width: max-content;
+        animation: bakesStripScroll 36s linear infinite;
+    }
+
+    .bakes-strip-row img {
+        height: 300px;
+        width: auto;
+        aspect-ratio: 11 / 10;
+        object-fit: cover;
+        flex: none;
+    }
+
+    @keyframes bakesStripScroll {
+        from { transform: translateX(0); }
+        to { transform: translateX(-50%); }
+    }
+}
+
+/* ==========================================================================
    Specialities Section
    ========================================================================== */
 .specialities {
