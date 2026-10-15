@@ -1005,7 +1005,7 @@ a {
     background-color: var(--primary-color);
     max-width: 650px;
     margin: 0 auto;
-    padding: 60px;
+    padding: 40px 60px;
     color: var(--text-light);
     border: 1px solid rgba(255, 255, 255, 0.1);
     text-align: center;
@@ -1013,7 +1013,7 @@ a {
 
 .hours-box .section-title {
     color: var(--text-light);
-    margin-bottom: 40px;
+    margin-bottom: 24px;
 }
 
 .hours-list {
@@ -1058,6 +1058,30 @@ a {
 .hours-row.highlight .time {
     font-weight: 600;
     color: var(--accent-color);
+}
+
+.hours-sunday-note {
+    margin-top: 14px;
+    padding: 12px 18px;
+    border: 1px solid rgba(201, 155, 59, 0.4);
+    background-color: rgba(201, 155, 59, 0.06);
+    text-align: left;
+}
+
+.hours-sunday-note h4 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-heading);
+    font-size: 14px;
+    color: var(--accent-color);
+    margin-bottom: 8px;
+}
+
+.hours-sunday-note p {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.6;
 }
 
 .hours-note {

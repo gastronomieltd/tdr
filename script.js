@@ -126,6 +126,61 @@ const initializeApp = () => {
         }
     };
 
+    // Builds Schema.org Menu structured data from the live sheet data, so it
+    // always reflects the actual current menu instead of going stale like a
+    // hand-written version would. Lets dish names/prices show in rich results.
+    const buildMenuSchema = () => {
+        if (!MENU_DATA || MENU_DATA.length === 0) return;
+
+        // Reuse the same labels shown on the tab buttons, so the schema always
+        // matches what's visibly on the page rather than a separately maintained list
+        const categoryLabels = {};
+        tabButtons.forEach(btn => {
+            categoryLabels[btn.getAttribute('data-tab')] = btn.textContent.trim();
+        });
+
+        const sections = {};
+        MENU_DATA.forEach(item => {
+            if (!item.category || !item.name) return;
+            if (!sections[item.category]) sections[item.category] = [];
+
+            const price = parseFloat(item.price);
+            const menuItem = {
+                "@type": "MenuItem",
+                "name": item.name
+            };
+            if (item.description) menuItem.description = item.description;
+            if (!isNaN(price)) {
+                menuItem.offers = {
+                    "@type": "Offer",
+                    "price": price.toFixed(2),
+                    "priceCurrency": "GBP"
+                };
+            }
+            sections[item.category].push(menuItem);
+        });
+
+        const schema = {
+            "@context": "https://schema.org",
+            "@type": "Menu",
+            "hasMenuSection": Object.keys(sections).map(catKey => ({
+                "@type": "MenuSection",
+                "name": categoryLabels[catKey] || catKey,
+                "hasMenuItem": sections[catKey]
+            }))
+        };
+
+        // Remove any previously injected menu schema so re-loads don't stack duplicates
+        const existing = document.getElementById('menuSchema');
+        if (existing) existing.remove();
+
+        const schemaTag = document.createElement('script');
+        schemaTag.type = 'application/ld+json';
+        schemaTag.id = 'menuSchema';
+        schemaTag.textContent = JSON.stringify(schema);
+        document.head.appendChild(schemaTag);
+    };
+
     const loadMenuFromSheet = () => {
         if (menuGrid) {
             menuGrid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 40px 0;"><i class="fa-solid fa-spinner fa-spin" style="margin-right: 10px; color: var(--accent-color);"></i>Loading our daily offerings...</div>`;
@@ -139,6 +194,7 @@ const initializeApp = () => {
             .then(data => {
                 MENU_DATA = data;
                 renderMenu(activeCategoryTab);
+                buildMenuSchema();
             })
             .catch(error => {
                 console.error('Error loading menu:', error);
