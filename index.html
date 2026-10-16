@@ -46,16 +46,16 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Drawing Room of Locksbottom | Cosy Cafe & Tea Room</title>
-    <meta name="description" content="Indulge in classic English fare, afternoon tea, and artisan cocktails served elegantly in our cosy, vintage-styled sanctuary.">
+    <title>The Drawing Room of Locksbottom | Afternoon Tea in Orpington</title>
+    <meta name="description" content="Book Afternoon Tea in Locksbottom, Orpington at The Drawing Room &mdash; delicate finger sandwiches, homemade cakes and fine teas served in our cosy, vintage-styled tea room. Private events and cocktails too.">
     <link rel="canonical" href="https://thedrawingroom.cafe/">
 
     <!-- Open Graph / Facebook Social Share Metadata -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://thedrawingroom.cafe/">
-    <meta property="og:title" content="The Drawing Room of Locksbottom | Cosy Cafe & Tea Room">
-    <meta property="og:description" content="Indulge in classic English fare, afternoon tea, and artisan cocktails served elegantly in our cosy, vintage-styled sanctuary.">
-    <meta property="og:image" content="https://thedrawingroom.cafe/images/hero.jpg">
+    <meta property="og:title" content="The Drawing Room of Locksbottom | Afternoon Tea in Orpington">
+    <meta property="og:description" content="Book Afternoon Tea in Locksbottom, Orpington at The Drawing Room &mdash; delicate finger sandwiches, homemade cakes and fine teas served in our cosy, vintage-styled tea room. Private events and cocktails too.">
+    <meta property="og:image" content="https://thedrawingroom.cafe/images/afternoon-tea.jpg">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -107,6 +107,18 @@
         "https://www.facebook.com/thedrawingroomlocksbottom",
         "https://www.instagram.com/thedrawingroomlocksbottom"
     ],
+    "makesOffer": {
+        "@type": "Offer",
+        "itemOffered": {
+        "@type": "Service",
+        "name": "Afternoon Tea",
+        "description": "Traditional Afternoon Tea served on tiered stands with finger sandwiches, scones and homemade cakes, paired with a selection of fine teas, at The Drawing Room of Locksbottom in Orpington.",
+        "areaServed": "Orpington, Locksbottom"
+        },
+        "price": "31",
+        "priceCurrency": "GBP",
+        "availability": "https://schema.org/InStock"
+    },
     "aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": "4.7",
@@ -202,6 +214,7 @@
                 <div class="hero-about-media reveal-zoom">
                     <div class="about-image-wrapper hero-carousel">
                         <img src="images/halloween-afternoon-tea.jpg" fetchpriority="high" width="1170" height="2073" alt="Children's Halloween Afternoon Tea at The Drawing Room, 19th to 31st October" class="hero-carousel-slide">
+                        <img src="images/afternoon-tea.jpg" width="765" height="1020" alt="Traditional Afternoon Tea tier stand at The Drawing Room" class="hero-carousel-slide">
                         <img src="images/hero.jpg" width="765" height="1020" alt="Atmospheric drawing room background image" class="hero-carousel-slide">
                         <!--
                         <div class="about-badge">
@@ -209,10 +222,13 @@
                             <span class="badge-text">Locksbottom</span>
                         </div>
                          -->
-                        <!-- Mobile-only quick actions over the hero photo -->
+                        <!-- Quick actions over the hero photo -->
                         <div class="hero-image-cta">
-                            <a href="#menu" class="hero-image-cta-btn primary">View Menu</a>
-                            <a href="#contactFormBox" class="hero-image-cta-btn secondary">Event Enquiry</a>
+                            <a href="#contactFormBox" id="bookAfternoonTeaBtn" class="hero-image-cta-btn primary hero-image-cta-full">Book Afternoon Tea</a>
+                            <div class="hero-image-cta-row">
+                                <a href="#menu" class="hero-image-cta-btn secondary">View Menu</a>
+                                <a href="#contactFormBox" class="hero-image-cta-btn secondary">Event Enquiry</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -245,7 +261,7 @@
                     </div>
                     <div class="hero-buttons">
                         <!-- Notifications                        -->
-                        <div id="announcementBanner" class="hidden" style="margin-top: 20px; background-color: var(--primary-color); color: var(--accent-color); text-align: center; padding: 12px 24px; font-size: 14px; font-weight: 600; text-transform: propercase; letter-spacing: 1px; position: relative; z-index: 999; box-shadow: 0 4px 15px rgba(10, 45, 84, 0.05);">
+                        <div id="announcementBanner" class="announcement-inactive" style="margin-top: 10px; background-color: var(--primary-color); color: var(--accent-color); text-align: center; padding: 10px 20px; font-size: 13px; line-height: 1.5; font-weight: 600; text-transform: propercase; letter-spacing: 1px; position: relative; z-index: 999; box-shadow: 0 4px 15px rgba(10, 45, 84, 0.05);">
                                 <i class="fa-solid fa-bullhorn" style="margin-right: 8px;"></i>
                                 <span id="announcementText"></span>
                         </div>
@@ -259,7 +275,7 @@
     <section id="bakes" class="bakes-strip">
         <p class="bakes-strip-label">Today's Bakes</p>
 
-        <!-- Mobile: single crossfading photo -->
+        <!-- Mobile: single crossfading photo, with a caption that fades in sync -->
         <div class="bakes-strip-photo">
             <img src="images/victoria-sponge.jpg" loading="lazy" alt="Homemade Victoria sponge cake dusted with icing sugar">
             <img src="images/chocolate-cake.jpg" loading="lazy" alt="Rich homemade chocolate cake with ridged chocolate buttercream">
@@ -267,21 +283,28 @@
             <img src="images/carrot-cake.jpg" loading="lazy" alt="Homemade carrot cake with walnuts and cream cheese frosting">
             <img src="images/carrot-cake-2.jpg" loading="lazy" alt="Close-up of homemade carrot cake with walnut topping">
         </div>
+        <div class="bakes-strip-caption-wrap" aria-hidden="true">
+            <span class="bakes-strip-caption"></span>
+            <span class="bakes-strip-caption"></span>
+            <span class="bakes-strip-caption"></span>
+            <span class="bakes-strip-caption"></span>
+            <span class="bakes-strip-caption"></span>
+        </div>
 
         <!-- Desktop: continuously scrolling filmstrip, so several cakes show at once instead of one photo in a narrow box -->
         <div class="bakes-strip-track">
             <div class="bakes-strip-row">
-                <img src="images/victoria-sponge.jpg" loading="lazy" alt="Homemade Victoria sponge cake dusted with icing sugar">
-                <img src="images/chocolate-cake.jpg" loading="lazy" alt="Rich homemade chocolate cake with ridged chocolate buttercream">
-                <img src="images/caramel-cake.jpg" loading="lazy" alt="Homemade cake with a glossy caramel drip topping">
-                <img src="images/carrot-cake.jpg" loading="lazy" alt="Homemade carrot cake with walnuts and cream cheese frosting">
-                <img src="images/carrot-cake-2.jpg" loading="lazy" alt="Close-up of homemade carrot cake with walnut topping">
+                <div class="bakes-tile"><span class="bakes-tile-photo"><img src="images/victoria-sponge.jpg" loading="lazy" alt="Homemade Victoria sponge cake dusted with icing sugar"></span><span class="bakes-tile-name"></span></div>
+                <div class="bakes-tile"><span class="bakes-tile-photo"><img src="images/chocolate-cake.jpg" loading="lazy" alt="Rich homemade chocolate cake with ridged chocolate buttercream"></span><span class="bakes-tile-name"></span></div>
+                <div class="bakes-tile"><span class="bakes-tile-photo"><img src="images/caramel-cake.jpg" loading="lazy" alt="Homemade cake with a glossy caramel drip topping"></span><span class="bakes-tile-name"></span></div>
+                <div class="bakes-tile"><span class="bakes-tile-photo"><img src="images/carrot-cake.jpg" loading="lazy" alt="Homemade carrot cake with walnuts and cream cheese frosting"></span><span class="bakes-tile-name"></span></div>
+                <div class="bakes-tile"><span class="bakes-tile-photo"><img src="images/carrot-cake-2.jpg" loading="lazy" alt="Close-up of homemade carrot cake with walnut topping"></span><span class="bakes-tile-name"></span></div>
                 <!-- Repeated so the scroll loop is seamless -->
-                <img src="images/victoria-sponge.jpg" loading="lazy" alt="" aria-hidden="true">
-                <img src="images/chocolate-cake.jpg" loading="lazy" alt="" aria-hidden="true">
-                <img src="images/caramel-cake.jpg" loading="lazy" alt="" aria-hidden="true">
-                <img src="images/carrot-cake.jpg" loading="lazy" alt="" aria-hidden="true">
-                <img src="images/carrot-cake-2.jpg" loading="lazy" alt="" aria-hidden="true">
+                <div class="bakes-tile" aria-hidden="true"><span class="bakes-tile-photo"><img src="images/victoria-sponge.jpg" loading="lazy" alt=""></span><span class="bakes-tile-name"></span></div>
+                <div class="bakes-tile" aria-hidden="true"><span class="bakes-tile-photo"><img src="images/chocolate-cake.jpg" loading="lazy" alt=""></span><span class="bakes-tile-name"></span></div>
+                <div class="bakes-tile" aria-hidden="true"><span class="bakes-tile-photo"><img src="images/caramel-cake.jpg" loading="lazy" alt=""></span><span class="bakes-tile-name"></span></div>
+                <div class="bakes-tile" aria-hidden="true"><span class="bakes-tile-photo"><img src="images/carrot-cake.jpg" loading="lazy" alt=""></span><span class="bakes-tile-name"></span></div>
+                <div class="bakes-tile" aria-hidden="true"><span class="bakes-tile-photo"><img src="images/carrot-cake-2.jpg" loading="lazy" alt=""></span><span class="bakes-tile-name"></span></div>
             </div>
         </div>
     </section>

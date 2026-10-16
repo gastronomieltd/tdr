@@ -117,6 +117,13 @@ a {
     color: var(--text-muted);
 }
 
+/* Specialities header: widen so the subtitle sits on one line, and trim the
+   gap above the cards */
+#specialities .section-header {
+    max-width: 760px;
+    margin-bottom: 40px;
+}
+
 /* Buttons */
 .btn {
     display: inline-block;
@@ -540,7 +547,7 @@ a {
    ========================================================================== */
 .hero-about {
     padding-top: calc(var(--header-height) + 60px); /* Keeps content clear of fixed navbar */
-    min-height: 100vh;
+    min-height: 108vh;
     display: flex;
     align-items: center;
 }
@@ -556,6 +563,7 @@ a {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    justify-content: space-between;
 }
 
 .hero-subtitle {
@@ -571,7 +579,7 @@ a {
     font-family: var(--font-heading);
     font-size: 44px;
     line-height: 1.25;
-    margin-bottom: 24px;
+    margin-bottom: 18px;
     font-weight: 700;
     letter-spacing: 1px;
 }
@@ -604,9 +612,69 @@ a {
     gap: 40px;
 }
 
-/* Quick actions over the hero photo - mobile only, see the 768px breakpoint below */
+/* Gradient scrim behind the hero photo's quick-action buttons */
+.hero-about-media .about-image-wrapper::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 22%;
+    background: linear-gradient(to top, rgba(6, 14, 26, 0.85) 0%, rgba(6, 14, 26, 0.5) 55%, rgba(6, 14, 26, 0) 100%);
+    pointer-events: none;
+}
+
+/* Quick actions over the hero photo */
 .hero-image-cta {
-    display: none;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 50%;
+    bottom: 18px;
+    transform: translateX(-50%);
+    width: min(280px, calc(100% - 32px));
+    gap: 8px;
+    z-index: 2;
+}
+
+.hero-image-cta-row {
+    display: flex;
+    gap: 8px;
+}
+
+.hero-image-cta-btn.hero-image-cta-full {
+    flex: none;
+    width: 100%;
+    height: 36px;
+}
+
+.hero-image-cta-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    border-radius: 2px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    padding: 0 6px;
+    transition: var(--transition-fast);
+}
+
+.hero-image-cta-btn.primary {
+    background-color: var(--accent-color);
+    color: #241a07;
+}
+
+.hero-image-cta-btn.secondary {
+    background-color: transparent;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.85);
 }
 
 /* ==========================================================================
@@ -636,6 +704,23 @@ a {
     background-color: var(--primary-color);
 }
 
+/* The announcement banner's space is always reserved in the layout (sized
+   for a generous multi-line message), even while there's no active
+   announcement, so showing/hiding it never changes the text column's
+   height - which would otherwise force the hero photo beside it to
+   visibly resize once the banner's content loads in from Google Sheets. */
+#announcementBanner {
+    min-height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#announcementBanner.announcement-inactive {
+    opacity: 0;
+    pointer-events: none;
+}
+
 .hero-carousel-slide {
     position: absolute;
     inset: 0;
@@ -643,7 +728,7 @@ a {
     height: 100%;
     object-fit: contain;
     opacity: 0;
-    animation: heroCarouselFade 16s infinite;
+    animation: heroCarouselFade 24s infinite;
 }
 
 .hero-carousel-slide:nth-of-type(1) {
@@ -654,11 +739,15 @@ a {
     animation-delay: 8s;
 }
 
+.hero-carousel-slide:nth-of-type(3) {
+    animation-delay: 16s;
+}
+
 @keyframes heroCarouselFade {
     0% { opacity: 0; }
     3% { opacity: 1; }
-    47% { opacity: 1; }
-    50% { opacity: 0; }
+    30% { opacity: 1; }
+    33% { opacity: 0; }
     100% { opacity: 0; }
 }
 
@@ -713,7 +802,7 @@ a {
 .about-features {
     margin-top: 10px;
     display: grid;
-    gap: 24px;
+    gap: 20px;
 }
 
 .feature-item {
@@ -765,6 +854,7 @@ a {
     max-width: 480px;
     aspect-ratio: 11 / 10;
     margin: 0 auto;
+    overflow: hidden;
 }
 
 .bakes-strip-photo img {
@@ -773,6 +863,7 @@ a {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transform: scale(1.25);
     opacity: 0;
     animation: bakesStripFade 20s infinite;
 }
@@ -791,6 +882,34 @@ a {
     100% { opacity: 0; }
 }
 
+/* Mobile caption: each span uses the exact same animation/delay as its
+   corresponding photo, so the name crossfades in sync without any JS timer. */
+.bakes-strip-caption-wrap {
+    position: relative;
+    max-width: 480px;
+    height: 20px;
+    margin: 10px auto 0;
+}
+
+.bakes-strip-caption {
+    position: absolute;
+    inset: 0;
+    text-align: center;
+    font-family: var(--font-heading);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--accent-color);
+    opacity: 0;
+    animation: bakesStripFade 20s infinite;
+}
+
+.bakes-strip-caption:nth-of-type(1) { animation-delay: 0s; }
+.bakes-strip-caption:nth-of-type(2) { animation-delay: 4s; }
+.bakes-strip-caption:nth-of-type(3) { animation-delay: 8s; }
+.bakes-strip-caption:nth-of-type(4) { animation-delay: 12s; }
+.bakes-strip-caption:nth-of-type(5) { animation-delay: 16s; }
+
 /* Desktop: continuously scrolling filmstrip instead of the single-photo
    crossfade, so the wide section doesn't sit mostly empty either side of a
    narrow box. Hidden by default (mobile uses .bakes-strip-photo above). */
@@ -799,7 +918,8 @@ a {
 }
 
 @media (min-width: 769px) {
-    .bakes-strip-photo {
+    .bakes-strip-photo,
+    .bakes-strip-caption-wrap {
         display: none;
     }
 
@@ -811,17 +931,40 @@ a {
 
     .bakes-strip-row {
         display: flex;
+        align-items: flex-start;
         gap: 20px;
         width: max-content;
         animation: bakesStripScroll 36s linear infinite;
     }
 
-    .bakes-strip-row img {
-        height: 300px;
-        width: auto;
-        aspect-ratio: 11 / 10;
-        object-fit: cover;
+    .bakes-tile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
         flex: none;
+    }
+
+    .bakes-tile-photo {
+        display: block;
+        height: 300px;
+        width: calc(300px * 11 / 10);
+        overflow: hidden;
+    }
+
+    .bakes-tile-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transform: scale(1.25);
+    }
+
+    .bakes-tile-name {
+        font-family: var(--font-heading);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        color: var(--accent-color);
     }
 
     @keyframes bakesStripScroll {
@@ -858,10 +1001,14 @@ a {
     border-color: var(--accent-color);
 }
 
+/* Box follows the Afternoon Tea photo's own ratio (765:1020), so that photo
+   shows in full with no cropping, while the other two cards' photos are
+   cropped by object-fit to the same box, keeping all three cards equal height. */
 .speciality-img-wrapper {
     position: relative;
     overflow: hidden;
-    height: 280px;
+    height: auto;
+    aspect-ratio: 765 / 1020;
 }
 
 .speciality-img {
@@ -875,8 +1022,9 @@ a {
     transform: scale(1.06);
 }
 
+
 .speciality-info {
-    padding: 35px 30px;
+    padding: 22px 30px;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -889,7 +1037,7 @@ a {
     letter-spacing: 2px;
     color: var(--accent-color);
     font-weight: 600;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
     display: block;
 }
 
@@ -897,14 +1045,14 @@ a {
     font-family: var(--font-heading);
     font-size: 21px;
     color: var(--primary-color);
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     font-weight: 600;
 }
 
 .speciality-card-desc {
     font-size: 14px;
     color: var(--text-muted);
-    line-height: 1.7;
+    line-height: 1.6;
 }
 
 /* ==========================================================================
@@ -1540,6 +1688,33 @@ input[type="time"] {
 /* ==========================================================================
    Responsive Media Queries
    ========================================================================== */
+/* Two-column hero still applies here, but narrower text column wraps onto
+   more lines, overflowing past the image's bottom edge; tighten spacing so
+   the text column's height stays closer to the image's. */
+@media (min-width: 1025px) and (max-width: 1300px) {
+    .hero-title {
+        font-size: 34px;
+        margin-bottom: 16px;
+    }
+    .hero-subtitle {
+        margin-bottom: 10px;
+    }
+    .hero-about-text .section-desc {
+        margin-bottom: 14px;
+        font-size: 14px;
+    }
+    .about-features {
+        gap: 16px;
+        margin-top: 6px;
+    }
+    .feature-item {
+        gap: 14px;
+    }
+    .feature-item h4 {
+        font-size: 14px;
+    }
+}
+
 @media (max-width: 1024px) {
     .hero-about-grid {
         grid-template-columns: 1fr;
@@ -1684,57 +1859,6 @@ input[type="time"] {
     /* About Image Responsive */
     .about-image-wrapper {
         position: relative; /* Unlocks absolute positioning for the badge */
-    }
-
-    /* Gradient scrim behind the hero photo's mobile quick-action buttons */
-    .hero-about-media .about-image-wrapper::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        height: 22%;
-        background: linear-gradient(to top, rgba(6, 14, 26, 0.85) 0%, rgba(6, 14, 26, 0.5) 55%, rgba(6, 14, 26, 0) 100%);
-        pointer-events: none;
-    }
-
-    .hero-image-cta {
-        display: flex;
-        position: absolute;
-        left: 16px;
-        right: 16px;
-        bottom: 18px;
-        gap: 8px;
-        z-index: 2;
-    }
-
-    .hero-image-cta-btn {
-        flex: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 44px;
-        border-radius: 2px;
-        font-family: var(--font-body);
-        font-weight: 600;
-        font-size: 12px;
-        letter-spacing: 0.03em;
-        text-transform: uppercase;
-        text-align: center;
-        text-decoration: none;
-        padding: 0 6px;
-        transition: var(--transition-fast);
-    }
-
-    .hero-image-cta-btn.primary {
-        background-color: var(--accent-color);
-        color: #241a07;
-    }
-
-    .hero-image-cta-btn.secondary {
-        background-color: transparent;
-        color: #fff;
-        border: 1px solid rgba(255, 255, 255, 0.85);
     }
 
     .about-img {

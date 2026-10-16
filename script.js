@@ -378,6 +378,34 @@ const initializeApp = () => {
 
     updateHeroGreeting();
 
+    // Today's Bakes: derive each cake's display name from its image filename
+    // (e.g. "carrot-cake-2.jpg" -> "Carrot Cake"), so captions stay in sync
+    // with whichever photos are actually in the strip without hardcoding names.
+    const deriveCakeName = (src) => {
+        const filename = src.split('/').pop().replace(/\.[a-z]+$/i, '');
+        const withoutIndex = filename.replace(/-\d+$/, '');
+        return withoutIndex
+            .split('-')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+    };
+
+    const bakesPhotoImages = document.querySelectorAll('.bakes-strip-photo img');
+    const bakesCaptions = document.querySelectorAll('.bakes-strip-caption');
+    bakesPhotoImages.forEach((img, i) => {
+        if (bakesCaptions[i]) {
+            bakesCaptions[i].textContent = deriveCakeName(img.getAttribute('src'));
+        }
+    });
+
+    document.querySelectorAll('.bakes-tile').forEach(tile => {
+        const img = tile.querySelector('img');
+        const nameEl = tile.querySelector('.bakes-tile-name');
+        if (img && nameEl) {
+            nameEl.textContent = deriveCakeName(img.getAttribute('src'));
+        }
+    });
+
     const subjectSelect = document.getElementById('subject');
     const bookingFields = document.getElementById('bookingFields');
 
@@ -404,6 +432,16 @@ const initializeApp = () => {
         // Run once on page load to set the correct initial state
         // (This makes the booking fields visible by default on evening.html!)
         handleBookingFieldsVisibility(subjectSelect.value);
+
+        // "Book Afternoon Tea" hero button: pre-select the subject and reveal
+        // the date/time fields before the page scrolls down to the form
+        const bookAfternoonTeaBtn = document.getElementById('bookAfternoonTeaBtn');
+        if (bookAfternoonTeaBtn) {
+            bookAfternoonTeaBtn.addEventListener('click', () => {
+                subjectSelect.value = 'Book Afternoon Tea';
+                handleBookingFieldsVisibility('Book Afternoon Tea');
+            });
+        }
     }
 
     // Afternoon Tea booking slots: 30-minute increments, 10:00am-3:00pm Mon-Fri,
@@ -669,10 +707,13 @@ const initializeApp = () => {
                 if (banner && bannerText) {
                     if (config.announcement && config.announcement.trim() !== "") {
                         bannerText.textContent = config.announcement;
-                        banner.classList.remove('hidden');
+                        banner.classList.remove('announcement-inactive');
                     } else {
-                        banner.classList.add('hidden');
+                        banner.classList.add('announcement-inactive');
                     }
+                    // The banner's reserved space in the layout doesn't
+                    // change when it's shown/hidden (see #announcementBanner
+                    // in style.css), so the hero photo never needs to resize
                 }
 
                 // 2. Handle Force Mode Page Switching
@@ -698,8 +739,34 @@ const initializeApp = () => {
             });
     };
 
-    // Trigger the configuration check
+    // ==========================================================================
+    // Keep the hero photo's height matched to the text column's real height,
+    // so the "Book Afternoon Tea" overlay's bottom edge lines up with the
+    // bottom of the welcome text/announcement on the right. Safe to run
+    // immediately: the announcement banner's space is always reserved in the
+    // layout (see #announcementBanner in style.css), so the text column's
+    // height is already final at first paint and never changes later when
+    // the banner's real content loads in.
+    // ==========================================================================
+    const syncHeroHeight = () => {
+        const heroText = document.querySelector('.hero-about-text');
+        const heroImage = document.querySelector('.hero-carousel');
+        if (!heroText || !heroImage) return;
+
+        if (window.innerWidth > 1024) {
+            heroImage.style.height = heroText.offsetHeight + 'px';
+        } else {
+            heroImage.style.height = '';
+        }
+    };
+
+    syncHeroHeight();
     loadConfigFromSheet();
+
+    window.addEventListener('resize', syncHeroHeight);
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(syncHeroHeight);
+    }
 
     // ==========================================================================
     // Automatic Current Weekday Highlighting (Custom 3-Column Aligner)
