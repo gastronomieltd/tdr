@@ -375,6 +375,57 @@ a {
     transform: translateY(-5px);
 }
 
+/* Google rating badge: text content, so it overrides the fixed circular
+   34x34 sizing the other .header-socials a icons use */
+.header-socials a.header-rating {
+    width: auto;
+    height: 34px;
+    border-radius: 17px;
+    padding: 0 10px;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #ffffff;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
+    border-color: rgba(255, 255, 255, 0.28);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    white-space: nowrap;
+}
+
+.header-socials a.header-rating svg {
+    color: var(--accent-color);
+    flex-shrink: 0;
+}
+
+.header-rating-score {
+    margin-right: 2px;
+}
+
+.header-rating-count {
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 500;
+}
+
+.header-socials a.header-rating:hover {
+    border-color: var(--accent-color);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+/* Google Reviews Default & Hover States */
+.header-socials a.social-google {
+    background-color: #ffffff;
+    color: #4285f4;
+    border-color: #ffffff;
+}
+
+.header-socials a.social-google:hover {
+    background-color: #ffffff;
+    color: #4285f4;
+    border-color: #ffffff;
+    transform: translateY(-5px);
+}
+
 /* Navigation Links */
 .nav-links {
     display: flex;
@@ -2221,11 +2272,18 @@ input[type="time"] {
         gap: 10px;
         margin-right: 0; /* Clears mobile margin-right that was shifting the logo to the right */
     }
-    
+
     .header-socials a {
         width: 30px;
         height: 30px;
         font-size: 12px;
+    }
+
+    /* The rating badge pushes this row wide enough to collide with the
+       centered logo box at phone widths - keep the nav bar to just
+       Facebook/Instagram there (Google rating still shows in Contact) */
+    .nav-container .header-socials a.header-rating {
+        display: none;
     }
 
     input[type="date"],
