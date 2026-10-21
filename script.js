@@ -584,6 +584,16 @@ const initializeApp = () => {
                 handleBookingFieldsVisibility('Order a Cake');
             });
         }
+
+        // "Enquire About an Event" button: pre-select the subject before
+        // the page scrolls down to the form
+        const eventEnquiryLink = document.getElementById('eventEnquiryLink');
+        if (eventEnquiryLink) {
+            eventEnquiryLink.addEventListener('click', () => {
+                subjectSelect.value = 'Event Inquiry';
+                handleBookingFieldsVisibility('Event Inquiry');
+            });
+        }
     }
 
     // Afternoon Tea booking slots: 30-minute increments, 10:00am-3:00pm Mon-Fri,
