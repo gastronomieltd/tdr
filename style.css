@@ -595,7 +595,7 @@ a {
 */
 
 .hero-about-text .section-desc {
-    margin-bottom: 20px;
+    margin-bottom: 14px;
     font-size: 15px;
     color: var(--text-muted);
 }
@@ -603,7 +603,7 @@ a {
 .hero-about-text .hero-buttons {
     display: flex;
     gap: 15px;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .hero-about-media {
@@ -802,7 +802,7 @@ a {
 .about-features {
     margin-top: 10px;
     display: grid;
-    gap: 20px;
+    gap: 12px;
 }
 
 .feature-item {
@@ -857,6 +857,10 @@ a {
     overflow: hidden;
 }
 
+/* The number of photos found in images/bakes/ varies, so timing can't be
+   baked into fixed nth-of-type delays any more - script.js toggles this
+   "is-active" class on one photo/caption at a time on an interval instead,
+   and this transition handles the crossfade. */
 .bakes-strip-photo img {
     position: absolute;
     inset: 0;
@@ -865,25 +869,13 @@ a {
     object-fit: cover;
     transform: scale(1.25);
     opacity: 0;
-    animation: bakesStripFade 20s infinite;
+    transition: opacity 1s ease;
 }
 
-.bakes-strip-photo img:nth-of-type(1) { animation-delay: 0s; }
-.bakes-strip-photo img:nth-of-type(2) { animation-delay: 4s; }
-.bakes-strip-photo img:nth-of-type(3) { animation-delay: 8s; }
-.bakes-strip-photo img:nth-of-type(4) { animation-delay: 12s; }
-.bakes-strip-photo img:nth-of-type(5) { animation-delay: 16s; }
-
-@keyframes bakesStripFade {
-    0% { opacity: 0; }
-    3% { opacity: 1; }
-    17% { opacity: 1; }
-    20% { opacity: 0; }
-    100% { opacity: 0; }
+.bakes-strip-photo img.is-active {
+    opacity: 1;
 }
 
-/* Mobile caption: each span uses the exact same animation/delay as its
-   corresponding photo, so the name crossfades in sync without any JS timer. */
 .bakes-strip-caption-wrap {
     position: relative;
     max-width: 480px;
@@ -892,8 +884,7 @@ a {
 }
 
 .bakes-strip-caption {
-    position: absolute;
-    inset: 0;
+    display: block;
     text-align: center;
     font-family: var(--font-heading);
     font-size: 13px;
@@ -901,14 +892,12 @@ a {
     letter-spacing: 1px;
     color: var(--accent-color);
     opacity: 0;
-    animation: bakesStripFade 20s infinite;
+    transition: opacity 1s ease;
 }
 
-.bakes-strip-caption:nth-of-type(1) { animation-delay: 0s; }
-.bakes-strip-caption:nth-of-type(2) { animation-delay: 4s; }
-.bakes-strip-caption:nth-of-type(3) { animation-delay: 8s; }
-.bakes-strip-caption:nth-of-type(4) { animation-delay: 12s; }
-.bakes-strip-caption:nth-of-type(5) { animation-delay: 16s; }
+.bakes-strip-caption.is-active {
+    opacity: 1;
+}
 
 /* Desktop: continuously scrolling filmstrip instead of the single-photo
    crossfade, so the wide section doesn't sit mostly empty either side of a
@@ -934,7 +923,10 @@ a {
         align-items: flex-start;
         gap: 20px;
         width: max-content;
-        animation: bakesStripScroll 36s linear infinite;
+        /* Duration scales with however many photos script.js finds in
+           images/bakes/, so the per-tile speed stays constant regardless
+           of count (set as an inline style alongside the tiles) */
+        animation: bakesStripScroll var(--bakes-scroll-duration, 36s) linear infinite;
     }
 
     .bakes-tile {

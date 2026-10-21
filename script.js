@@ -390,21 +390,105 @@ const initializeApp = () => {
             .join(' ');
     };
 
-    const bakesPhotoImages = document.querySelectorAll('.bakes-strip-photo img');
-    const bakesCaptions = document.querySelectorAll('.bakes-strip-caption');
-    bakesPhotoImages.forEach((img, i) => {
-        if (bakesCaptions[i]) {
-            bakesCaptions[i].textContent = deriveCakeName(img.getAttribute('src'));
-        }
-    });
+    // ==========================================================================
+    // Today's Bakes: list every photo in images/bakes/ dynamically, via the
+    // GitHub API, so adding/removing a cake photo there is all that's needed -
+    // no HTML edits. Falls back to a fixed list if the API is unreachable or
+    // rate-limited (it's unauthenticated, capped around 60 requests/hour per
+    // visitor IP).
+    // ==========================================================================
+    const BAKES_FOLDER = 'images/bakes';
+    const BAKES_FALLBACK = [
+        'victoria-sponge.jpg',
+        'chocolate-cake.jpg',
+        'caramel-cake.jpg',
+        'carrot-cake.jpg',
+        'coffee-walnut.jpg'
+    ];
+    const IMAGE_EXT_RE = /\.(jpe?g|png|webp)$/i;
 
-    document.querySelectorAll('.bakes-tile').forEach(tile => {
-        const img = tile.querySelector('img');
-        const nameEl = tile.querySelector('.bakes-tile-name');
-        if (img && nameEl) {
-            nameEl.textContent = deriveCakeName(img.getAttribute('src'));
+    const listBakesImages = () => {
+        return fetch('https://api.github.com/repos/gastronomieltd/tdr/contents/' + BAKES_FOLDER)
+            .then(response => {
+                if (!response.ok) throw new Error('GitHub API request failed: ' + response.status);
+                return response.json();
+            })
+            .then(files => {
+                const names = files
+                    .filter(f => f.type === 'file' && IMAGE_EXT_RE.test(f.name))
+                    .map(f => f.name)
+                    .sort();
+                return names.length ? names : BAKES_FALLBACK;
+            })
+            .catch(error => {
+                console.error('Could not list images/bakes/ from GitHub, using fallback list:', error);
+                return BAKES_FALLBACK;
+            });
+    };
+
+    const renderBakesStrip = (filenames) => {
+        const mobilePhoto = document.getElementById('bakesStripPhoto');
+        const mobileCaption = document.getElementById('bakesStripCaption');
+        const desktopRow = document.getElementById('bakesStripRow');
+        if (!mobilePhoto || !mobileCaption || !desktopRow) return;
+
+        const items = filenames.map(name => ({
+            src: BAKES_FOLDER + '/' + name,
+            name: deriveCakeName(name)
+        }));
+
+        // Mobile: one <img> per photo, all stacked and crossfaded via the
+        // "is-active" class (see .bakes-strip-photo img in style.css)
+        mobilePhoto.innerHTML = '';
+        items.forEach(item => {
+            const img = document.createElement('img');
+            img.src = item.src;
+            img.loading = 'lazy';
+            img.alt = item.name;
+            mobilePhoto.appendChild(img);
+        });
+        const mobileImages = mobilePhoto.querySelectorAll('img');
+
+        let activeIndex = 0;
+        const showSlide = (index) => {
+            mobileImages.forEach(img => img.classList.remove('is-active'));
+            mobileImages[index].classList.add('is-active');
+            mobileCaption.classList.remove('is-active');
+            // Let the caption fade out, then swap its text and fade back in
+            window.setTimeout(() => {
+                mobileCaption.textContent = items[index].name;
+                mobileCaption.classList.add('is-active');
+            }, 300);
+        };
+        showSlide(0);
+        if (items.length > 1) {
+            window.setInterval(() => {
+                activeIndex = (activeIndex + 1) % items.length;
+                showSlide(activeIndex);
+            }, 4000);
         }
-    });
+
+        // Desktop: build the tile row twice over so the CSS scroll loop
+        // (translateX(-50%)) is seamless, whatever the photo count is
+        const buildTile = (item, hidden) => {
+            const tile = document.createElement('div');
+            tile.className = 'bakes-tile';
+            if (hidden) tile.setAttribute('aria-hidden', 'true');
+            tile.innerHTML =
+                '<span class="bakes-tile-photo"><img src="' + item.src + '" loading="lazy" alt="' + (hidden ? '' : item.name) + '"></span>' +
+                '<span class="bakes-tile-name">' + item.name + '</span>';
+            return tile;
+        };
+        desktopRow.innerHTML = '';
+        items.forEach(item => desktopRow.appendChild(buildTile(item, false)));
+        items.forEach(item => desktopRow.appendChild(buildTile(item, true)));
+
+        // Keep the per-tile scroll speed constant regardless of how many
+        // photos there are (~7.2s/tile, matching the original 5-photo pace)
+        desktopRow.style.setProperty('--bakes-scroll-duration', (items.length * 7.2) + 's');
+    };
+
+    listBakesImages().then(renderBakesStrip);
 
     const subjectSelect = document.getElementById('subject');
     const bookingFields = document.getElementById('bookingFields');

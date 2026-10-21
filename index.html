@@ -178,18 +178,12 @@
             <nav class="nav-menu">
                 <ul class="nav-links">
                     <li><a href="#menu" class="nav-link">Menu</a></li>
-                    <li><a href="#contactFormBox" class="nav-link">Events</a></li>
                     <!--
                     <li><a href="evening.html" class="nav-link" style="color: var(--accent-color); font-weight: 600;"><i class="fa-solid fa-moon" style="margin-right: 5px;"></i> Cosy Evening</a></li>
                     -->
 
-                    <li class="nav-dropdown">
-                        <a href="#hours" class="nav-link dropdown-toggle">Visit<i class="fa-solid fa-chevron-down" style="font-size: 10px; margin-left: 4px;"></i></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#hours" class="nav-link-sub">Opening Hours</a></li>
-                            <li><a href="#contact" class="nav-link-sub">Contact Us</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="#hours" class="nav-link">Visit</a></li>
+                    <li><a href="#contact" class="nav-link">Contact Us</a></li>
                 </ul>
             </nav>
 
@@ -258,10 +252,16 @@
                                 <h4>Celebrate your life events with us</h4>
                             </div>
                         </div>
+                        <div class="feature-item">
+                            <i class="fa-solid fa-notes-medical"></i>
+                            <div>
+                                <h4>NHS workers enjoy 10% off &mdash; just show your ID</h4>
+                            </div>
+                        </div>
                     </div>
                     <div class="hero-buttons">
                         <!-- Notifications                        -->
-                        <div id="announcementBanner" class="announcement-inactive" style="margin-top: 10px; background-color: var(--primary-color); color: var(--accent-color); text-align: center; padding: 10px 20px; font-size: 13px; line-height: 1.5; font-weight: 600; text-transform: propercase; letter-spacing: 1px; position: relative; z-index: 999; box-shadow: 0 4px 15px rgba(10, 45, 84, 0.05);">
+                        <div id="announcementBanner" class="announcement-inactive" style="margin-top: 6px; background-color: var(--primary-color); color: var(--accent-color); text-align: center; padding: 8px 20px; font-size: 13px; line-height: 1.5; font-weight: 600; text-transform: propercase; letter-spacing: 1px; position: relative; z-index: 999; box-shadow: 0 4px 15px rgba(10, 45, 84, 0.05);">
                                 <i class="fa-solid fa-bullhorn" style="margin-right: 8px;"></i>
                                 <span id="announcementText"></span>
                         </div>
@@ -271,41 +271,22 @@
         </div>
     </section>
 
-    <!-- Today's Bakes: rotating photo strip of the day's homemade cakes -->
+    <!-- Today's Bakes: rotating photo strip of the day's homemade cakes.
+         Images are loaded dynamically (see loadBakesImages in script.js) from
+         everything in images/bakes/ - add or remove a photo there and it
+         shows up here automatically, no HTML edits needed. -->
     <section id="bakes" class="bakes-strip">
         <p class="bakes-strip-label">Today's Bakes</p>
 
         <!-- Mobile: single crossfading photo, with a caption that fades in sync -->
-        <div class="bakes-strip-photo">
-            <img src="images/victoria-sponge.jpg" loading="lazy" alt="Homemade Victoria sponge cake dusted with icing sugar">
-            <img src="images/chocolate-cake.jpg" loading="lazy" alt="Rich homemade chocolate cake with ridged chocolate buttercream">
-            <img src="images/caramel-cake.jpg" loading="lazy" alt="Homemade cake with a glossy caramel drip topping">
-            <img src="images/carrot-cake.jpg" loading="lazy" alt="Homemade carrot cake with walnuts and cream cheese frosting">
-            <img src="images/carrot-cake-2.jpg" loading="lazy" alt="Close-up of homemade carrot cake with walnut topping">
-        </div>
+        <div class="bakes-strip-photo" id="bakesStripPhoto"></div>
         <div class="bakes-strip-caption-wrap" aria-hidden="true">
-            <span class="bakes-strip-caption"></span>
-            <span class="bakes-strip-caption"></span>
-            <span class="bakes-strip-caption"></span>
-            <span class="bakes-strip-caption"></span>
-            <span class="bakes-strip-caption"></span>
+            <span class="bakes-strip-caption" id="bakesStripCaption"></span>
         </div>
 
         <!-- Desktop: continuously scrolling filmstrip, so several cakes show at once instead of one photo in a narrow box -->
         <div class="bakes-strip-track">
-            <div class="bakes-strip-row">
-                <div class="bakes-tile"><span class="bakes-tile-photo"><img src="images/victoria-sponge.jpg" loading="lazy" alt="Homemade Victoria sponge cake dusted with icing sugar"></span><span class="bakes-tile-name"></span></div>
-                <div class="bakes-tile"><span class="bakes-tile-photo"><img src="images/chocolate-cake.jpg" loading="lazy" alt="Rich homemade chocolate cake with ridged chocolate buttercream"></span><span class="bakes-tile-name"></span></div>
-                <div class="bakes-tile"><span class="bakes-tile-photo"><img src="images/caramel-cake.jpg" loading="lazy" alt="Homemade cake with a glossy caramel drip topping"></span><span class="bakes-tile-name"></span></div>
-                <div class="bakes-tile"><span class="bakes-tile-photo"><img src="images/carrot-cake.jpg" loading="lazy" alt="Homemade carrot cake with walnuts and cream cheese frosting"></span><span class="bakes-tile-name"></span></div>
-                <div class="bakes-tile"><span class="bakes-tile-photo"><img src="images/carrot-cake-2.jpg" loading="lazy" alt="Close-up of homemade carrot cake with walnut topping"></span><span class="bakes-tile-name"></span></div>
-                <!-- Repeated so the scroll loop is seamless -->
-                <div class="bakes-tile" aria-hidden="true"><span class="bakes-tile-photo"><img src="images/victoria-sponge.jpg" loading="lazy" alt=""></span><span class="bakes-tile-name"></span></div>
-                <div class="bakes-tile" aria-hidden="true"><span class="bakes-tile-photo"><img src="images/chocolate-cake.jpg" loading="lazy" alt=""></span><span class="bakes-tile-name"></span></div>
-                <div class="bakes-tile" aria-hidden="true"><span class="bakes-tile-photo"><img src="images/caramel-cake.jpg" loading="lazy" alt=""></span><span class="bakes-tile-name"></span></div>
-                <div class="bakes-tile" aria-hidden="true"><span class="bakes-tile-photo"><img src="images/carrot-cake.jpg" loading="lazy" alt=""></span><span class="bakes-tile-name"></span></div>
-                <div class="bakes-tile" aria-hidden="true"><span class="bakes-tile-photo"><img src="images/carrot-cake-2.jpg" loading="lazy" alt=""></span><span class="bakes-tile-name"></span></div>
-            </div>
+            <div class="bakes-strip-row" id="bakesStripRow"></div>
         </div>
     </section>
 
@@ -660,7 +641,12 @@
                                 <div>
                                     <h4>Call Us</h4>
                                     <p>01689 852288</p>
-                                    <small style="color: var(--accent-color); font-size: 11px;">Tap to call directly</small>
+                                    <span style="display: flex; gap: 15px; margin-top: 5px;">
+                                        <small style="color: var(--accent-color); font-size: 11px;">Tap to call directly</small>
+                                        <small onclick="event.preventDefault(); window.open('https://wa.me/441689852288', '_blank');" style="color: var(--accent-color); font-size: 11px; text-decoration: underline; cursor: pointer;">
+                                            <i class="fa-brands fa-whatsapp"></i> Message on WhatsApp
+                                        </small>
+                                    </span>
                                 </div>
                             </div>
                         </a>
