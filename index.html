@@ -277,6 +277,7 @@
          shows up here automatically, no HTML edits needed. -->
     <section id="bakes" class="bakes-strip">
         <p class="bakes-strip-label">Today's Bakes</p>
+        <p class="bakes-strip-subtext">🎉🎂 Celebrating something special? <a href="#contactFormBox" id="orderCakeLink">We bake cakes to order</a></p>
 
         <!-- Mobile: single crossfading photo, with a caption that fades in sync -->
         <div class="bakes-strip-photo" id="bakesStripPhoto"></div>
@@ -703,6 +704,7 @@
                             <label for="subject">Subject</label>
                             <select id="subject" name="subject" required>
                                 <option value="Book Afternoon Tea">Book Afternoon Tea (Advance booking required)</option>
+                                <option value="Order a Cake">Order a Cake</option>
                                 <option value="Event Inquiry">Event Enquiry</option>
                             </select>
                         </div>
@@ -719,10 +721,34 @@
                                     <option value="">Select a date first</option>
                                 </select>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" id="guestsGroup">
                                 <label for="guests">Guests</label>
                                 <input type="number" id="guests" name="guests" min="1" max="20" placeholder="2">
                             </div>
+                        </div>
+                        <!-- Hidden cake picker that slides open only if they choose Order a Cake -->
+                        <div id="cakeOrderFields" class="form-group hidden">
+                            <label for="cakeChoice">Which Cake?</label>
+                            <select id="cakeChoice" name="cakeChoice">
+                                <option value="">Select a cake</option>
+                                <option value="Lemon Feather (GF) - £46.99">Lemon Feather (GF) - &pound;46.99</option>
+                                <option value="Pumpkin Spiced Latte with White Chocolate - £46.99">Pumpkin Spiced Latte with White Chocolate - &pound;46.99</option>
+                                <option value="Lemon, Yoghurt & Blueberry - £29.99">Lemon, Yoghurt &amp; Blueberry - &pound;29.99</option>
+                                <option value="Red Velvet - £46.99">Red Velvet - &pound;46.99</option>
+                                <option value="Coconut Cake with Rhubarb & Ginger Jam - £46.99">Coconut Cake with Rhubarb &amp; Ginger Jam - &pound;46.99</option>
+                                <option value="Chocolate Fudge - £46.99">Chocolate Fudge - &pound;46.99</option>
+                                <option value="Carrot & Walnut - £46.99">Carrot &amp; Walnut - &pound;46.99</option>
+                                <option value="Toffee Cake - £46.99">Toffee Cake - &pound;46.99</option>
+                                <option value="Coffee & Walnut - £46.99">Coffee &amp; Walnut - &pound;46.99</option>
+                                <option value="Victoria Sponge - £40.99">Victoria Sponge - &pound;40.99</option>
+                                <option value="Raspberry & Mascarpone - £46.99">Raspberry &amp; Mascarpone - &pound;46.99</option>
+                                <option value="Lemon Drizzle - £26.99">Lemon Drizzle - &pound;26.99</option>
+                                <option value="Vegan Toffee & Banana - £26.99">Vegan Toffee &amp; Banana - &pound;26.99</option>
+                                <option value="Chocolate Brownies (12 whole or 48 bitesized) - £32.99">Chocolate Brownies (12 whole or 48 bitesized) - &pound;32.99</option>
+                                <option value="Bread Pudding - £32.99">Bread Pudding - &pound;32.99</option>
+                                <option value="Fruit or Plain Scones - £3.45">Fruit or Plain Scones - &pound;3.45</option>
+                                <option value="Scones with Clotted Cream & Strawberry Preserve - £4.95">Scones with Clotted Cream &amp; Strawberry Preserve - &pound;4.95</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="message">Your Message</label>

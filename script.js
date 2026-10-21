@@ -323,12 +323,20 @@ const initializeApp = () => {
             submitBtn.textContent = 'Sending...';
             submitBtn.disabled = true;
 
+            // If ordering a cake, lead the message with the chosen cake & price
+            // so it's immediately visible, with whatever the customer typed after it
+            let messageValue = document.getElementById('message').value;
+            const cakeChoiceEl = document.getElementById('cakeChoice');
+            if (cakeChoiceEl && cakeChoiceEl.value) {
+                messageValue = 'Cake: ' + cakeChoiceEl.value + '\n\n' + messageValue;
+            }
+
             const formData = {
                 name: document.getElementById('name').value,
                 email: document.getElementById('email').value,
                 phone: document.getElementById('phone').value,
                 subject: document.getElementById('subject').value,
-                message: document.getElementById('message').value,
+                message: messageValue,
                 bookDate: document.getElementById('bookDate').value,
                 bookTime: document.getElementById('bookTime').value,
                 guests: document.getElementById('guests').value
@@ -399,11 +407,11 @@ const initializeApp = () => {
     // ==========================================================================
     const BAKES_FOLDER = 'images/bakes';
     const BAKES_FALLBACK = [
-        'victoria-sponge.jpg',
-        'chocolate-cake.jpg',
+        'victoria-sponge-cake.jpg',
+        'chocolate-fudge-cake.jpg',
         'caramel-cake.jpg',
-        'carrot-cake.jpg',
-        'coffee-walnut.jpg'
+        'carrot-walnut-cake.jpg',
+        'coffee-walnut-cake.jpg'
     ];
     const IMAGE_EXT_RE = /\.(jpe?g|png|webp)$/i;
 
@@ -492,19 +500,59 @@ const initializeApp = () => {
 
     const subjectSelect = document.getElementById('subject');
     const bookingFields = document.getElementById('bookingFields');
+    const cakeOrderFields = document.getElementById('cakeOrderFields');
+
+    const guestsGroup = document.getElementById('guestsGroup');
 
     if (subjectSelect && bookingFields) {
         const handleBookingFieldsVisibility = (value) => {
-            if (value === 'Book Afternoon Tea' || value === 'Event Inquiry') {
+            const isCakeOrder = value === 'Order a Cake';
+
+            if (value === 'Book Afternoon Tea' || value === 'Event Inquiry' || isCakeOrder) {
                 bookingFields.classList.remove('hidden');
                 document.getElementById('bookDate').required = true;
                 document.getElementById('bookTime').required = true;
-                document.getElementById('guests').required = true;
             } else {
                 bookingFields.classList.add('hidden');
                 document.getElementById('bookDate').required = false;
                 document.getElementById('bookTime').required = false;
-                document.getElementById('guests').required = false;
+            }
+
+            // Cake orders need to be placed by 2pm for next-day collection -
+            // after 2pm, next day no longer gives a full day's notice, so the
+            // earliest selectable date pushes out to the day after that
+            // (anyone needing one sooner is pointed to the enquiry form instead)
+            const bookDateEl = document.getElementById('bookDate');
+            if (isCakeOrder) {
+                const now = new Date();
+                const daysAhead = now.getHours() < 14 ? 1 : 2;
+                const earliest = new Date();
+                earliest.setDate(earliest.getDate() + daysAhead);
+                const minDate = earliest.getFullYear() + '-' +
+                    String(earliest.getMonth() + 1).padStart(2, '0') + '-' +
+                    String(earliest.getDate()).padStart(2, '0');
+                bookDateEl.min = minDate;
+                if (bookDateEl.value && bookDateEl.value < minDate) {
+                    bookDateEl.value = '';
+                }
+            } else {
+                bookDateEl.removeAttribute('min');
+            }
+
+            // Cake orders need a collection date/time, but not a guest count
+            if (guestsGroup) {
+                guestsGroup.classList.toggle('hidden', isCakeOrder);
+            }
+            document.getElementById('guests').required = (value === 'Book Afternoon Tea' || value === 'Event Inquiry');
+
+            if (cakeOrderFields) {
+                if (isCakeOrder) {
+                    cakeOrderFields.classList.remove('hidden');
+                    document.getElementById('cakeChoice').required = true;
+                } else {
+                    cakeOrderFields.classList.add('hidden');
+                    document.getElementById('cakeChoice').required = false;
+                }
             }
         };
 
@@ -524,6 +572,16 @@ const initializeApp = () => {
             bookAfternoonTeaBtn.addEventListener('click', () => {
                 subjectSelect.value = 'Book Afternoon Tea';
                 handleBookingFieldsVisibility('Book Afternoon Tea');
+            });
+        }
+
+        // "We bake cakes to order" link in Today's Bakes: pre-select the
+        // subject and reveal the cake picker before the page scrolls down
+        const orderCakeLink = document.getElementById('orderCakeLink');
+        if (orderCakeLink) {
+            orderCakeLink.addEventListener('click', () => {
+                subjectSelect.value = 'Order a Cake';
+                handleBookingFieldsVisibility('Order a Cake');
             });
         }
     }

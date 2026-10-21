@@ -845,12 +845,25 @@ a {
 .bakes-strip-label {
     text-align: center;
     font-family: var(--font-heading);
-    font-size: 13px;
+    font-size: 17px;
     font-weight: 700;
     letter-spacing: 2px;
     text-transform: uppercase;
     color: var(--accent-color);
+    margin: 0 0 4px;
+}
+
+.bakes-strip-subtext {
+    text-align: center;
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.75);
     margin: 0 0 18px;
+}
+
+.bakes-strip-subtext a {
+    color: var(--accent-color);
+    text-decoration: underline;
+    font-weight: 600;
 }
 
 .bakes-strip-photo {
