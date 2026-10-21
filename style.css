@@ -825,6 +825,10 @@ a {
     letter-spacing: 1px;
 }
 
+.nhs-highlight {
+    color: var(--accent-color);
+}
+
 .feature-item p {
     color: var(--text-muted);
     font-size: 14px;
@@ -1230,11 +1234,18 @@ a {
     background-color: rgba(10, 45, 84, 0.85);
 }
 
+/* Tighter than the default section padding, so this card - tagline, title,
+   status badge, 7-row table and Sunday events note - fits closer to one
+   screen instead of overflowing below the fold */
+#hours.section-padding {
+    padding: 50px 0;
+}
+
 .hours-box {
     background-color: var(--primary-color);
     max-width: 650px;
     margin: 0 auto;
-    padding: 40px 60px;
+    padding: 28px 60px;
     color: var(--text-light);
     border: 1px solid rgba(255, 255, 255, 0.1);
     text-align: center;
@@ -1242,13 +1253,13 @@ a {
 
 .hours-box .section-title {
     color: var(--text-light);
-    margin-bottom: 24px;
+    margin-bottom: 14px;
 }
 
 .hours-list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 6px;
 }
 
 .hours-row {
@@ -1290,8 +1301,8 @@ a {
 }
 
 .hours-sunday-note {
-    margin-top: 14px;
-    padding: 12px 18px;
+    margin-top: 10px;
+    padding: 10px 16px;
     border: 1px solid rgba(201, 155, 59, 0.4);
     background-color: rgba(201, 155, 59, 0.06);
     text-align: left;
@@ -1304,7 +1315,7 @@ a {
     font-family: var(--font-heading);
     font-size: 14px;
     color: var(--accent-color);
-    margin-bottom: 8px;
+    margin-bottom: 5px;
 }
 
 .hours-sunday-note p {
@@ -1357,6 +1368,16 @@ a {
     background-color: var(--bg-white);
 }
 
+/* Tighter than the default section padding/header gap, so this section
+   (with a fairly tall form) fits closer to one screen */
+#contact.section-padding {
+    padding: 40px 0;
+}
+
+#contact .section-header {
+    margin-bottom: 24px;
+}
+
 .contact-grid {
     display: grid;
     grid-template-columns: 1fr 1.2fr;
@@ -1374,14 +1395,14 @@ a {
 
 .contact-intro {
     color: var(--text-muted);
-    margin-bottom: 40px;
+    margin-bottom: 16px;
 }
 
 .info-list {
     display: flex;
     flex-direction: column;
-    gap: 30px;
-    margin-bottom: 40px;
+    gap: 14px;
+    margin-bottom: 18px;
 }
 
 .info-item {
@@ -1436,30 +1457,30 @@ a {
    ========================================================================== */
 .contact-form-container {
     background-color: var(--bg-light);
-    padding: 25px;
+    padding: 20px;
     border: 1px solid var(--border-color);
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
     position: relative;
-    min-height: 450px;
+    min-height: 400px;
 }
 
 .contact-form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
     transition: opacity var(--transition-fast);
 }
 
 .form-group-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 10px;
+    gap: 8px;
 }
 
 .form-group {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 3px;
 }
 
 .form-group label {
@@ -1476,8 +1497,8 @@ a {
 .contact-form select {
     width: 100%;
     min-width: 0;
-    height: 44px;
-    padding: 10px 12px;
+    height: 38px;
+    padding: 8px 12px;
     font-family: var(--font-body);
     font-size: 14px;
     border: 1px solid var(--border-color);
@@ -1498,9 +1519,9 @@ input[type="time"] {
     display: block;    /* Overrides mobile WebKit native inline-flex user-agent layouts */
     width: 100% !important;
     min-width: 0;
-    height: 50px;
-    padding: 0 14px;   /* Removes vertical padding completely, letting height: 50px center placeholder */
-    line-height: 50px;
+    height: 38px;
+    padding: 0 14px;   /* Removes vertical padding completely, letting height: 38px center placeholder */
+    line-height: 38px;
     box-sizing: border-box;
 }
 
@@ -1523,7 +1544,7 @@ input[type="time"] {
 
 .btn-submit {
     align-self: flex-start;
-    padding: 12px 32px;
+    padding: 10px 32px;
 }
 
 /* Form Success State */
