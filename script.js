@@ -254,6 +254,37 @@ const initializeApp = () => {
         link.addEventListener('click', closeMenu);
     });
 
+    // Desktop-only "more" dropdown: Specialities, Private Events, Gift
+    // Vouchers, Gallery - tucked behind this instead of being always-on
+    // links next to Menu/Visit/Contact Us
+    const navMoreToggle = document.querySelector('.nav-more-toggle');
+    const navMoreDropdown = document.querySelector('.nav-more-dropdown');
+
+    if (navMoreToggle && navMoreDropdown) {
+        const closeNavMore = () => {
+            navMoreToggle.classList.remove('active');
+            navMoreDropdown.classList.remove('active');
+            navMoreToggle.setAttribute('aria-expanded', 'false');
+        };
+
+        navMoreToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isOpen = navMoreDropdown.classList.toggle('active');
+            navMoreToggle.classList.toggle('active', isOpen);
+            navMoreToggle.setAttribute('aria-expanded', String(isOpen));
+        });
+
+        navMoreDropdown.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', closeNavMore);
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!navMoreDropdown.contains(e.target) && e.target !== navMoreToggle) {
+                closeNavMore();
+            }
+        });
+    }
+
     const sections = document.querySelectorAll('section');
 
     const scrollSpy = () => {
@@ -503,6 +534,7 @@ const initializeApp = () => {
     const subjectSelect = document.getElementById('subject');
     const bookingFields = document.getElementById('bookingFields');
     const cakeOrderFields = document.getElementById('cakeOrderFields');
+    const voucherFields = document.getElementById('voucherFields');
 
     const guestsGroup = document.getElementById('guestsGroup');
 
@@ -556,6 +588,17 @@ const initializeApp = () => {
                     document.getElementById('cakeChoice').required = false;
                 }
             }
+
+            if (voucherFields) {
+                const isVoucher = value === 'Gift Voucher';
+                if (isVoucher) {
+                    voucherFields.classList.remove('hidden');
+                    document.getElementById('voucherAmount').required = true;
+                } else {
+                    voucherFields.classList.add('hidden');
+                    document.getElementById('voucherAmount').required = false;
+                }
+            }
         };
 
         // Listen for user select changes
@@ -594,6 +637,16 @@ const initializeApp = () => {
             eventEnquiryLink.addEventListener('click', () => {
                 subjectSelect.value = 'Event Inquiry';
                 handleBookingFieldsVisibility('Event Inquiry');
+            });
+        }
+
+        // "Enquire About a Voucher" button: pre-select the subject and
+        // reveal the voucher value field before the page scrolls to the form
+        const voucherEnquiryLink = document.getElementById('voucherEnquiryLink');
+        if (voucherEnquiryLink) {
+            voucherEnquiryLink.addEventListener('click', () => {
+                subjectSelect.value = 'Gift Voucher';
+                handleBookingFieldsVisibility('Gift Voucher');
             });
         }
     }

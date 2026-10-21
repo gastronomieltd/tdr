@@ -192,7 +192,35 @@
 
                     <li><a href="#hours" class="nav-link">Visit</a></li>
                     <li><a href="#contact" class="nav-link">Contact Us</a></li>
+
+                    <!-- On mobile, the main hamburger already opens this whole
+                         panel, so the "more" links just join the same list
+                         instead of needing a second hamburger -->
+                    <li class="nav-more-mobile-divider" aria-hidden="true"></li>
+                    <li class="nav-more-mobile-only"><a href="#bakes" class="nav-link">Today's Bakes</a></li>
+                    <li class="nav-more-mobile-only"><a href="#specialities" class="nav-link">Specialities</a></li>
+                    <li class="nav-more-mobile-only"><a href="#private-events" class="nav-link">Private Events</a></li>
+                    <li class="nav-more-mobile-only"><a href="#vouchers" class="nav-link">Gift Vouchers</a></li>
+                    <li class="nav-more-mobile-only"><a href="#gallery" class="nav-link">Gallery</a></li>
                 </ul>
+
+                <!-- Desktop-only: keeps Menu/Visit/Contact Us always visible,
+                     and tucks the less-visited sections behind a small "more"
+                     toggle instead of adding more always-on links -->
+                <div class="nav-more">
+                    <button type="button" class="nav-more-toggle" aria-label="More navigation links" aria-expanded="false" aria-controls="navMoreDropdown">
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </button>
+                    <ul class="nav-more-dropdown" id="navMoreDropdown">
+                        <li><a href="#bakes" class="nav-link">Today's Bakes</a></li>
+                        <li><a href="#specialities" class="nav-link">Specialities</a></li>
+                        <li><a href="#private-events" class="nav-link">Private Events</a></li>
+                        <li><a href="#vouchers" class="nav-link">Gift Vouchers</a></li>
+                        <li><a href="#gallery" class="nav-link">Gallery</a></li>
+                    </ul>
+                </div>
             </nav>
 
             <!-- 4. Far Right Cell: Mobile Hamburger Wrapper -->
@@ -358,6 +386,23 @@
             <h2 class="section-title">Host Your Celebration With Us</h2>
             <p>On Sundays, The Drawing Room is yours &mdash; birthdays, baby showers, engagements and small gatherings in our vintage tea room.</p>
             <a href="#contactFormBox" id="eventEnquiryLink" class="btn btn-primary">Enquire About an Event</a>
+        </div>
+    </section>
+
+    <!-- Gift Vouchers Section -->
+    <section id="vouchers" class="vouchers section-padding">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tagline">A Little Something</span>
+                <h2 class="section-title">Gift Vouchers</h2>
+                <p class="section-subtitle-text">Treat someone to an afternoon at The Drawing Room &mdash; redeemable against anything on the menu, any amount.</p>
+            </div>
+            <div class="voucher-image-wrapper">
+                <img src="images/gift-voucher.jpg" srcset="images/gift-voucher-800w.jpg 800w, images/gift-voucher.jpg 1600w" sizes="(max-width: 768px) 100vw, 740px" loading="lazy" alt="The Drawing Room gift voucher, redeemable in any amount" class="voucher-image">
+            </div>
+            <div style="text-align: center;">
+                <a href="#contactFormBox" id="voucherEnquiryLink" class="btn btn-primary">Enquire About a Voucher</a>
+            </div>
         </div>
     </section>
 
@@ -728,6 +773,20 @@
                                 <option value="Book Afternoon Tea">Book Afternoon Tea (Advance booking required)</option>
                                 <option value="Order a Cake">Order a Cake</option>
                                 <option value="Event Inquiry">Event Enquiry</option>
+                                <option value="Gift Voucher">Gift Voucher</option>
+                                <option value="General Enquiry">General Enquiry</option>
+                            </select>
+                        </div>
+
+                        <!-- Hidden voucher-value picker that slides open only if they choose Gift Voucher -->
+                        <div id="voucherFields" class="form-group hidden">
+                            <label for="voucherAmount">Voucher Value</label>
+                            <select id="voucherAmount" name="voucherAmount">
+                                <option value="">Select a value</option>
+                                <option value="£25">£25</option>
+                                <option value="£50">£50</option>
+                                <option value="£100">£100</option>
+                                <option value="Other">Other (specify in message)</option>
                             </select>
                         </div>
 

@@ -132,7 +132,7 @@ a {
    gap above the cards */
 #specialities .section-header {
     max-width: 760px;
-    margin-bottom: 40px;
+    margin-bottom: 32px;
 }
 
 /* Buttons */
@@ -438,9 +438,96 @@ a {
 }
 
 /* Navigation Links */
+/* Desktop only (matches the mobile breakpoint below at max-width: 1100px) -
+   lets .nav-links and the new .nav-more dropdown trigger sit side by side.
+   Scoped here rather than as a base rule, since an unscoped display:flex
+   turns .nav-links from a full-width block into a shrink-wrapped flex item
+   on mobile, breaking its centering there. */
+@media (min-width: 1101px) {
+    .nav-menu {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+    }
+}
+
 .nav-links {
     display: flex;
     gap: 32px;
+}
+
+/* Mobile-only links/divider: folded into the same full-screen panel as the
+   main 3 links, hidden on desktop where they live in the "more" dropdown
+   instead */
+.nav-more-mobile-divider,
+.nav-more-mobile-only {
+    display: none;
+}
+
+/* Desktop-only "more" dropdown for the less-visited sections */
+.nav-more {
+    position: relative;
+}
+
+.nav-more-toggle {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 8px;
+    background: none;
+    border: none;
+}
+
+.nav-more-toggle .bar {
+    width: 20px;
+    height: 2px;
+    background-color: rgba(255, 255, 255, 0.8);
+    transition: var(--transition-fast);
+}
+
+.nav-more-toggle:hover .bar {
+    background-color: var(--text-light);
+}
+
+.nav-more-toggle.active .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.nav-more-toggle.active .bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.nav-more-toggle.active .bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+.nav-more-dropdown {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    min-width: 200px;
+    background-color: var(--primary-color);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 16px 32px rgba(10, 45, 84, 0.25);
+    padding: 10px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: var(--transition-fast);
+}
+
+.nav-more-dropdown.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.nav-more-dropdown .nav-link {
+    padding: 6px 0;
 }
 
 .nav-link {
@@ -1048,6 +1135,14 @@ a {
     border-top: 1px solid var(--border-color);
 }
 
+/* Compact variant: the full 100px section-padding + 60px header margin +
+   a tall 765:1020 portrait photo per card pushed this section to ~1060px,
+   well past a single viewport. Tightened all three so the section (and
+   its first row of cards) reads in one screen. */
+.specialities.section-padding {
+    padding: 64px 0;
+}
+
 .speciality-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr));
@@ -1092,14 +1187,17 @@ a {
     border-color: var(--accent-color);
 }
 
-/* Box follows the Afternoon Tea photo's own ratio (765:1020), so that photo
-   shows in full with no cropping, while the other two cards' photos are
-   cropped by object-fit to the same box, keeping all three cards equal height. */
+/* Previously matched the Afternoon Tea photo's own portrait ratio
+   (765:1020) so it showed uncropped - but at card width that made each
+   photo ~470px tall, pushing the section well past one viewport. A
+   landscape-ish ratio keeps all three cards equal height without that
+   much vertical weight; all three photos are now cropped by object-fit,
+   the Afternoon Tea one included. */
 .speciality-img-wrapper {
     position: relative;
     overflow: hidden;
     height: auto;
-    aspect-ratio: 765 / 1020;
+    aspect-ratio: 4 / 3;
 }
 
 .speciality-img {
@@ -1209,6 +1307,37 @@ a {
     .private-events-text p {
         max-width: none;
     }
+}
+
+/* ==========================================================================
+   Gift Vouchers Section
+   ========================================================================== */
+.vouchers {
+    background-color: var(--bg-white);
+    border-top: 1px solid var(--border-color);
+}
+
+/* Tighter than the usual 100px section-padding + 60px header margin, so the
+   voucher image and CTA fit in one viewport without scrolling */
+.vouchers.section-padding {
+    padding: 64px 0;
+}
+
+.vouchers .section-header {
+    margin-bottom: 32px;
+}
+
+.voucher-image-wrapper {
+    max-width: 740px;
+    margin: 0 auto 32px;
+    border: 1.5px solid var(--border-color);
+    box-shadow: 0 10px 30px rgba(10, 45, 84, 0.08);
+}
+
+.voucher-image {
+    display: block;
+    width: 100%;
+    height: auto;
 }
 
 /* ==========================================================================
@@ -1684,6 +1813,16 @@ a {
     transition: var(--transition-fast);
 }
 
+/* The 38px single-line height above was also being applied to the message
+   textarea, making its rows="3" invisible and the box look like a one-line
+   field no matter which subject is selected - always keep at least 2 lines
+   visible so it reads as a message box, not a text input. */
+.form-group textarea {
+    height: auto;
+    min-height: 64px;
+    resize: vertical;
+}
+
 .form-group input:focus,
 .form-group textarea:focus,
 .contact-form select:focus {
@@ -1988,6 +2127,24 @@ input[type="time"] {
         display: block;
         width: 100%;
         text-align: center;
+    }
+
+    /* The desktop "more" dropdown trigger is replaced on mobile by folding
+       its links straight into the same full-screen panel below */
+    .nav-more {
+        display: none;
+    }
+
+    .nav-more-mobile-divider {
+        display: block;
+        width: 60%;
+        height: 1px;
+        background-color: rgba(255, 255, 255, 0.15);
+        margin: 4px auto;
+    }
+
+    .nav-more-mobile-only {
+        display: block;
     }
 
     /* Collapse the absolute positioning on mobile to let links flow vertically */
