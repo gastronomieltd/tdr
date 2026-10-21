@@ -57,10 +57,11 @@
     <meta property="og:description" content="Settle in for craft cocktails, fine wine, and a relaxed evening atmosphere at The Drawing Room's cosy cocktail lounge in Locksbottom.">
     <meta property="og:image" content="https://thedrawingroom.cafe/images/evening-hero.jpg">
 
-    <!-- Google Fonts -->
+    <!-- Google Fonts: loaded non-render-blocking, same as index.html (see F8) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet"></noscript>
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
@@ -177,7 +178,7 @@
    <section id="hero" class="hero-about section-padding">
         <div class="container">
             <div class="hero-about-grid">
-                <div class="hero-about-media reveal-zoom">
+                <div class="hero-about-media">
                     <!-- Elegant evening bar visual -->
                     <img src="images/evening-hero2.jpg" fetchpriority="high" width="500" height="625" alt="Dimly lit romantic evening bar">
                     <!-- 
@@ -187,7 +188,7 @@
                     </div>
                      -->
                 </div>
-                <div class="hero-about-text reveal">
+                <div class="hero-about-text">
                     <span class="hero-subtitle">Welcome to Our Evening Sanctuary</span>
                     <h1 class="hero-title">Relaxing Dine & Wine</h1>
                     <p class="section-desc">Nestled in the heart of Locksbottom, The Drawing Room is a charming haven that radiates warmth and elegant simplicity. 
@@ -197,19 +198,19 @@
                         <div class="feature-item">
                             <i class="fa-solid fa-pizza-slice"></i>
                             <div>
-                                <h4>Indulge in artisan pizzas, tapas, and handcrafted charcuterie and cheese boards.</h4>
+                                <p class="feature-item-title">Indulge in artisan pizzas, tapas, and handcrafted charcuterie and cheese boards.</p>
                             </div>
                         </div>
                         <div class="feature-item">
                             <i class="fa-solid fa-champagne-glasses"></i>
                             <div>
-                                <h4>Unwind with your favourite wine or bubbly, accompanied by relaxing music.</h4>
+                                <p class="feature-item-title">Unwind with your favourite wine or bubbly, accompanied by relaxing music.</p>
                             </div>
                         </div>
                         <div class="feature-item">
                             <i class="fa-solid fa-cookie-bite"></i>
                             <div>
-                                <h4>Indulge in a warm, rich slice of cake or coffee.</h4>
+                                <p class="feature-item-title">Indulge in a warm, rich slice of cake or coffee.</p>
                             </div>
                         </div>
                     </div>
@@ -434,7 +435,7 @@
                 </div>
 
                 <div class="hours-sunday-note">
-                    <h4><i class="fa-solid fa-calendar-check"></i> Sunday Events &amp; Private Bookings</h4>
+                    <p class="hours-sunday-note-title"><i class="fa-solid fa-calendar-check"></i> Sunday Events &amp; Private Bookings</p>
                     <p>We welcome enquiries for private events, celebrations and special bookings on Sundays, subject to availability. Advance booking is essential.</p>
                 </div>
 

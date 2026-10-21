@@ -73,7 +73,7 @@ const initializeApp = () => {
             // A subcategory note only needs to be set on one item in the group
             const subcategoryNoteItem = groupedItems[subcategoryName].find(item => item.subcategorynote);
             const subcategoryNoteHTML = subcategoryNoteItem
-                ? `<p style="margin-top: 4px; font-size: 12px; color: var(--accent-color); font-weight: 500; font-family: var(--font-body);">${subcategoryNoteItem.subcategorynote}</p>`
+                ? `<p style="margin-top: 4px; font-size: 12px; color: var(--accent-text); font-weight: 500; font-family: var(--font-body);">${subcategoryNoteItem.subcategorynote}</p>`
                 : '';
 
             // Generate a full-width subheader spanning both columns
@@ -90,7 +90,7 @@ const initializeApp = () => {
             groupedItems[subcategoryName].forEach(item => {
                 // Process Tags
                 const tagsArray = item.tags ? item.tags.toString().split(',').map(t => t.trim()).filter(t => t !== '') : [];
-                const tagsHTML = tagsArray.map(tag => `<span style="background-color: var(--accent-color); color: #fff; font-size: 10px; padding: 2px 6px; margin-left: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">${tag}</span>`).join('');
+                const tagsHTML = tagsArray.map(tag => `<span style="background-color: var(--accent-color); color: var(--primary-color); font-size: 10px; padding: 2px 6px; margin-left: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">${tag}</span>`).join('');
                 
                 // Process Extras
                 let extrasHTML = '';
@@ -98,7 +98,7 @@ const initializeApp = () => {
                     const extrasArray = item.extras.toString().split(',').map(x => x.trim()).filter(x => x !== '');
                     if (extrasArray.length > 0) {
                         extrasHTML = `
-                            <div class="menu-item-extras" style="margin-top: 10px; font-size: 12px; color: var(--accent-color); font-weight: 500; font-family: var(--font-body);">
+                            <div class="menu-item-extras" style="margin-top: 10px; font-size: 12px; color: var(--accent-text); font-weight: 500; font-family: var(--font-body);">
                                 <span style="font-weight: 600; text-transform: uppercase; font-size: 10px; letter-spacing: 1px; color: var(--text-dark); margin-right: 6px;">Add-ons:</span>
                                 ${extrasArray.join(' &bull; ')}
                             </div>
@@ -114,7 +114,9 @@ const initializeApp = () => {
                 const itemHTML = `
                     <div class="menu-item${isFullRow ? ' menu-item-full' : ''}">
                         <div class="menu-item-header">
-                            <h3 class="menu-item-name">${item.name} ${tagsHTML}</h3>
+                            <span class="menu-item-name-group">
+                                <h3 class="menu-item-name">${item.name}</h3>${tagsHTML ? `<span class="menu-item-badges">${tagsHTML}</span>` : ''}
+                            </span>
                             <span class="menu-item-price">${item.price}</span>
                         </div>
                         <p class="menu-item-desc">${item.description}</p>
@@ -706,7 +708,7 @@ const initializeApp = () => {
         if (isOpen) {
             badge.innerHTML = '<span style="color: #2ec4b6; border: 1px solid #2ec4b6; padding: 6px 12px; border-radius: 20px; display: inline-block; white-space: nowrap;">● WE ARE OPEN NOW</span>';
         } else {
-            badge.innerHTML = '<span style="color: #e76f51; border: 1px solid #e76f51; padding: 6px 12px; border-radius: 20px; display: inline-block; white-space: nowrap;">● WE ARE CURRENTLY CLOSED</span>';
+            badge.innerHTML = '<span style="color: #eb866c; border: 1px solid #eb866c; padding: 6px 12px; border-radius: 20px; display: inline-block; white-space: nowrap;">● WE ARE CURRENTLY CLOSED</span>';
         }
     };
     checkOpenStatus();
@@ -945,34 +947,40 @@ const initializeApp = () => {
 
     if (introLoader && introLogo) {
         if (sessionStorage.getItem('intro_played') !== 'true') {
+            // This overlay sits at z-index 9999 in front of the whole page, so
+            // every millisecond it holds is a millisecond the header/hero can't
+            // visually paint - Lighthouse measured this as a 10s+ Largest
+            // Contentful Paint. Kept brief (not removed) so the brand moment
+            // still plays, but capped at well under a second rather than 2.4s+.
             // Stage 1: Zoom in slightly, clear blur, and glow golden after a brief load delay
             setTimeout(() => {
                 introLogo.style.opacity = '1';
                 introLogo.style.transform = 'scale(1.35)'; // Large majestic scale
                 introLogo.style.filter = 'blur(0px) drop-shadow(0 0 25px rgba(201, 155, 59, 0.45))'; // Gold aura drop-shadow
-            }, 150);
+            }, 80);
 
-            // Stage 2: Dissolve the dark overlay and unlock page scrolling after 2.4s
+            // Stage 2: Dissolve the dark overlay and unlock page scrolling
             setTimeout(() => {
                 // Zoom slightly closer as it fades out to mimic a cinematic camera move
                 introLogo.style.transform = 'scale(1.45)';
                 introLogo.style.opacity = '0';
                 introLogo.style.filter = 'blur(5px)';
-                
+
                 introLoader.style.opacity = '0';
                 introLoader.style.visibility = 'hidden';
-                
-                document.body.style.overflow = ''; 
+
+                document.body.style.overflow = '';
                 document.body.style.height = '';
-                
+
                 // Write session token so it bypasses on subsequent clicks
                 sessionStorage.setItem('intro_played', 'true');
-            }, 2400);
+            }, 500);
 
-            // Clean up the DOM to free browser memory
+            // Clean up the DOM to free browser memory (500ms dissolve start +
+            // 1s CSS opacity/visibility transition from the inline style)
             setTimeout(() => {
                 introLoader.remove();
-            }, 3400);
+            }, 1500);
         } else {
             // If already played in this session, remove the preloader immediately
             introLoader.remove();

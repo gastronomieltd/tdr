@@ -3,7 +3,8 @@
    ========================================================================== */
 :root {
     --primary-color: #0a2d54;    /* Deep Royal Navy Blue (Matches logo bg) */
-    --accent-color: #c99b3b;     /* Elegant Antique Gold (Matches logo text) */
+    --accent-color: #c99b3b;     /* Elegant Antique Gold (Matches logo text) - use for backgrounds, borders, icons, and text on dark backgrounds only */
+    --accent-text: #8f6d27;      /* Darker gold for text on light backgrounds - passes 4.5:1 against both white and --bg-light, where --accent-color (2.4-2.6:1) fails WCAG AA */
     --accent-hover: #b5872a;     /* Slightly deeper bronze-gold */
     --bg-light: #fbfaf7;         /* Soft Bone-China Ivory */
     --bg-white: #ffffff;
@@ -101,6 +102,16 @@ a {
     color: var(--accent-color);
     display: block;
     margin-bottom: 12px;
+}
+
+/* --accent-color fails contrast as small text on a light background;
+   darker here on the white/cream sections, left as-is on navy ones
+   (hours, private-events) where it already has plenty of contrast */
+.specialities .section-tagline,
+.menu .section-tagline,
+.gallery .section-tagline,
+.contact .section-tagline {
+    color: var(--accent-text);
 }
 
 .section-title {
@@ -530,7 +541,7 @@ a {
     font-family: var(--font-accent);
     font-style: italic;
     font-size: 25px;
-    color: var(--accent-color);
+    color: var(--accent-text); /* was --accent-color: failed contrast on the hero text column's light background */
     display: block;
     margin-bottom: 15px;
 }
@@ -621,7 +632,7 @@ a {
     font-family: var(--font-accent);
     font-style: italic;
     font-size: 25px;
-    color: var(--accent-color);
+    color: var(--accent-text); /* was --accent-color: failed contrast on the hero text column's light background */
     display: block;
     margin-bottom: 15px;
 }
@@ -867,7 +878,7 @@ a {
     margin-top: 3px;
 }
 
-.feature-item h4 {
+.feature-item-title {
     font-family: var(--font-heading);
     font-size: 15px;
     font-weight: 700;
@@ -877,13 +888,9 @@ a {
 }
 
 .nhs-highlight {
-    color: var(--accent-color);
+    color: var(--accent-text); /* was --accent-color: failed contrast on the hero's light background */
 }
 
-.feature-item p {
-    color: var(--text-muted);
-    font-size: 14px;
-}
 
 /* ==========================================================================
    Today's Bakes Strip (rotating photos of the day's homemade cakes)
@@ -1047,6 +1054,30 @@ a {
     gap: 40px;
 }
 
+@media (max-width: 768px) {
+    /* Swipeable carousel instead of stacked cards: horizontal scroll-snap
+       row, each card ~85% wide so the next one peeks in at the edge */
+    .speciality-grid {
+        display: flex;
+        grid-template-columns: none;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 16px;
+        padding-bottom: 8px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .speciality-grid::-webkit-scrollbar {
+        display: none;
+    }
+
+    .speciality-card {
+        flex: 0 0 85%;
+        scroll-snap-align: center;
+    }
+}
+
 .speciality-card {
     background-color: var(--bg-white);
     border: 1px solid var(--border-color);
@@ -1095,7 +1126,7 @@ a {
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 2px;
-    color: var(--accent-color);
+    color: var(--accent-text); /* was --accent-color: failed contrast on this card's white background */
     font-weight: 600;
     margin-bottom: 8px;
     display: block;
@@ -1255,6 +1286,16 @@ a {
     margin-bottom: 8px;
 }
 
+/* Wraps the heading + its badges so they sit together on the left of the
+   flex header, while keeping the badges out of the <h3> itself (they were
+   previously concatenated into the heading text, which screen readers
+   read as part of the dish name) */
+.menu-item-name-group {
+    display: inline-flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+}
+
 .menu-item-name {
     font-family: var(--font-heading);
     font-size: 16px;
@@ -1262,11 +1303,17 @@ a {
     color: var(--primary-color);
 }
 
+.menu-item-badges {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
 .menu-item-price {
     font-family: var(--font-heading);
     font-size: 16px;
     font-weight: 600;
-    color: var(--accent-color);
+    color: var(--accent-text); /* was --accent-color: failed contrast on the menu's light background */
 }
 
 .menu-item-desc {
@@ -1437,12 +1484,13 @@ a {
     text-align: left;
 }
 
-.hours-sunday-note h4 {
+.hours-sunday-note-title {
     display: flex;
     align-items: center;
     gap: 8px;
     font-family: var(--font-heading);
     font-size: 14px;
+    font-weight: 700;
     color: var(--accent-color);
     margin-bottom: 5px;
 }
@@ -1749,9 +1797,8 @@ input[type="time"] {
     align-items: center;
     gap: 8px;
     font-size: 11px;
-    color: rgba(255, 255, 255, 0.45);
+    color: rgba(255, 255, 255, 0.6); /* was 0.45 + a redundant opacity:0.8 stacked on top, which compounded to fail contrast (3.07:1, then still 4.33:1) against the navy footer */
     text-decoration: none;
-    opacity: 0.8;
     transition: var(--transition-fast);
 }
 
@@ -1852,7 +1899,7 @@ input[type="time"] {
     .feature-item {
         gap: 14px;
     }
-    .feature-item h4 {
+    .feature-item-title {
         font-size: 14px;
     }
 }
@@ -2171,7 +2218,7 @@ input[type="time"] {
 .filter-tag-btn.active,
 .filter-tag-btn:hover {
     background-color: var(--accent-color);
-    color: var(--text-light);
+    color: var(--primary-color); /* was --text-light (white): failed contrast on the gold background */
     border-color: var(--accent-color);
 }
 
@@ -2189,7 +2236,7 @@ input[type="time"] {
 
 .menu-subcategory-header h3 {
     font-family: var(--font-heading);
-    color: var(--accent-color);
+    color: var(--accent-text); /* was --accent-color: failed contrast on the menu's light background */
     font-size: 20px;
     font-weight: 700;
     text-transform: uppercase;
@@ -2454,7 +2501,7 @@ body.night-mode .contact-form select:focus {
     border-color: var(--accent-color);
 }
 
-body.night-mode .feature-item h4 {
+body.night-mode .feature-item-title {
     color: var(--accent-color);
 }
 

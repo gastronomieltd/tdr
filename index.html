@@ -57,10 +57,14 @@
     <meta property="og:description" content="Book Afternoon Tea at The Drawing Room in Locksbottom, Orpington &mdash; serving Bromley and Kent with delicate finger sandwiches, homemade cakes and fine teas in our cosy, vintage-styled tea room.">
     <meta property="og:image" content="https://thedrawingroom.cafe/images/afternoon-tea.jpg">
 
-    <!-- Google Fonts -->
+    <!-- Google Fonts: loaded non-render-blocking (same async trick as Font Awesome below) -
+         this was previously a plain render-blocking <link>, which Lighthouse traced as a
+         major contributor to a 10s+ Largest Contentful Paint, since the browser held page
+         rendering until this network round-trip to fonts.googleapis.com completed -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet"></noscript>
     <!-- Font Awesome for Icons: loaded non-render-blocking since icons aren't needed for first paint -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
@@ -209,11 +213,11 @@
         <div class="container">
             <div class="hero-about-grid">
                 <!-- Left Column: Graphic Media, Badge, and Feature Icons -->
-                <div class="hero-about-media reveal-zoom">
+                <div class="hero-about-media">
                     <div class="about-image-wrapper hero-carousel">
-                        <img src="images/halloween-afternoon-tea.jpg" fetchpriority="high" width="1170" height="2073" alt="Children's Halloween Afternoon Tea at The Drawing Room, 19th to 31st October" class="hero-carousel-slide">
-                        <img src="images/afternoon-tea.jpg" width="765" height="1020" alt="Traditional Afternoon Tea tier stand at The Drawing Room" class="hero-carousel-slide">
-                        <img src="images/hero.jpg" width="765" height="1020" alt="Atmospheric drawing room background image" class="hero-carousel-slide">
+                        <img src="images/halloween-afternoon-tea.jpg" srcset="images/halloween-afternoon-tea-480w.jpg 480w, images/halloween-afternoon-tea.jpg 1170w" sizes="(max-width: 1024px) 100vw, 45vw" fetchpriority="high" width="1170" height="2073" alt="Children's Halloween Afternoon Tea at The Drawing Room, 19th to 31st October" class="hero-carousel-slide">
+                        <img src="images/afternoon-tea.jpg" srcset="images/afternoon-tea-480w.jpg 480w, images/afternoon-tea.jpg 765w" sizes="(max-width: 1024px) 100vw, 45vw" width="765" height="1020" alt="Traditional Afternoon Tea tier stand at The Drawing Room" class="hero-carousel-slide">
+                        <img src="images/hero.jpg" srcset="images/hero-480w.jpg 480w, images/hero.jpg 765w" sizes="(max-width: 1024px) 100vw, 45vw" width="765" height="1020" alt="Atmospheric drawing room background image" class="hero-carousel-slide">
                         <!--
                         <div class="about-badge">
                             <span class="badge-num">Est.</span>
@@ -232,7 +236,7 @@
                 </div>
 
                 <!-- Right Column: Text content (Brand box, greeting, story, CTA buttons) -->
-                <div class="hero-about-text reveal">
+                <div class="hero-about-text">
                     <span class="hero-subtitle">Welcome to Our Sanctuary</span>
                     <h1 class="hero-title">Vintage Charm &amp; Modern Delights</h1>
                     <p class="section-desc">Nestled in the heart of Locksbottom, The Drawing Room is a charming haven that radiates warmth and elegant simplicity. Upon stepping inside, you are greeted by cosy vintage decor, fresh blooms, and beautiful mismatched teacups that set the stage for an unforgettable visit.</p>
@@ -241,25 +245,25 @@
                         <div class="feature-item">
                             <i class="fa-solid fa-mug-hot"></i>
                             <div>
-                                <h4>Sip your favourite blends out of classic teacups.</h4>
+                                <p class="feature-item-title">Sip your favourite blends out of classic teacups.</p>
                             </div>
                         </div>
                         <div class="feature-item">
                             <i class="fa-solid fa-cookie-bite"></i>
                             <div>
-                                <h4>Our baker's cakes & treats, lovingly baked each morning.</h4>
+                                <p class="feature-item-title">Our baker's cakes & treats, lovingly baked each morning.</p>
                             </div>
                         </div>
                         <div class="feature-item">
                             <i class="fa-solid fa-cake-candles"></i>
                             <div>
-                                <h4>Celebrate your life events with us</h4>
+                                <p class="feature-item-title">Celebrate your life events with us</p>
                             </div>
                         </div>
                         <div class="feature-item">
                             <i class="fa-solid fa-notes-medical"></i>
                             <div>
-                                <h4><strong class="nhs-highlight">NHS workers enjoy 10% off</strong> &mdash; just show your ID</h4>
+                                <p class="feature-item-title"><strong class="nhs-highlight">NHS workers enjoy 10% off</strong> &mdash; just show your ID</p>
                             </div>
                         </div>
                     </div>
@@ -347,7 +351,7 @@
     <!-- Private Events Section -->
     <section id="private-events" class="private-events">
         <div class="private-events-photo">
-            <img src="images/private-events.jpg" loading="lazy" alt="Candlelit table set for an evening at The Drawing Room">
+            <img src="images/private-events.jpg" srcset="images/private-events-400w.jpg 400w, images/private-events.jpg 574w" sizes="(max-width: 768px) 100vw, 45vw" loading="lazy" alt="Candlelit table set for an evening at The Drawing Room">
         </div>
         <div class="private-events-text">
             <span class="section-tagline">Private Hire</span>
@@ -405,7 +409,7 @@
                 </div>
             </div>
 
-            <p id="categoryNoteDisplay" class="category-note" style="text-align: center; font-size: 12px; color: var(--accent-color); font-weight: 500; font-family: var(--font-body); margin: -25px 0 25px 0;"></p>
+            <p id="categoryNoteDisplay" class="category-note" style="text-align: center; font-size: 12px; color: var(--accent-text); font-weight: 500; font-family: var(--font-body); margin: -25px 0 25px 0;"></p>
 
             <!-- Empty Grid for Dynamic JS Generation -->
             <div class="menu-content">
@@ -560,7 +564,7 @@
                 </div>
 
                 <div class="hours-sunday-note">
-                    <h4><i class="fa-solid fa-calendar-check"></i> Sunday Events &amp; Private Bookings</h4>
+                    <p class="hours-sunday-note-title"><i class="fa-solid fa-calendar-check"></i> Sunday Events &amp; Private Bookings</p>
                     <p>We welcome enquiries for private events, celebrations and special bookings on Sundays, subject to availability. Advance booking is essential.</p>
                 </div>
 
@@ -642,9 +646,9 @@
                                     <h4>Find Us</h4>
                                     <p>405 Crofton Road, Locksbottom, Orpington, BR6 8NL</p>
                                     <span style="display: flex; gap: 15px; margin-top: 5px;">
-                                        <small style="color: var(--accent-color); font-size: 11px; text-decoration: underline;">Open in Google Maps</small>
+                                        <small style="color: var(--accent-text); font-size: 11px; text-decoration: underline;">Open in Google Maps</small>
                                         <!-- Copy button -->
-                                        <small id="copyAddressBtn" style="color: var(--accent-color); font-size: 11px; cursor: pointer; display: inline-block;">
+                                        <small id="copyAddressBtn" style="color: var(--accent-text); font-size: 11px; cursor: pointer; display: inline-block;">
                                             <i class="fa-regular fa-copy"></i> Copy Address
                                         </small>
                                     </span>
@@ -660,8 +664,8 @@
                                     <h4>Call Us</h4>
                                     <p>01689 852288</p>
                                     <span style="display: flex; flex-direction: column; gap: 4px; margin-top: 5px;">
-                                        <small style="color: var(--accent-color); font-size: 11px;">Tap to call directly</small>
-                                        <small onclick="event.preventDefault(); window.open('https://wa.me/441689852288', '_blank');" style="color: var(--accent-color); font-size: 11px; text-decoration: underline; cursor: pointer;">
+                                        <small style="color: var(--accent-text); font-size: 11px;">Tap to call directly</small>
+                                        <small onclick="event.preventDefault(); window.open('https://wa.me/441689852288', '_blank');" style="color: var(--accent-text); font-size: 11px; text-decoration: underline; cursor: pointer;">
                                             <i class="fa-brands fa-whatsapp"></i> Message on WhatsApp
                                         </small>
                                     </span>
@@ -676,7 +680,7 @@
                                 <div>
                                     <h4>Email Us</h4>
                                     <p>hello@thedrawingroom.cafe</p>
-                                    <small style="color: var(--accent-color); font-size: 11px;">Tap to email directly</small>
+                                    <small style="color: var(--accent-text); font-size: 11px;">Tap to email directly</small>
                                 </div>
                             </div>
                         </a>
@@ -688,7 +692,7 @@
                                 <div>
                                     <h4>Read Our Reviews</h4>
                                     <p>See what our guests are saying on Google</p>
-                                    <small style="color: var(--accent-color); font-size: 11px; text-decoration: underline;">View on Google Maps</small>
+                                    <small style="color: var(--accent-text); font-size: 11px; text-decoration: underline;">View on Google Maps</small>
                                 </div>
                             </div>
                         </a>
