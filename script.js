@@ -534,7 +534,6 @@ const initializeApp = () => {
     const subjectSelect = document.getElementById('subject');
     const bookingFields = document.getElementById('bookingFields');
     const cakeOrderFields = document.getElementById('cakeOrderFields');
-    const voucherFields = document.getElementById('voucherFields');
 
     const guestsGroup = document.getElementById('guestsGroup');
 
@@ -589,16 +588,6 @@ const initializeApp = () => {
                 }
             }
 
-            if (voucherFields) {
-                const isVoucher = value === 'Gift Voucher';
-                if (isVoucher) {
-                    voucherFields.classList.remove('hidden');
-                    document.getElementById('voucherAmount').required = true;
-                } else {
-                    voucherFields.classList.add('hidden');
-                    document.getElementById('voucherAmount').required = false;
-                }
-            }
         };
 
         // Listen for user select changes
