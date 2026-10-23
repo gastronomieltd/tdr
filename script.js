@@ -649,14 +649,29 @@ const initializeApp = () => {
     const bookTimeSelect = document.getElementById('bookTime');
 
     if (bookDateInput && bookTimeSelect) {
-        // Can't book in the past, so today is the earliest selectable date
-        const todayStr = (() => {
-            const now = new Date();
-            return now.getFullYear() + '-' +
-                String(now.getMonth() + 1).padStart(2, '0') + '-' +
-                String(now.getDate()).padStart(2, '0');
-        })();
-        bookDateInput.min = todayStr;
+        const formatDateStr = (d) => d.getFullYear() + '-' +
+            String(d.getMonth() + 1).padStart(2, '0') + '-' +
+            String(d.getDate()).padStart(2, '0');
+
+        // Can't book in the past, so today is the earliest selectable date -
+        // unless the 5-hour notice already rules out every slot today (or
+        // today's Sunday, when we're closed), in which case today isn't
+        // offered as an option at all and the earliest date becomes tomorrow
+        const now = new Date();
+        const todayStr = formatDateStr(now);
+        const todayDow = now.getDay();
+        const todayEndHour = todayDow === 6 ? 14 : 15; // Saturday 2pm, Mon-Fri 3pm (closed Sunday)
+        const earliestMinutesFromNow = (now.getHours() * 60 + now.getMinutes()) + (5 * 60);
+        const todayHasSlotsLeft = todayDow !== 0 && earliestMinutesFromNow <= todayEndHour * 60;
+
+        bookDateInput.min = todayHasSlotsLeft
+            ? todayStr
+            : formatDateStr(new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1));
+
+        // Clear out a stale pre-filled value that's now earlier than min
+        if (bookDateInput.value && bookDateInput.value < bookDateInput.min) {
+            bookDateInput.value = '';
+        }
 
         const formatTime12h = (hour, minute) => {
             const period = hour >= 12 ? 'PM' : 'AM';
