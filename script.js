@@ -643,10 +643,21 @@ const initializeApp = () => {
     // Afternoon Tea booking slots: 30-minute increments, 10:00am-3:00pm Mon-Fri,
     // 10:00am-2:00pm Saturday, closed Sunday - the valid slot list depends on
     // which date is picked, so it's rebuilt every time the date changes.
+    // Afternoon Tea needs 5 hours' notice, so same-day bookings also drop
+    // any slot less than 5 hours from now.
     const bookDateInput = document.getElementById('bookDate');
     const bookTimeSelect = document.getElementById('bookTime');
 
     if (bookDateInput && bookTimeSelect) {
+        // Can't book in the past, so today is the earliest selectable date
+        const todayStr = (() => {
+            const now = new Date();
+            return now.getFullYear() + '-' +
+                String(now.getMonth() + 1).padStart(2, '0') + '-' +
+                String(now.getDate()).padStart(2, '0');
+        })();
+        bookDateInput.min = todayStr;
+
         const formatTime12h = (hour, minute) => {
             const period = hour >= 12 ? 'PM' : 'AM';
             const displayHour = hour % 12 === 0 ? 12 : hour % 12;
@@ -671,16 +682,31 @@ const initializeApp = () => {
             const startHour = 10;
             const endHour = dayOfWeek === 6 ? 14 : 15; // Saturday: 2pm, Mon-Fri: 3pm (last bookable slot)
 
+            // 5 hours' notice required - for a same-day booking, the earliest
+            // valid slot is now + 5 hours; other dates are unaffected
+            const now = new Date();
+            const isToday = bookDateInput.value === todayStr;
+            const earliestMinutesToday = isToday
+                ? (now.getHours() * 60 + now.getMinutes()) + (5 * 60)
+                : null;
+
             bookTimeSelect.innerHTML = '<option value="">Select a time</option>';
+            let hasSlots = false;
             for (let hour = startHour; hour <= endHour; hour++) {
                 for (const minute of [0, 30]) {
                     if (hour === endHour && minute > 0) break;
+                    if (isToday && (hour * 60 + minute) < earliestMinutesToday) continue;
                     const value = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
                     const option = document.createElement('option');
                     option.value = value;
                     option.textContent = formatTime12h(hour, minute);
                     bookTimeSelect.appendChild(option);
+                    hasSlots = true;
                 }
+            }
+
+            if (!hasSlots) {
+                bookTimeSelect.innerHTML = '<option value="">No slots left today - choose another date</option>';
             }
         };
 
