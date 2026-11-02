@@ -877,7 +877,10 @@ a {
     height: 100%;
     object-fit: contain;
     opacity: 0;
-    animation: heroCarouselFade 24s infinite;
+    /* Loop length is 8s per slide - now 2 slides (was 3), so 16s (was 24s);
+       keeping it at 24s with only 2 slides would leave an 8s blank gap
+       every cycle after the second slide fades out. */
+    animation: heroCarouselFade 16s infinite;
 }
 
 .hero-carousel-slide:nth-of-type(1) {
@@ -886,10 +889,6 @@ a {
 
 .hero-carousel-slide:nth-of-type(2) {
     animation-delay: 8s;
-}
-
-.hero-carousel-slide:nth-of-type(3) {
-    animation-delay: 16s;
 }
 
 @keyframes heroCarouselFade {
