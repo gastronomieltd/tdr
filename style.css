@@ -877,9 +877,10 @@ a {
     height: 100%;
     object-fit: contain;
     opacity: 0;
-    /* Loop length is 8s per slide - now 2 slides (was 3), so 16s (was 24s);
-       keeping it at 24s with only 2 slides would leave an 8s blank gap
-       every cycle after the second slide fades out. */
+    /* 2 slides (was 3) sharing a 16s loop, each getting half (8s). The
+       keyframe below fades a slide fully out by the 50% mark, exactly
+       when the next slide's 8s delay starts it fading in - a seamless
+       handoff with no gap where both are transparent. */
     animation: heroCarouselFade 16s infinite;
 }
 
@@ -891,11 +892,14 @@ a {
     animation-delay: 8s;
 }
 
+/* Tuned for exactly 2 evenly-spaced slides (each owns 50% of the cycle);
+   the old 3%/30%/33% split was tuned for 3 slides (each owning 33%) and
+   left a visible gap once only 2 slides remained. */
 @keyframes heroCarouselFade {
     0% { opacity: 0; }
     3% { opacity: 1; }
-    30% { opacity: 1; }
-    33% { opacity: 0; }
+    47% { opacity: 1; }
+    50% { opacity: 0; }
     100% { opacity: 0; }
 }
 
