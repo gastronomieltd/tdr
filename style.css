@@ -17,7 +17,7 @@
     --font-accent: 'Cormorant Garamond', Georgia, serif;    /* Matches logo's italic "of" */
     --font-body: 'Montserrat', Arial, sans-serif;
     
-    --header-height: 80px;       /* Reduced from 90px to compress header empty space */
+    --header-height: 85px;       /* Was reduced from 90px to 80px to compress header empty space; nudged back up slightly as 80 felt too cramped */
     --transition-fast: 0.3s ease;
     --transition-normal: 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
