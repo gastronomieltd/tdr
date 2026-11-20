@@ -534,14 +534,22 @@ const initializeApp = () => {
     const subjectSelect = document.getElementById('subject');
     const bookingFields = document.getElementById('bookingFields');
     const cakeOrderFields = document.getElementById('cakeOrderFields');
+    const christmasSundayFields = document.getElementById('christmasSundayFields');
 
     const guestsGroup = document.getElementById('guestsGroup');
+
+    // Exposed at this scope (assigned further down) so the Christmas popup
+    // can reset the hero carousel to slide 0 when it closes.
+    let showHeroSlide = null;
+    let startHeroAutoplay = null;
 
     if (subjectSelect && bookingFields) {
         const handleBookingFieldsVisibility = (value) => {
             const isCakeOrder = value === 'Order a Cake';
+            const isChristmasSunday = value === 'Book Christmas Sunday';
+            const isChristmasAfternoonTea = value === 'Book Christmas Afternoon Tea';
 
-            if (value === 'Book Afternoon Tea' || value === 'Event Inquiry' || isCakeOrder) {
+            if (value === 'Book Afternoon Tea' || value === 'Book Christmas Afternoon Tea' || value === 'Event Inquiry' || isCakeOrder) {
                 bookingFields.classList.remove('hidden');
                 document.getElementById('bookDate').required = true;
                 document.getElementById('bookTime').required = true;
@@ -549,6 +557,15 @@ const initializeApp = () => {
                 bookingFields.classList.add('hidden');
                 document.getElementById('bookDate').required = false;
                 document.getElementById('bookTime').required = false;
+            }
+
+            // Christmas Sunday only runs on 3 fixed dates, so it gets its own
+            // "Which Sunday?" select (and guest count) instead of the shared
+            // bookingFields grid and its native date/time pickers
+            if (christmasSundayFields) {
+                christmasSundayFields.classList.toggle('hidden', !isChristmasSunday);
+                document.getElementById('christmasSundayDate').required = isChristmasSunday;
+                document.getElementById('christmasSundayGuests').required = isChristmasSunday;
             }
 
             // Cake orders need to be placed by 2pm for next-day collection -
@@ -568,15 +585,40 @@ const initializeApp = () => {
                 if (bookDateEl.value && bookDateEl.value < minDate) {
                     bookDateEl.value = '';
                 }
+                bookDateEl.removeAttribute('max');
+            } else if (isChristmasAfternoonTea) {
+                // Christmas Afternoon Tea only runs 1st-31st December; clamp
+                // the date picker to that window, while still respecting the
+                // same 5-hour same-day notice as the regular booking flow
+                const formatDate = (d) => d.getFullYear() + '-' +
+                    String(d.getMonth() + 1).padStart(2, '0') + '-' +
+                    String(d.getDate()).padStart(2, '0');
+                const now = new Date();
+                const todayStr = formatDate(now);
+                const todayDow = now.getDay();
+                const todayEndHour = todayDow === 6 ? 14 : 15;
+                const earliestMinutesFromNow = (now.getHours() * 60 + now.getMinutes()) + (5 * 60);
+                const todayHasSlotsLeft = todayDow !== 0 && earliestMinutesFromNow <= todayEndHour * 60;
+                const earliestDate = todayHasSlotsLeft
+                    ? todayStr
+                    : formatDate(new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1));
+                const christmasStart = '2026-12-01';
+                const christmasEnd = '2026-12-31';
+                bookDateEl.min = earliestDate > christmasStart ? earliestDate : christmasStart;
+                bookDateEl.max = christmasEnd;
+                if (bookDateEl.value && (bookDateEl.value < bookDateEl.min || bookDateEl.value > bookDateEl.max)) {
+                    bookDateEl.value = '';
+                }
             } else {
                 bookDateEl.removeAttribute('min');
+                bookDateEl.removeAttribute('max');
             }
 
             // Cake orders need a collection date/time, but not a guest count
             if (guestsGroup) {
                 guestsGroup.classList.toggle('hidden', isCakeOrder);
             }
-            document.getElementById('guests').required = (value === 'Book Afternoon Tea' || value === 'Event Inquiry');
+            document.getElementById('guests').required = (value === 'Book Afternoon Tea' || value === 'Book Christmas Afternoon Tea' || value === 'Event Inquiry');
 
             if (cakeOrderFields) {
                 if (isCakeOrder) {
@@ -599,13 +641,78 @@ const initializeApp = () => {
         // (This makes the booking fields visible by default on evening.html!)
         handleBookingFieldsVisibility(subjectSelect.value);
 
-        // "Book Afternoon Tea" hero button: pre-select the subject and reveal
-        // the date/time fields before the page scrolls down to the form
+        // Hero carousel: autoplay crossfade plus manual prev/next/dots, all
+        // driven from here (instead of a pure CSS animation) so the CTA
+        // button's wording/subject can follow whichever slide is showing
+        // (e.g. the Christmas slides get their own booking CTA) and manual
+        // navigation can interrupt/reset the autoplay cleanly.
         const bookAfternoonTeaBtn = document.getElementById('bookAfternoonTeaBtn');
+        const heroCarouselSlides = Array.from(document.querySelectorAll('.hero-carousel-slide'));
+        const heroCarouselPrev = document.getElementById('heroCarouselPrev');
+        const heroCarouselNext = document.getElementById('heroCarouselNext');
+        const heroCarouselDots = Array.from(document.querySelectorAll('.hero-carousel-dot'));
+        const heroImageCtaRow = document.getElementById('heroImageCtaRow');
+
+        if (heroCarouselSlides.length) {
+            let heroSlideIndex = 0;
+            let heroAutoplayTimer = null;
+
+            showHeroSlide = (index) => {
+                heroSlideIndex = (index + heroCarouselSlides.length) % heroCarouselSlides.length;
+                heroCarouselSlides.forEach((slide, i) => {
+                    slide.classList.toggle('active', i === heroSlideIndex);
+                });
+                heroCarouselDots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === heroSlideIndex);
+                });
+                const slide = heroCarouselSlides[heroSlideIndex];
+                if (bookAfternoonTeaBtn) {
+                    bookAfternoonTeaBtn.textContent = slide.dataset.ctaLabel || 'Book Afternoon Tea';
+                    bookAfternoonTeaBtn.dataset.ctaSubject = slide.dataset.ctaSubject || 'Book Afternoon Tea';
+                }
+                // The two Christmas flyer slides have their own info boxes
+                // sitting low in the image, so the secondary View Menu/Event
+                // Enquiry row is dropped on those slides to avoid covering
+                // them - just the single Book button remains.
+                if (heroImageCtaRow) {
+                    const isChristmasSlide = (slide.dataset.ctaSubject || '').startsWith('Book Christmas');
+                    heroImageCtaRow.classList.toggle('hidden', isChristmasSlide);
+                }
+            };
+
+            startHeroAutoplay = () => {
+                clearInterval(heroAutoplayTimer);
+                heroAutoplayTimer = setInterval(() => showHeroSlide(heroSlideIndex + 1), 8000);
+            };
+
+            showHeroSlide(0);
+            startHeroAutoplay();
+
+            if (heroCarouselPrev) {
+                heroCarouselPrev.addEventListener('click', () => {
+                    showHeroSlide(heroSlideIndex - 1);
+                    startHeroAutoplay();
+                });
+            }
+            if (heroCarouselNext) {
+                heroCarouselNext.addEventListener('click', () => {
+                    showHeroSlide(heroSlideIndex + 1);
+                    startHeroAutoplay();
+                });
+            }
+            heroCarouselDots.forEach((dot, i) => {
+                dot.addEventListener('click', () => {
+                    showHeroSlide(i);
+                    startHeroAutoplay();
+                });
+            });
+        }
+
         if (bookAfternoonTeaBtn) {
             bookAfternoonTeaBtn.addEventListener('click', () => {
-                subjectSelect.value = 'Book Afternoon Tea';
-                handleBookingFieldsVisibility('Book Afternoon Tea');
+                const subjectValue = bookAfternoonTeaBtn.dataset.ctaSubject || 'Book Afternoon Tea';
+                subjectSelect.value = subjectValue;
+                handleBookingFieldsVisibility(subjectValue);
             });
         }
 
@@ -921,6 +1028,100 @@ const initializeApp = () => {
         };
 
         lightbox.addEventListener('click', closeLightbox);
+    }
+
+    // ==========================================================================
+    // Christmas Advert Popup - shown on every page load
+    // ==========================================================================
+    const christmasPopup = document.getElementById('christmasPopup');
+    if (christmasPopup) {
+        const christmasPopupContent = christmasPopup.querySelector('.christmas-popup-content');
+        const christmasPopupClose = document.getElementById('christmasPopupClose');
+        const christmasPopupCta = document.getElementById('christmasPopupCta');
+        const christmasPopupPrev = document.getElementById('christmasPopupPrev');
+        const christmasPopupNext = document.getElementById('christmasPopupNext');
+        const christmasPopupSlides = Array.from(christmasPopup.querySelectorAll('.christmas-popup-slide'));
+        const christmasPopupDots = Array.from(christmasPopup.querySelectorAll('.christmas-popup-dot'));
+        let christmasSlideIndex = 0;
+        let christmasPopupAutoplayTimer = null;
+
+        const closeChristmasPopup = () => {
+            christmasPopup.classList.remove('show');
+            document.body.classList.remove('menu-open');
+            clearInterval(christmasPopupAutoplayTimer);
+            // The hero carousel keeps autoplaying in the background while the
+            // popup is open, so by the time it's closed it may have moved
+            // past the Christmas slides - reset it to slide 0 (Christmas
+            // Specials) so visitors always see the Christmas ads first.
+            if (showHeroSlide && startHeroAutoplay) {
+                showHeroSlide(0);
+                startHeroAutoplay();
+            }
+        };
+
+        // Each slide carries its own subject value + CTA wording, so the CTA
+        // always books whatever the visible image is advertising
+        const showChristmasSlide = (index) => {
+            christmasSlideIndex = (index + christmasPopupSlides.length) % christmasPopupSlides.length;
+            christmasPopupSlides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === christmasSlideIndex);
+            });
+            christmasPopupDots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === christmasSlideIndex);
+            });
+            const activeSlide = christmasPopupSlides[christmasSlideIndex];
+            if (christmasPopupCta && activeSlide) {
+                christmasPopupCta.textContent = activeSlide.dataset.ctaLabel;
+            }
+        };
+
+        const startChristmasPopupAutoplay = () => {
+            clearInterval(christmasPopupAutoplayTimer);
+            christmasPopupAutoplayTimer = setInterval(() => showChristmasSlide(christmasSlideIndex + 1), 5000);
+        };
+
+        setTimeout(() => {
+            christmasPopup.classList.add('show');
+            document.body.classList.add('menu-open');
+            startChristmasPopupAutoplay();
+        }, 1200);
+
+        christmasPopup.addEventListener('click', closeChristmasPopup);
+        if (christmasPopupContent) {
+            christmasPopupContent.addEventListener('click', (e) => e.stopPropagation());
+        }
+        if (christmasPopupClose) {
+            christmasPopupClose.addEventListener('click', closeChristmasPopup);
+        }
+        if (christmasPopupPrev) {
+            christmasPopupPrev.addEventListener('click', () => {
+                showChristmasSlide(christmasSlideIndex - 1);
+                startChristmasPopupAutoplay();
+            });
+        }
+        if (christmasPopupNext) {
+            christmasPopupNext.addEventListener('click', () => {
+                showChristmasSlide(christmasSlideIndex + 1);
+                startChristmasPopupAutoplay();
+            });
+        }
+        christmasPopupDots.forEach((dot, i) => {
+            dot.addEventListener('click', () => {
+                showChristmasSlide(i);
+                startChristmasPopupAutoplay();
+            });
+        });
+        if (christmasPopupCta) {
+            christmasPopupCta.addEventListener('click', () => {
+                const activeSlide = christmasPopupSlides[christmasSlideIndex];
+                const subjectValue = activeSlide ? activeSlide.dataset.subject : 'Book Christmas Sunday';
+                closeChristmasPopup();
+                if (subjectSelect) {
+                    subjectSelect.value = subjectValue;
+                    subjectSelect.dispatchEvent(new Event('change'));
+                }
+            });
+        }
     }
 
     // ==========================================================================

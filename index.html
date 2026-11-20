@@ -243,8 +243,10 @@
                 <!-- Left Column: Graphic Media, Badge, and Feature Icons -->
                 <div class="hero-about-media">
                     <div class="about-image-wrapper hero-carousel">
-                        <img src="images/afternoon-tea.jpg" srcset="images/afternoon-tea-480w.jpg 480w, images/afternoon-tea.jpg 765w" sizes="(max-width: 1024px) 100vw, 45vw" fetchpriority="high" width="765" height="1020" alt="Traditional Afternoon Tea tier stand at The Drawing Room" class="hero-carousel-slide">
-                        <img src="images/hero.jpg" srcset="images/hero-480w.jpg 480w, images/hero.jpg 765w" sizes="(max-width: 1024px) 100vw, 45vw" width="765" height="1020" alt="Atmospheric drawing room background image" class="hero-carousel-slide">
+                        <img src="images/christmas-specials.jpg" srcset="images/christmas-specials-480w.jpg 480w, images/christmas-specials.jpg 1080w" sizes="(max-width: 1024px) 100vw, 45vw" fetchpriority="high" width="1080" height="1350" alt="Christmas Magic is coming to The Drawing Room - festive specials from 1st December" class="hero-carousel-slide" data-cta-label="Book Christmas Afternoon Tea" data-cta-subject="Book Christmas Afternoon Tea">
+                        <img src="images/christmas-sundays.jpg" srcset="images/christmas-sundays-480w.jpg 480w, images/christmas-sundays.jpg 1080w" sizes="(max-width: 1024px) 100vw, 45vw" width="1080" height="1350" alt="Special Christmas Sundays at The Drawing Room - 13th and 20th December" class="hero-carousel-slide" data-cta-label="Book Christmas Sunday" data-cta-subject="Book Christmas Sunday">
+                        <img src="images/afternoon-tea.jpg" srcset="images/afternoon-tea-480w.jpg 480w, images/afternoon-tea.jpg 765w" sizes="(max-width: 1024px) 100vw, 45vw" width="765" height="1020" alt="Traditional Afternoon Tea tier stand at The Drawing Room" class="hero-carousel-slide" data-cta-label="Book Afternoon Tea" data-cta-subject="Book Afternoon Tea">
+                        <img src="images/hero.jpg" srcset="images/hero-480w.jpg 480w, images/hero.jpg 765w" sizes="(max-width: 1024px) 100vw, 45vw" width="765" height="1020" alt="Atmospheric drawing room background image" class="hero-carousel-slide" data-cta-label="Book Afternoon Tea" data-cta-subject="Book Afternoon Tea">
                         <!--
                         <div class="about-badge">
                             <span class="badge-num">Est.</span>
@@ -254,10 +256,20 @@
                         <!-- Quick actions over the hero photo -->
                         <div class="hero-image-cta">
                             <a href="#contactFormBox" id="bookAfternoonTeaBtn" class="hero-image-cta-btn primary hero-image-cta-full">Book Afternoon Tea</a>
-                            <div class="hero-image-cta-row">
+                            <div class="hero-image-cta-row" id="heroImageCtaRow">
                                 <a href="#menu" class="hero-image-cta-btn secondary">View Menu</a>
                                 <a href="#contactFormBox" class="hero-image-cta-btn secondary">Event Enquiry</a>
                             </div>
+                        </div>
+
+                        <!-- Manual carousel controls alongside the autoplay crossfade -->
+                        <button type="button" class="hero-carousel-nav prev" id="heroCarouselPrev" aria-label="Previous slide">&#10094;</button>
+                        <button type="button" class="hero-carousel-nav next" id="heroCarouselNext" aria-label="Next slide">&#10095;</button>
+                        <div class="hero-carousel-dots" id="heroCarouselDots">
+                            <span class="hero-carousel-dot active" data-index="0"></span>
+                            <span class="hero-carousel-dot" data-index="1"></span>
+                            <span class="hero-carousel-dot" data-index="2"></span>
+                            <span class="hero-carousel-dot" data-index="3"></span>
                         </div>
                     </div>
                 </div>
@@ -769,6 +781,8 @@
                         <div class="form-group">
                             <label for="subject">Subject</label>
                             <select id="subject" name="subject" required>
+                                <option value="Book Christmas Afternoon Tea">Book Christmas Afternoon Tea (1st-31st Dec)</option>
+                                <option value="Book Christmas Sunday">Book Christmas Sunday (13th &amp; 20th Dec)</option>
                                 <option value="Book Afternoon Tea">Book Afternoon Tea (Advance booking required)</option>
                                 <option value="Order a Cake">Order a Cake</option>
                                 <option value="Event Inquiry">Event Enquiry</option>
@@ -792,6 +806,21 @@
                             <div class="form-group" id="guestsGroup">
                                 <label for="guests">Guests</label>
                                 <input type="number" id="guests" name="guests" min="1" max="20" placeholder="2">
+                            </div>
+                        </div>
+                        <!-- Hidden date/guests fields that slide open only if they choose Christmas Sunday -->
+                        <div id="christmasSundayFields" class="booking-fields-grid hidden">
+                            <div class="form-group">
+                                <label for="christmasSundayDate">Which Sunday?</label>
+                                <select id="christmasSundayDate" name="christmasSundayDate">
+                                    <option value="">Select a date</option>
+                                    <option value="Sunday 13th December 2026">Sunday 13th December</option>
+                                    <option value="Sunday 20th December 2026">Sunday 20th December</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="christmasSundayGuests">Guests</label>
+                                <input type="number" id="christmasSundayGuests" name="christmasSundayGuests" min="1" max="20" placeholder="2">
                             </div>
                         </div>
                         <!-- Hidden cake picker that slides open only if they choose Order a Cake -->
@@ -869,6 +898,28 @@
     <div id="lightbox" class="lightbox" aria-label="Close image viewer">
         <span class="lightbox-close">&times;</span>
         <img class="lightbox-content" id="lightboxImg" alt="Enlarged gallery view">
+    </div>
+
+    <!-- Christmas Advert Popup -->
+    <div id="christmasPopup" class="christmas-popup" aria-label="Christmas at The Drawing Room">
+        <div class="christmas-popup-content">
+            <span class="christmas-popup-close" id="christmasPopupClose">&times;</span>
+            <div class="christmas-popup-carousel">
+                <button type="button" class="christmas-popup-nav prev" id="christmasPopupPrev" aria-label="Previous">&#10094;</button>
+                <div class="christmas-popup-slide active" data-subject="Book Christmas Afternoon Tea" data-cta-label="Book Christmas Afternoon Tea">
+                    <img src="images/christmas-specials.jpg" srcset="images/christmas-specials-480w.jpg 480w, images/christmas-specials.jpg 1080w" sizes="(max-width: 600px) 80vw, 300px" alt="Christmas Magic is coming to The Drawing Room - festive specials from 1st December" loading="lazy">
+                </div>
+                <div class="christmas-popup-slide" data-subject="Book Christmas Sunday" data-cta-label="Book Christmas Sunday">
+                    <img src="images/christmas-sundays.jpg" srcset="images/christmas-sundays-480w.jpg 480w, images/christmas-sundays.jpg 1080w" sizes="(max-width: 600px) 80vw, 300px" alt="Special Christmas Sundays at The Drawing Room - 13th and 20th December" loading="lazy">
+                </div>
+                <button type="button" class="christmas-popup-nav next" id="christmasPopupNext" aria-label="Next">&#10095;</button>
+            </div>
+            <div class="christmas-popup-dots" id="christmasPopupDots">
+                <span class="christmas-popup-dot active" data-index="0"></span>
+                <span class="christmas-popup-dot" data-index="1"></span>
+            </div>
+            <a href="#contactFormBox" class="btn btn-primary christmas-popup-cta" id="christmasPopupCta">Book Christmas Afternoon Tea</a>
+        </div>
     </div>
 
     <!-- Custom JS -->

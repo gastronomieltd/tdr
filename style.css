@@ -820,10 +820,21 @@ a {
     color: #241a07;
 }
 
+.hero-image-cta-btn.primary:hover {
+    background-color: #241a07;
+    color: var(--accent-color);
+}
+
 .hero-image-cta-btn.secondary {
-    background-color: transparent;
+    background-color: var(--primary-color);
     color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.85);
+    border: 1px solid var(--primary-color);
+}
+
+.hero-image-cta-btn.secondary:hover {
+    background-color: var(--accent-color);
+    color: #241a07;
+    border-color: var(--accent-color);
 }
 
 /* ==========================================================================
@@ -877,30 +888,76 @@ a {
     height: 100%;
     object-fit: contain;
     opacity: 0;
-    /* 2 slides (was 3) sharing a 16s loop, each getting half (8s). The
-       keyframe below fades a slide fully out by the 50% mark, exactly
-       when the next slide's 8s delay starts it fading in - a seamless
-       handoff with no gap where both are transparent. */
-    animation: heroCarouselFade 16s infinite;
+    z-index: 0;
+    /* Slide switching (autoplay + the prev/next buttons/dots) is driven by
+       script.js toggling this class, rather than a pure CSS animation, so
+       manual navigation can interrupt/reset the autoplay cleanly. */
+    transition: opacity 0.6s ease;
 }
 
-.hero-carousel-slide:nth-of-type(1) {
-    animation-delay: 0s;
+.hero-carousel-slide.active {
+    opacity: 1;
+    z-index: 1;
 }
 
-.hero-carousel-slide:nth-of-type(2) {
-    animation-delay: 8s;
+.hero-carousel-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--accent-color);
+    background-color: var(--accent-color);
+    color: #241a07;
+    font-size: 15px;
+    cursor: pointer;
+    z-index: 5;
+    transition: var(--transition-fast);
 }
 
-/* Tuned for exactly 2 evenly-spaced slides (each owns 50% of the cycle);
-   the old 3%/30%/33% split was tuned for 3 slides (each owning 33%) and
-   left a visible gap once only 2 slides remained. */
-@keyframes heroCarouselFade {
-    0% { opacity: 0; }
-    3% { opacity: 1; }
-    47% { opacity: 1; }
-    50% { opacity: 0; }
-    100% { opacity: 0; }
+.hero-carousel-nav:hover {
+    background-color: #241a07;
+    color: var(--accent-color);
+}
+
+.hero-carousel-nav.prev {
+    left: 12px;
+}
+
+.hero-carousel-nav.next {
+    right: 12px;
+}
+
+.hero-carousel-dots {
+    position: absolute;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 5;
+}
+
+.hero-carousel-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(10, 45, 84, 0.3);
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.hero-carousel-dot.active {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+@media (max-width: 480px) {
+    .hero-carousel-nav {
+        width: 32px;
+        height: 32px;
+    }
 }
 
 .about-img {
@@ -2620,6 +2677,145 @@ input[type="time"] {
 
 .lightbox-close:hover {
     color: var(--accent-color);
+}
+
+/* Christmas Advert Popup - shown once per browser session, see script.js */
+.christmas-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(10, 20, 36, 0.85);
+    z-index: 2100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition-fast);
+}
+
+.christmas-popup.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.christmas-popup-content {
+    position: relative;
+    background-color: var(--bg-light, #fff);
+    border: 1.5px solid var(--border-color);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    padding: 40px 24px 24px;
+    max-width: 420px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    text-align: center;
+    transform: scale(0.95);
+    transition: var(--transition-normal);
+}
+
+.christmas-popup.show .christmas-popup-content {
+    transform: scale(1);
+}
+
+.christmas-popup-close {
+    position: absolute;
+    top: 12px;
+    right: 18px;
+    color: var(--primary-color);
+    font-size: 32px;
+    font-weight: 300;
+    line-height: 1;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.christmas-popup-close:hover {
+    color: var(--accent-color);
+}
+
+.christmas-popup-carousel {
+    position: relative;
+    margin-bottom: 16px;
+}
+
+.christmas-popup-slide {
+    display: none;
+    width: 100%;
+}
+
+.christmas-popup-slide.active {
+    display: block;
+}
+
+.christmas-popup-slide img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 6px 20px rgba(10, 45, 84, 0.12);
+}
+
+.christmas-popup-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--accent-color);
+    background-color: var(--accent-color);
+    color: #241a07;
+    font-size: 14px;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.christmas-popup-nav.prev {
+    left: 8px;
+}
+
+.christmas-popup-nav.next {
+    right: 8px;
+}
+
+.christmas-popup-nav:hover {
+    background-color: #241a07;
+    color: var(--accent-color);
+}
+
+.christmas-popup-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.christmas-popup-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background-color: var(--border-color);
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.christmas-popup-dot.active {
+    background-color: var(--accent-color);
+}
+
+@media (max-width: 480px) {
+    .christmas-popup-content {
+        padding: 36px 12px 20px;
+    }
+
+    .christmas-popup-nav {
+        width: 30px;
+        height: 30px;
+    }
 }
 
 /* ==========================================================================
